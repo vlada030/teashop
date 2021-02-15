@@ -6,6 +6,13 @@ import { ProductsProvider } from './context/products_context'
 import { FilterProvider } from './context/filter_context'
 import { CartProvider } from './context/cart_context'
 import { UserProvider } from './context/user_context'
+import {GlobalProvider} from './context/global_context'
 import { Auth0Provider } from '@auth0/auth0-react'
+import { Products } from './pages'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(
+    <GlobalProvider>
+        <App />
+    </GlobalProvider>,
+    document.getElementById("root")
+);

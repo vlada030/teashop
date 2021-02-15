@@ -1,0 +1,7 @@
+// ovaj fajl sa param se kreira da nebi importovali React componente tipa '../../../../componets/testing' nego samo apsolute path 'components/testing'
+// {
+//     "compilerOptions": {
+//         "baseUrl": "src"
+//     },
+//     "include": ["src"]
+// }

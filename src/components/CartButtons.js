@@ -5,16 +5,35 @@ import styled from 'styled-components'
 import { useProductsContext } from '../context/products_context'
 import { useCartContext } from '../context/cart_context'
 import { useUserContext } from '../context/user_context'
+import {useGlobalContext} from '../context/global_context'
 
 const CartButtons = () => {
-  return <h4>cart buttons </h4>
+
+const {closeSidebar} = useGlobalContext();
+
+  return <Wrapper className='cart-btn-wrapper'>
+          <Link to='/cart' className='cart-btn'  onClick={closeSidebar}>
+            Korpa
+            <span className='cart-container'>
+              <FaShoppingCart />
+              <span className='cart-value'>
+                5
+              </span>
+            </span>
+          </Link>
+
+          <button className='auth-btn' onClick={closeSidebar}>
+            Prijava 
+            <FaUserPlus />
+          </button>
+        </Wrapper>
 }
 
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  width: 225px;
+  width: 250px;
 
   .cart-btn {
     color: var(--clr-grey-1);
@@ -22,8 +41,13 @@ const Wrapper = styled.div`
     letter-spacing: var(--spacing);
     color: var(--clr-grey-1);
     display: flex;
-
     align-items: center;
+    margin-right: 2rem;
+    border: 2px solid transparent;
+    transition: var(--transition);
+    &:hover {
+      border-bottom: 2px solid var(--clr-primary-7);
+    }
   }
   .cart-container {
     display: flex;
@@ -58,6 +82,11 @@ const Wrapper = styled.div`
     cursor: pointer;
     color: var(--clr-grey-1);
     letter-spacing: var(--spacing);
+    border: 2px solid transparent;
+    transition: var(--transition);
+    &:hover {
+      border-bottom: 2px solid var(--clr-primary-7);
+    }
     svg {
       margin-left: 5px;
     }

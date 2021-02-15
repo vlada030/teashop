@@ -1,15 +1,43 @@
 import React from 'react'
-import logo from '../assets/logo.svg'
+import logo from '../assets/logo.png'
 import { Link } from 'react-router-dom'
-import { useProductsContext } from '../context/products_context'
-import { FaTimes } from 'react-icons/fa'
+import { FaAngleDoubleLeft} from 'react-icons/fa'
 import { links } from '../utils/constants'
 import styled from 'styled-components'
 import CartButtons from './CartButtons'
+import { useGlobalContext } from '../context/global_context'
 import { useUserContext } from '../context/user_context'
 
 const Sidebar = () => {
-  return <h4>sidebar</h4>
+  const { isSidebarOpen, closeSidebar } = useGlobalContext();
+  // const isSidebarOpen = true;
+  return <SidebarContainer>
+          <aside className={isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}>
+            <div className='sidebar-header'>
+              <img src={logo} alg='logo' className='logo' />
+
+              <button className='close-btn' onClick={closeSidebar}>
+                <FaAngleDoubleLeft />
+              </button>
+            </div>
+            <ul className='links'>
+              {links.map(link => {
+                const {id, text, url} = link;
+                return <li key={id}>
+                        <Link to={url} onClick={closeSidebar}>{text}</Link>
+                      </li>
+              })
+            }
+              <li>
+                <Link to='/checkout' onClick={closeSidebar}>poruči</Link>
+              </li>
+            </ul>
+            <div className='cart-btn-wrapper'>
+              <CartButtons />
+
+            </div>
+          </aside>
+        </SidebarContainer>
 }
 
 const SidebarContainer = styled.div`
@@ -27,7 +55,6 @@ const SidebarContainer = styled.div`
     color: var(--clr-primary-5);
     transition: var(--transition);
     cursor: pointer;
-    color: var(--clr-red-dark);
     margin-top: 0.2rem;
   }
   .close-btn:hover {

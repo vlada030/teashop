@@ -18,6 +18,11 @@ Variables
   --clr-primary-8: hsl(20, 31%, 74%);
   --clr-primary-9: hsl(22, 31%, 81%);
   --clr-primary-10: hsl(22, 31%, 88%);
+
+  --clr-secondary-1: rgb(255, 72, 31);
+  --clr-secondary-2: rgb(255, 105, 31);
+  --clr-secondary-3: rgb(255, 135, 15);
+  
   /* darkest grey - used for headings */
   --clr-grey-1: hsl(209, 61%, 16%);
   --clr-grey-2: hsl(211, 39%, 23%);
@@ -33,8 +38,8 @@ Variables
   --clr-white: #fff;
   --clr-red-dark: hsl(360, 67%, 44%);
   --clr-red-light: hsl(360, 71%, 66%);
-  --clr-green-dark: hsl(125, 67%, 44%);
-  --clr-green-light: hsl(125, 71%, 66%);
+  --clr-green-dark: rgb(37, 187, 50);
+  --clr-green-light: rgb(107, 230, 117);
   --clr-black: #222;
   --transition: all 0.3s linear;
   --spacing: 0.1rem;

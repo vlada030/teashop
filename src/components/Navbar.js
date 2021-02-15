@@ -1,15 +1,41 @@
 import React from 'react'
 import styled from 'styled-components'
-import logo from '../assets/logo.svg'
+import logo from '../assets/logo.png'
 import { FaBars } from 'react-icons/fa'
+import { SiGitea } from 'react-icons/si'
 import { Link } from 'react-router-dom'
 import { links } from '../utils/constants'
 import CartButtons from './CartButtons'
-import { useProductsContext } from '../context/products_context'
+import { useGlobalContext } from '../context/global_context'
 import { useUserContext } from '../context/user_context'
+import Footer from './Footer'
 
 const Nav = () => {
-  return <h4>navbar</h4>
+  const {openSidebar} = useGlobalContext();
+
+  return <NavContainer>
+          <div className='nav-center'>
+            <div className='nav-header'>
+              <Link to='/'>
+                <img src={logo} alt='tea' />
+              </Link>
+              <button type='button' className='nav-toggle' onClick={openSidebar}>
+                <SiGitea />
+              </button>
+            </div>
+
+            <ul className='nav-links'>
+              {links.map(link => {
+                const {id, text, url} = link;
+                return <li key={id}>
+                        <Link to={url}>{text}</Link>
+                      </li>
+              })}
+            </ul>
+
+            <CartButtons />
+          </div>
+        </NavContainer>
 }
 
 const NavContainer = styled.nav`
@@ -30,6 +56,11 @@ const NavContainer = styled.nav`
     img {
       width: 175px;
       margin-left: -15px;
+      scale: 1;
+      transition: var(--transition);
+      &:hover {
+        scale: 1.05;
+      }
     }
   }
   .nav-toggle {
@@ -39,6 +70,23 @@ const NavContainer = styled.nav`
     cursor: pointer;
     svg {
       font-size: 2rem;
+      animation: none;
+      &:hover,
+      &:active {
+        animation: shake 0.4s linear;
+      }
+
+      @keyframes shake {
+        0% {
+          transform: rotate(-30deg)
+        }
+        50% {
+          transform: rotate(30deg)
+        }
+        100% {
+          transform: rotate(0deg)
+        }
+      }
     }
   }
   .nav-links {
@@ -68,6 +116,8 @@ const NavContainer = styled.nav`
         text-transform: capitalize;
         letter-spacing: var(--spacing);
         padding: 0.5rem;
+        border: 2px solid transparent;
+        transition: var(--transition);
         &:hover {
           border-bottom: 2px solid var(--clr-primary-7);
         }
