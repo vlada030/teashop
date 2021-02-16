@@ -1,11 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import heroBcg from '../assets/hero-bcg.jpeg'
-import heroBcg2 from '../assets/hero-bcg-2.jpeg'
+import heroTea1 from '../assets/tea-1.jpg'
+import heroTea2 from '../assets/tea-5.jpg'
 
 const Hero = () => {
-  return <h4>hero</h4>
+  return <Wrapper className='section section-center'>
+          <article className='content'>
+            <h1>Naručite Vaše <br />omiljene čajeve</h1>
+            <p>Nestao Vam je čaj u teglici? Danima zaboravljate i nemate vremena da odete do prodavnice? Zašto nebi odmah poručili i preuzeli na kućnoj adresi!</p>
+            <Link to='/products' className='btn hero-btn'>poruči odmah</Link>
+          </article>
+          <article className='img-container'>
+            <img src={heroTea1} alt='tea-1' className='main-img' />
+            <img src={heroTea2} alt='tea-2' className='secondary-img' />
+          </article>
+        </Wrapper>
 }
 
 const Wrapper = styled.section`
@@ -49,9 +59,9 @@ const Wrapper = styled.section`
       display: block;
       object-fit: cover;
     }
-    .accent-img {
+    .secondary-img {
       position: absolute;
-      bottom: 0;
+      bottom: -4rem;
       left: 0;
       width: 250px;
       transform: translateX(-50%);
@@ -60,12 +70,23 @@ const Wrapper = styled.section`
     .img-container::before {
       content: '';
       position: absolute;
+      bottom: 0%;
+      left: -8%;
       width: 10%;
       height: 80%;
       background: var(--clr-primary-9);
-      bottom: 0%;
-      left: -8%;
       border-radius: var(--radius);
+    }
+    .img-container::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      right: -10px;
+      width: 40%;
+      height: 8%;
+      background: var(--clr-primary-9);
+      border-radius: var(--radius);
+      z-index: -2;
     }
   }
 `
