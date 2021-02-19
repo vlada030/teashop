@@ -1,6 +1,4 @@
 import {
-  SIDEBAR_OPEN,
-  SIDEBAR_CLOSE,
   GET_PRODUCTS_BEGIN,
   GET_PRODUCTS_SUCCESS,
   GET_PRODUCTS_ERROR,
@@ -10,7 +8,21 @@ import {
 } from '../actions'
 
 const products_reducer = (state, action) => {
-  return state
+  switch (action.type) {
+    case GET_PRODUCTS_BEGIN: {
+      return ({...state, productsLoading: true})
+    }
+
+    case GET_PRODUCTS_SUCCESS: {
+      const featuredProducts = action.payload.filter(({featured}) => featured === true)
+      return ({...state, productsLoading: false, products: action.payload, featuredProducts})
+    }
+
+    case GET_PRODUCTS_ERROR: {
+      return ({...state, productsLoading: false, productsError: true})
+    }
+  }
+
   throw new Error(`No Matching "${action.type}" - action type`)
 }
 

@@ -43,6 +43,7 @@ const Wrapper = styled.section`
   .benefits-center {
     margin-top: 4rem;
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2.5rem;
   }
   .benefit {
@@ -52,6 +53,7 @@ const Wrapper = styled.section`
     border-radius: var(--radius);
     p {
       color: var(--clr-primary-2);
+      text-indent: 0;
     }
   }
   .icon {
@@ -83,7 +85,7 @@ const Wrapper = styled.section`
 
   @media (min-width: 576px) {
     .benefits-center {
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      
     }
   }
   @media (min-width: 1280px) {

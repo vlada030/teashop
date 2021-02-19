@@ -12,7 +12,9 @@ import { Products } from './pages'
 
 ReactDOM.render(
     <GlobalProvider>
-        <App />
+        <ProductsProvider>
+            <App />
+        </ProductsProvider>
     </GlobalProvider>,
     document.getElementById("root")
 );

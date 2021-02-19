@@ -8,7 +8,7 @@ const Contact = () => {
               <div className='content'>
                 <p>Prijavom na e-mail listu, dobijaćete povremeno novosti o našim proizvodima i sniženjima</p>  
                 <form className='contact-form' action="https://formspree.io/f/xbjpeydd" method="POST">
-                  <input type='email'  name="_replyto" className='form-input' placeholder='unesite Vaš e-mail'/>
+                  <input type='email'  name="_replyto" className='form-input' placeholder='unesite Vaš e-mail' required/>
                   <button type='submit' className='submit-btn'>pošalji</button>
                 </form>
               </div>  

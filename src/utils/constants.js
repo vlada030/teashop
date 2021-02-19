@@ -88,6 +88,7 @@ export const about = [
   },
 ]
 
-export const products_url = 'https://course-api.com/react-store-products'
+// preko firebase
+// jedino preko firebase vrsi filtriranje na serveru i vraca samo odredjeni podatak 
+export const url = 'https://teashop-ddc14-default-rtdb.europe-west1.firebasedatabase.app';
 
-export const single_product_url = `https://course-api.com/react-store-single-product?id=`
