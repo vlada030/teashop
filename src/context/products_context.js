@@ -18,7 +18,10 @@ const initialState = {
   productsLoading: false,
   productsError: false,
   products: [],
-  featuredProducts: []
+  featuredProducts: [],
+  singleProductLoading: false,
+  singleProductError: false,
+  singleProduct: {}
 }
 
 const ProductsContext = React.createContext()
@@ -44,6 +47,19 @@ export const ProductsProvider = ({ children }) => {
     
   }
 
+  const fetchSingleProduct = (id) => {
+    dispatch({type: GET_SINGLE_PRODUCT_BEGIN});
+
+    databaseRef.child("singleProduct").orderByChild('id').equalTo(id).once("value").then(snapshot => {
+      // mora ovako jer tako firebase uvek vraca neku vrstu array
+      snapshot.forEach( data => {
+        dispatch({type: GET_SINGLE_PRODUCT_SUCCESS, payload: data.val()});
+    });
+  }).catch(error => {
+    dispatch({type: GET_SINGLE_PRODUCT_ERROR});
+  })
+  }
+
   useEffect(() => {
   
     fetchProducts();
@@ -51,7 +67,7 @@ export const ProductsProvider = ({ children }) => {
   }, []);
 
   return (
-    <ProductsContext.Provider value={{...state}}>
+    <ProductsContext.Provider value={{...state, fetchSingleProduct}}>
       {children}
     </ProductsContext.Provider>
   )
