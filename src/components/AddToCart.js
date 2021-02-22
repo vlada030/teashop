@@ -5,31 +5,52 @@ import { FaCheck } from 'react-icons/fa'
 import { useCartContext } from '../context/cart_context'
 import AmountButtons from './AmountButtons'
 
-const AddToCart = () => {
-  return <h4>addToCart </h4>
+const AddToCart = ({product}) => {
+  const {package : unit} = product;
+  const [weight, setWeight] = useState(unit[0]);
+
+  const handleUnit = ind => {
+    setWeight(unit[ind]);
+  }
+
+  return <Wrapper>
+          <div className='units'>
+            <span> pakovanje (gr) : </span>
+            <div>{unit.map((item, index) => {
+              return (
+                  <button key={index} className={item === weight ? 'unit-btn active' : 'unit-btn'} onClick={() => {handleUnit(index)}}>
+                      {item}
+                  </button>
+              );   
+            })}
+            </div>
+          </div>
+        </Wrapper>
 }
 
 const Wrapper = styled.section`
   margin-top: 2rem;
-  .colors {
+  .units {
     display: grid;
     grid-template-columns: 125px 1fr;
     align-items: center;
     margin-bottom: 1rem;
     span {
-      text-transform: capitalize;
       font-weight: 700;
+      &::first-letter {
+        text-transform: capitalize;        
+      }
     }
     div {
       display: flex;
     }
   }
-  .color-btn {
+  .unit-btn {
     display: inline-block;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.8rem;
+    height: 1.8rem;
     border-radius: 50%;
-    background: #222;
+    background: var(--clr-primary-6);
     margin-right: 0.5rem;
     border: none;
     cursor: pointer;
@@ -43,6 +64,8 @@ const Wrapper = styled.section`
     }
   }
   .active {
+    background: var(--clr-primary-5);
+    color: var(--clr-primary-10);
     opacity: 1;
   }
   .btn-container {

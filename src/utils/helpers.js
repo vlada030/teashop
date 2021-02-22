@@ -6,3 +6,21 @@ export const formatPrice = (number) => {
 }
 
 export const getUniqueValues = () => {}
+
+export const priceCalculator = (unit, fullPrice) => {
+    switch(unit) {
+        case '100': {
+            return fullPrice / 100 * 10        
+        }
+
+        case '50': {
+            return fullPrice / 100 * 6
+        }
+
+        case '30': {
+            return fullPrice / 100 * 4
+        }
+
+        default : return fullPrice / unit
+    }
+}

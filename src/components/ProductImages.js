@@ -33,7 +33,7 @@ const Wrapper = styled.section`
     display: block;
     border-radius: var(--radius);
     object-fit: cover;
-    box-shadow: var(--dark-shadow)
+    box-shadow: var(--light-shadow)
   }
   .gallery {
     margin-top: 2rem;
