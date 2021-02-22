@@ -60,12 +60,13 @@ const SingleProductPage = () => {
             <Link to='/products' className='btn'>Nazad na proizvode</Link> 
             <div className='product-center'>
               <ProductImages images={images} />
+
               <section className='content'>
                 <h2>{name}</h2>
                 <Stars />
                 <h5 className='price'>{formatPrice(price)}</h5>
                 <p className='info'>
-                  <span>available :</span>
+                  <span>Dostupnost :</span>
                   {stock > 0 ? 'na stanju' : 'nestalo'}
                 </p>
 
@@ -150,7 +151,7 @@ const Wrapper = styled.main`
   @media (min-width: 992px) {
     .product-center {
       grid-template-columns: 1fr 1fr;
-      align-items: center;
+      align-items: top;
     }
     .price {
       font-size: 1.25rem;
