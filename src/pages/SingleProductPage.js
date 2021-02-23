@@ -109,7 +109,7 @@ const Wrapper = styled.main`
   .desc-container {
     display: grid;
     //grid-template-columns: auto 1fr;
-    justify-items: center;
+    //justify-items: center;
     margin-bottom: 1.25rem;
 
     .desc {

@@ -6,13 +6,37 @@ import { useCartContext } from '../context/cart_context'
 import AmountButtons from './AmountButtons'
 
 const AddToCart = ({product}) => {
-  const {package : unit} = product;
+  const {package : unit, stock} = product;
+
   const [weight, setWeight] = useState(unit[0]);
+  const [amount, setAmount] = useState(1);
 
   const handleUnit = ind => {
     setWeight(unit[ind]);
   }
 
+  const increaseBtn = () => {
+    setAmount(amount => {
+      let tempAmount = amount + 1;
+      if (tempAmount > stock) {
+        return amount;
+      }
+
+      return tempAmount;
+    });
+  }
+
+  const decreaseBtn = () => {
+      setAmount(amount => {
+        let tempAmount = amount - 1;
+        if (tempAmount < 1) {
+          return amount;
+        }
+
+        return tempAmount;
+      })
+    }
+ 
   return <Wrapper>
           <div className='units'>
             <span> pakovanje (gr) : </span>
@@ -24,6 +48,10 @@ const AddToCart = ({product}) => {
               );   
             })}
             </div>
+          </div>
+          <div className='btn-container'>
+            <AmountButtons amount={amount} decreaseBtn={decreaseBtn} increaseBtn={increaseBtn} />
+            <Link to='cart' className='btn'>u korpu</Link>
           </div>
         </Wrapper>
 }
@@ -74,7 +102,9 @@ const Wrapper = styled.section`
 
   .btn {
     margin-top: 1rem;
+    margin-bottom: 2rem;
     width: 140px;
+    text-align: center;
   }
 `
 export default AddToCart
