@@ -1,16 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Filters, ProductList, Sort, PageHero } from '../components'
+import { Filters, ProductList, Sort, PageHero, Pagination } from '../components'
 
 const ProductsPage = () => {
   return <main>
-          <PageHero title='proizvodi' />
+          <PageHero title='Proizvodi' />
           <Wrapper className='page'>
             <div className='section-center products'>
               <Filters />
               <div>
                 <Sort />
                 <ProductList />
+                <Pagination />
               </div>
             </div>
 

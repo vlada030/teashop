@@ -6,8 +6,8 @@ const PageHero = ({title, product}) => {
           <div className='section-center'>
             <h3>
               <Link to='/'>
-                Početna 
-              </Link>{product && <Link to='/products'>/ Proizvodi</Link>} / {title}
+                početna 
+              </Link>{product && <Link to='/products'>/ proizvodi</Link>} / {title}
             </h3>
           </div>
         </Wrapper>
@@ -20,7 +20,7 @@ const Wrapper = styled.section`
   display: flex;
   align-items: center;
   color: var(--clr-primary-1);
-  
+
   a {
     color: var(--clr-primary-3);
     padding: 0.5rem;
@@ -28,6 +28,10 @@ const Wrapper = styled.section`
   }
   a:hover {
     color: var(--clr-primary-1);
+  }
+
+  h3 {
+    text-transform: capitalize;
   }
 `
 

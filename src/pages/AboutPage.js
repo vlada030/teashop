@@ -6,7 +6,7 @@ import {about} from '../utils/constants'
 const AboutPage = () => {
   return (
       <main>
-          <PageHero title="uvod" />
+          <PageHero title="Uvod" />
           {about.map(({ id, title, img, text }) => {
               return (
                   <Wrapper key={id} className="section section-center">
@@ -46,6 +46,9 @@ const Wrapper = styled.section`
   }
   .title {
     text-align: left;
+    h3::first-letter {
+      text-transform: capitalize;
+    }
   }
   .underline {
     margin-left: 0;

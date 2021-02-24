@@ -97,6 +97,9 @@ const SingleProductPage = () => {
 }
 
 const Wrapper = styled.main`
+  h2 {
+    text-transform: capitalize;
+  }
   .product-center {
     display: grid;
     gap: 4rem;
@@ -139,6 +142,9 @@ const Wrapper = styled.main`
     }
   }
 
+  hr {
+    margin-bottom: 2rem;
+  }
 
   @media (min-width: 800px) {
     .desc-container {

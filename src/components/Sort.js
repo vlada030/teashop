@@ -3,7 +3,30 @@ import { useFilterContext } from '../context/filter_context'
 import { BsFillGridFill, BsList } from 'react-icons/bs'
 import styled from 'styled-components'
 const Sort = () => {
-  return <h4>sort </h4>
+
+  const {filteredProducts:products, gridView} = useFilterContext();
+
+  return <Wrapper>
+          <div className='btn-container'>
+            <button className={gridView ? 'active' : null}>
+              <BsFillGridFill />
+            </button>
+            <button className={!gridView ? 'active' : null}>
+              <BsList />
+            </button>
+          </div>
+          <p>ukupno pronađeno : {products.length}</p>
+          <hr />
+          <form>
+            <label htmlFor='sort'>sortiraj po </label>
+            <select name='sort' id='sort' className='sort-input'>
+              <option value='price-lowest'>ceni (najniža)</option>
+              <option value='price-highest'>ceni (najviša)</option>
+              <option value='name-a'>nazivu (a-š)</option>
+              <option value='name-z'>nazivu (š-a)</option>
+            </select>
+          </form>
+        </Wrapper>
 }
 
 const Wrapper = styled.section`
@@ -28,7 +51,6 @@ const Wrapper = styled.section`
     column-gap: 2rem;
   }
   p {
-    text-transform: capitalize;
     margin-bottom: 0;
   }
 
@@ -60,12 +82,11 @@ const Wrapper = styled.section`
   .sort-input {
     border-color: transparent;
     font-size: 1rem;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     padding: 0.25rem 0.5rem;
   }
   label {
     font-size: 1rem;
-    text-transform: capitalize;
   }
 `
 
