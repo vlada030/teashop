@@ -13,7 +13,9 @@ import { Products } from './pages'
 ReactDOM.render(
     <GlobalProvider>
         <ProductsProvider>
-            <App />
+            <FilterProvider>
+                <App />
+            </FilterProvider>
         </ProductsProvider>
     </GlobalProvider>,
     document.getElementById("root")
