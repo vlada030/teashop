@@ -2,23 +2,24 @@ import React from 'react'
 import { useFilterContext } from '../context/filter_context'
 import { BsFillGridFill, BsList } from 'react-icons/bs'
 import styled from 'styled-components'
+
 const Sort = () => {
 
-  const {filteredProducts:products, gridView} = useFilterContext();
+  const {filteredProducts:products, gridView, setGridView, setListView, sort, updateSort} = useFilterContext();
 
   return <Wrapper>
           <div className='btn-container'>
-            <button className={gridView ? 'active' : null}>
+            <button className={gridView ? 'active' : null} onClick={() => setGridView()}>
               <BsFillGridFill />
             </button>
-            <button className={!gridView ? 'active' : null}>
+            <button className={!gridView ? 'active' : null} onClick={() => setListView()}>
               <BsList />
             </button>
           </div>
           <p>ukupno pronađeno : {products.length}</p>
           <hr />
-          <form>
-            <label htmlFor='sort'>sortiraj po </label>
+          <form value={sort} onChange={updateSort}>
+            <label htmlFor='sort'>sortiraj po</label>
             <select name='sort' id='sort' className='sort-input'>
               <option value='price-lowest'>ceni (najniža)</option>
               <option value='price-highest'>ceni (najviša)</option>
@@ -35,21 +36,7 @@ const Wrapper = styled.section`
   align-items: center;
   margin-bottom: 2rem;
   column-gap: 2rem;
-  @media (max-width: 576px) {
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 0.75rem;
-    .btn-container {
-      width: 50px;
-    }
-    label {
-      display: inline-block;
-      margin-right: 0.5rem;
-    }
-  }
-  @media (min-width: 768px) {
-    column-gap: 2rem;
-  }
+  
   p {
     margin-bottom: 0;
   }
@@ -87,6 +74,23 @@ const Wrapper = styled.section`
   }
   label {
     font-size: 1rem;
+    padding: 0.25rem 0.5rem 0.25rem 0.85rem;
+  }
+  @media (max-width: 576px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 0.75rem;
+    .btn-container {
+      width: 50px;
+    }
+    label {
+      display: inline-block;
+      /* margin-right: 0.5rem; */
+      padding: 0;
+    }
+  }
+  @media (min-width: 768px) {
+    column-gap: 2rem;
   }
 `
 

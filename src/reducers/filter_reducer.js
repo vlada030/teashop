@@ -17,6 +17,44 @@ const filter_reducer = (state, action) => {
               allProducts: [...action.payload],
               filteredProducts: [...action.payload],
           };
+
+      case SET_GRIDVIEW: 
+        return {...state, gridView: true};
+
+      case SET_LISTVIEW: 
+        return {...state, gridView: false};
+
+      case UPDATE_SORT: 
+        return {...state, sort: action.payload}
+
+      case SORT_PRODUCTS: {
+        const {sort, filteredProducts} = state;
+        let tempProducts = [...filteredProducts];
+
+        if (sort === 'price-lowest') {
+          // rastuci niz
+          // parseInt jer je u firebase .price stavljena kao string
+          tempProducts = tempProducts.sort((a, b) => parseInt(a.price) - parseInt(b.price));
+        }
+
+        if (sort === 'price-highest') {
+          // opadajuci niz
+          tempProducts = tempProducts.sort((a, b) => parseInt(b.price) - parseInt(a.price));
+        }
+
+        if (sort === 'name-a') {
+          // localeCompare je case INSENSITIVE i kraca varijanta spram stavljenja if petlji
+          tempProducts = tempProducts.sort((a, b) => (a.name).localeCompare(b.name));
+        }
+
+        if (sort === 'name-z') {
+          tempProducts = tempProducts.sort((a, b) => {
+            return b.name.localeCompare(a.name)
+          })
+        }
+
+        return {...state, filteredProducts: [...tempProducts]}
+      }
   }
 
     throw new Error(`No Matching "${action.type}" - action type`)
