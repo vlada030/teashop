@@ -19,9 +19,9 @@ const initialState = {
   sort: 'price-lowest',
   filter: {
     text: '',
-    category: 'all',
-    illness: 'all',
-    unit: 'all',
+    category: 'svi',
+    illness: 'svi',
+    unit: 'svi',
     minPrice: 0,
     maxPrice: 0,
     price: 0
@@ -40,8 +40,9 @@ useEffect(() => {
 }, [products]);
 
 useEffect(() => {
-  dispatch({type: SORT_PRODUCTS})
-}, [products, state.sort]);
+  dispatch({type: FILTER_PRODUCTS});
+  dispatch({type: SORT_PRODUCTS});
+}, [products, state.sort, state.filter]);
 
 const setGridView = () => {
   dispatch({type: SET_GRIDVIEW})
@@ -58,7 +59,11 @@ const updateSort = (e) => {
 
 const updateFilters = (e) => {
   const name = e.target.name;
-  const value = e.target.value;
+  let value = e.target.value;
+
+  if (name === 'category' || name === 'unit') {
+    value = e.target.innerText;
+  }
   console.log({name, value});
   dispatch({type: UPDATE_FILTERS, payload: {name, value}})
 }

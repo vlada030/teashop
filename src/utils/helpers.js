@@ -5,7 +5,21 @@ export const formatPrice = (number) => {
     }).format(number/10);
 }
 
-export const getUniqueValues = () => {}
+export const getUniqueValues = (data, dataField) => {
+    let unique = data.map(product => product[dataField]);
+
+    // ova dva polja su Array , ya raliku od iznad koje je string
+    if (dataField === 'filter' || dataField === 'package') {
+        unique = unique.flat();
+    }
+
+    // localeCompare sortira i stringove i brojeve 
+    unique = [...new Set(unique)].sort((a,b) => {
+        return  a.localeCompare(b)
+    });
+    
+    return ['svi', ...unique];
+}
 
 export const priceCalculator = (unit, fullPrice) => {
     switch(unit) {

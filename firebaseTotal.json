@@ -276,7 +276,7 @@
         "stock": "8",
         "stars": "4.8",
         "reviews": "29",
-        "filter": ["smirenje", "antioksidans", "snizava krvni pritisak", "mršavljenje", "disanje"],
+        "filter": ["smirenje", "antioksidans", "krvni pritisak", "mršavljenje", "disanje"],
         "images": ["https://i.ibb.co/cC3DhTT/cejlon-1-min.jpg", "https://i.ibb.co/vznj9xY/cejlon-4-min.jpg", "https://i.ibb.co/ZzYpcBp/cejlon-3.webp", "https://i.ibb.co/h2sCqgd/cejlon-2-min.jpg"]
     },
     {
@@ -292,7 +292,7 @@
         "stock": "18",
         "stars": "4.9",
         "reviews": "49",
-        "filter": ["smirenje", "antioksidans", "snizava krvni pritisak", "mršavljenje", "reguliše šećer"],
+        "filter": ["smirenje", "antioksidans", "krvni pritisak", "mršavljenje", "reguliše šećer"],
         "images": ["https://i.ibb.co/28s1fSB/junan-3-min.jpg", "https://i.ibb.co/B4kKp2h/junan-2-min.jpg", "https://i.ibb.co/28s1fSB/junan-3-min.jpg", "https://i.ibb.co/ZTz4jzD/junan-4-min.jpg"]
     },
     {

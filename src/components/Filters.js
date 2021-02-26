@@ -9,17 +9,88 @@ const Filters = () => {
       filter: { text, category, illness, unit, maxPrice, minPrice, price },
       updateFilters,
       clearFilters,
+      allProducts
   } = useFilterContext();
 
-  return <Wrapper>
-          <div className='content'>
-            <form onSubmit={e => {e.preventDefault();}}>
-              <div className='form-control'>
-                <input type='text' className='search-input' name='text' placeholder='pretraga' value={text} onChange={updateFilters} />
-              </div>
-            </form>
+  const categories = getUniqueValues(allProducts, 'category');
+  const deceases = getUniqueValues(allProducts, 'filter');
+  const units = getUniqueValues(allProducts, 'package');
+
+  return (
+      <Wrapper>
+          <div className="content">
+              <form onSubmit={(e) => e.preventDefault()}>
+                  <div className="form-control">
+                      <input
+                          type="text"
+                          className="search-input"
+                          name="text"
+                          placeholder="pretraga"
+                          value={text}
+                          onChange={updateFilters}
+                      />
+                  </div>
+
+                  <div className="form-control">
+                      <h5>vrste</h5>
+                      {categories.map((name, index) => {
+                          return (
+                              <button
+                                  key={index}
+                                  className={`${category === name ? "cat-btn cat-btn-active" : 'cat-btn'}`
+                                  }
+                                  name="category"
+                                  onClick={updateFilters}
+                              >
+                                  {name}
+                              </button>
+                          );
+                      })}
+                  </div>
+
+                  <div className="form-control">
+                      <h5>simptomi</h5>
+                      <select
+                          className="deceases"
+                          name="illness"
+                          value={illness}
+                          onChange={updateFilters}
+                      >
+                          {deceases.map((dec, index) => {
+                              return (
+                                  <option key={index} value={dec}>
+                                      {dec}
+                                  </option>
+                              );
+                          })}
+                      </select>
+                  </div>
+
+                  <div className="form-control">
+                      <h5>pakovanje</h5>
+                      <div className='units'>
+                        {units.map((pack, index) => {
+                            return (
+                                <button
+                                    key={index}
+                                    className={`${
+                                        pack === unit
+                                            ? "unit-btn unit-btn-active"
+                                            : "unit-btn"
+                                    }`}
+                                    name='unit'
+                                    onClick={updateFilters}
+                                >
+                                    {pack}
+                                </button>
+                            );
+                        })}
+                      </div>
+                  </div>
+              </form>
           </div>
-        </Wrapper>
+      </Wrapper>
+  );
 }
 
 const Wrapper = styled.section`
@@ -27,6 +98,7 @@ const Wrapper = styled.section`
     margin-bottom: 1.25rem;
     h5 {
       margin-bottom: 0.5rem;
+      text-transform: capitalize;
     }
   }
   .search-input {
@@ -40,11 +112,10 @@ const Wrapper = styled.section`
     text-transform: capitalize;
   }
 
-  button {
+  .cat-btn {
     display: block;
     margin: 0.25em 0;
     padding: 0.25rem 0;
-    text-transform: capitalize;
     background: transparent;
     border: none;
     border-bottom: 1px solid transparent;
@@ -52,25 +123,26 @@ const Wrapper = styled.section`
     color: var(--clr-grey-5);
     cursor: pointer;
   }
-  .active {
+  .cat-btn-active {
     border-color: var(--clr-grey-5);
   }
-  .company {
+  .deceases {
     background: var(--clr-grey-10);
     border-radius: var(--radius);
     border-color: transparent;
     padding: 0.25rem;
+    color: inherit;
   }
-  .colors {
+  .units {
     display: flex;
     align-items: center;
   }
-  .color-btn {
+  .unit-btn {
     display: inline-block;
-    width: 1rem;
-    height: 1rem;
+    width: 1.8rem;
+    height: 1.8rem;
     border-radius: 50%;
-    background: #222;
+    background: var(--clr-primary-6);
     margin-right: 0.5rem;
     border: none;
     cursor: pointer;
@@ -78,10 +150,14 @@ const Wrapper = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
-    svg {
-      font-size: 0.5rem;
-      color: var(--clr-white);
-    }
+    
+  }
+
+  .unit-btn-active {
+    background: var(--clr-primary-6);
+    color: var(--clr-primary-10);
+    opacity: 1;
+
   }
   .all-btn {
     display: flex;

@@ -86,10 +86,7 @@ const Wrapper = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
-    svg {
-      font-size: 0.75rem;
-      color: var(--clr-white);
-    }
+
   }
   .active {
     background: var(--clr-primary-5);
