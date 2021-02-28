@@ -14,7 +14,7 @@ const Product = ({id, name, price, image}) => {
           </div>
           <footer>
             <h5>{name}</h5>
-            <p>{formatPrice(parseInt(price))} / 100gr</p>
+            <p>{formatPrice(parseInt(price))} / 1kg</p>
           </footer>
         </Wrapper>
 }

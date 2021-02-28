@@ -72,9 +72,46 @@ const filter_reducer = (state, action) => {
           return { ...state, filter: { ...state.filter, [name]: value } };
       }
 
+      case CLEAR_FILTERS: {
+          const {text, category, illness, unit} = action.payload;
+          return {...state, filter: {...state.filter, text, category, illness, unit, price: state.filter.maxPrice}}
+      }
+
       case FILTER_PRODUCTS: {
-          console.log('FILTER RADI');
-          return {...state}
+          const {allProducts} = state;
+          const {text, category, illness, unit, price, maxPrice} = state.filter;
+          let tempProducts = [...allProducts];
+
+					// filtriranje na osnovu unetog texta
+          if (text) {
+              tempProducts = tempProducts.filter(product => {
+                //   return product.name.toLowerCase().includes(text) || product.description.toLowerCase().includes(text)
+                return `${product.name + product.description}`.toLowerCase().includes(text)
+              })
+          }
+
+					// filtriranje kategorije caja
+					if (category !== 'svi') {
+						tempProducts = tempProducts.filter(product => {
+							return product.category === category
+						})
+					}
+
+					// filtriranje simptoma
+					if (illness !== 'svi') {
+						tempProducts = tempProducts.filter(product => product.filter.includes(illness))
+					}
+
+					// filtriranje pakovanja
+					if (unit !== 'svi') {
+						tempProducts = tempProducts.filter(product => product.package.includes(unit));
+					}
+
+					// filtriranje na osnovu cene
+					if (price !== maxPrice) {
+						tempProducts = tempProducts.filter(product => product.price <= price)
+					}
+          return {...state, filteredProducts: tempProducts}
       }
   }
 

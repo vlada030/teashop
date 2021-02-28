@@ -37,8 +37,11 @@ const Filters = () => {
                           return (
                               <button
                                   key={index}
-                                  className={`${category === name ? "cat-btn cat-btn-active" : 'cat-btn'}`
-                                  }
+                                  className={`${
+                                      category === name
+                                          ? "cat-btn cat-btn-active"
+                                          : "cat-btn"
+                                  }`}
                                   name="category"
                                   onClick={updateFilters}
                               >
@@ -68,25 +71,43 @@ const Filters = () => {
 
                   <div className="form-control">
                       <h5>pakovanje</h5>
-                      <div className='units'>
-                        {units.map((pack, index) => {
-                            return (
-                                <button
-                                    key={index}
-                                    className={`${
-                                        pack === unit
-                                            ? "unit-btn unit-btn-active"
-                                            : "unit-btn"
-                                    }`}
-                                    name='unit'
-                                    onClick={updateFilters}
-                                >
-                                    {pack}
-                                </button>
-                            );
-                        })}
+                      <div className="units">
+                          {units.map((pack, index) => {
+                              return (
+                                  <button
+                                      key={index}
+                                      className={`${
+                                          pack === unit
+                                              ? "unit-btn unit-btn-active"
+                                              : "unit-btn"
+                                      }`}
+                                      name="unit"
+                                      onClick={updateFilters}
+                                  >
+                                      {pack}
+                                  </button>
+                              );
+                          })}
                       </div>
                   </div>
+
+                  <div className="form-control">
+                      <h5>cena</h5>
+                      <p>{formatPrice(price)}</p>
+                      <input
+                          type="range"
+                          name="price"
+                          onChange={updateFilters}
+                          min={minPrice}
+                          max={maxPrice}
+                          value={price}
+                          step='100'
+                      />
+                  </div>
+
+                  <button className='clear-btn' onClick={clearFilters}>
+                    obriši filtere
+                  </button>
               </form>
           </div>
       </Wrapper>
@@ -154,7 +175,6 @@ const Wrapper = styled.section`
   }
 
   .unit-btn-active {
-    background: var(--clr-primary-6);
     color: var(--clr-primary-10);
     opacity: 1;
 
@@ -187,8 +207,13 @@ const Wrapper = styled.section`
     background: var(--clr-red-dark);
     color: var(--clr-white);
     padding: 0.25rem 0.5rem;
+    border: none;
     border-radius: var(--radius);
+    cursor: pointer;
+    box-shadow: var(--lightShadow);
+    
   }
+
   @media (min-width: 768px) {
     .content {
       position: sticky;

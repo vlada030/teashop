@@ -4,15 +4,19 @@ import { Link } from 'react-router-dom'
 import { FaCheck } from 'react-icons/fa'
 import { useCartContext } from '../context/cart_context'
 import AmountButtons from './AmountButtons'
+import {formatPrice, priceCalculator} from '../utils/helpers'
 
 const AddToCart = ({product}) => {
-  const {package : unit, stock} = product;
+  const {package : unit, stock, price} = product;
 
   const [weight, setWeight] = useState(unit[0]);
+  const [unitPrice, setUnitPrice] = useState(price/10);
   const [amount, setAmount] = useState(1);
 
   const handleUnit = ind => {
     setWeight(unit[ind]);
+    setUnitPrice(priceCalculator(unit[ind], parseInt(price)));
+    
   }
 
   const increaseBtn = () => {
@@ -38,6 +42,9 @@ const AddToCart = ({product}) => {
     }
  
   return <Wrapper>
+
+          <h5 className='price'>{formatPrice(unitPrice)}</h5>
+
           <div className='units'>
             <span> pakovanje (gr) : </span>
             <div>{unit.map((item, index) => {
@@ -49,6 +56,7 @@ const AddToCart = ({product}) => {
             })}
             </div>
           </div>
+
           <div className='btn-container'>
             <AmountButtons amount={amount} decreaseBtn={decreaseBtn} increaseBtn={increaseBtn} />
             <Link to='cart' className='btn'>u korpu</Link>
@@ -58,6 +66,9 @@ const AddToCart = ({product}) => {
 
 const Wrapper = styled.section`
   margin-top: 2rem;
+  h5 {
+    margin-bottom: 2rem;
+  }
   .units {
     display: grid;
     grid-template-columns: 125px 1fr;

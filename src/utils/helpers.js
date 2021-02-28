@@ -2,7 +2,7 @@ export const formatPrice = (number) => {
     return new Intl.NumberFormat('sr-RS', {
         style: 'currency',
         currency: 'RSD'
-    }).format(number/10);
+    }).format(number);
 }
 
 export const getUniqueValues = (data, dataField) => {
@@ -22,19 +22,23 @@ export const getUniqueValues = (data, dataField) => {
 }
 
 export const priceCalculator = (unit, fullPrice) => {
+    const basePrice = fullPrice / 100;
+
     switch(unit) {
         case '100': {
-            return fullPrice / 100 * 10        
+            return (basePrice * 10);        
         }
 
         case '50': {
-            return fullPrice / 100 * 6
+            return (basePrice * 6);
         }
 
         case '30': {
-            return fullPrice / 100 * 4
+            return (basePrice * 5);
         }
 
-        default : return fullPrice / unit
+        default : {
+            return basePrice
+        }
     }
 }

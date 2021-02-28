@@ -64,7 +64,7 @@ const SingleProductPage = () => {
               <section className='content'>
                 <h2>{name}</h2>
                 <Stars stars={stars} reviews={reviews}/>
-                <h5 className='price'>{formatPrice(price)}</h5>
+                {/* <h5 className='price'>{formatPrice(price)}</h5> */}
                 <p className='info'>
                   <span>Dostupnost :</span>
                   {stock > 0 ? 'na stanju' : 'nestalo'}

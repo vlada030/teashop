@@ -64,12 +64,16 @@ const updateFilters = (e) => {
   if (name === 'category' || name === 'unit') {
     value = e.target.innerText;
   }
-  console.log({name, value});
+
+  if (name === 'price') {
+    value = Number(value);
+  }
+  // console.log({name, value});
   dispatch({type: UPDATE_FILTERS, payload: {name, value}})
 }
 
 const clearFilters = () => {
-
+  dispatch({type: CLEAR_FILTERS, payload: {...initialState.filter}})
 }
 
   return (
