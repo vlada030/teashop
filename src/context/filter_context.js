@@ -9,6 +9,9 @@ import {
   UPDATE_FILTERS,
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
+  SHOW_PAGE,
+  NEXT_PAGE,
+  PREV_PAGE
 } from '../actions'
 import { useProductsContext } from './products_context'
 
@@ -25,7 +28,8 @@ const initialState = {
     minPrice: 0,
     maxPrice: 0,
     price: 0
-  }
+  },
+  page: 0
 }
 
 const FilterContext = React.createContext()
@@ -76,8 +80,38 @@ const clearFilters = () => {
   dispatch({type: CLEAR_FILTERS, payload: {...initialState.filter}})
 }
 
+const showPage = () => {
+  dispatch({type: SHOW_PAGE});
+}
+
+const nextPage = () => {
+  dispatch({type: NEXT_PAGE});
+  // setPage(currPage => {
+  //   let newPage = currPage;
+
+  //   if (page < smoothies.length - 1) {
+  //     newPage = currPage + 1;
+  //   }
+
+  //   return newPage;
+  // })
+}
+
+const prevPage = () => {
+  dispatch({type: PREV_PAGE});
+  // setPage(currPage => {
+  //   let newPage = currPage;
+
+  //   if (currPage > 0) {
+  //     newPage = currPage - 1;
+  //   }
+
+  //   return newPage;
+  // })
+}
+
   return (
-      <FilterContext.Provider value={{ ...state, setGridView, setListView, updateSort, updateFilters, clearFilters}}>
+      <FilterContext.Provider value={{ ...state, setGridView, setListView, updateSort, updateFilters, clearFilters, nextPage, prevPage, showPage}}>
           {children}
       </FilterContext.Provider>
   );

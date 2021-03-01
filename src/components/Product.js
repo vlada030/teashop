@@ -14,7 +14,7 @@ const Product = ({id, name, price, image}) => {
           </div>
           <footer>
             <h5>{name}</h5>
-            <p>{formatPrice(parseInt(price))} / 1kg</p>
+            <p>{formatPrice(parseInt(price))}</p>
           </footer>
         </Wrapper>
 }
@@ -63,6 +63,10 @@ const Wrapper = styled.article`
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  footer h5 {
+    text-transform: capitalize;
   }
   footer h5,
   footer p {
