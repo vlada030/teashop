@@ -14,7 +14,9 @@ ReactDOM.render(
     <GlobalProvider>
         <ProductsProvider>
             <FilterProvider>
-                <App />
+                <CartProvider>
+                    <App />
+                </CartProvider>
             </FilterProvider>
         </ProductsProvider>
     </GlobalProvider>,

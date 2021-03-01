@@ -7,7 +7,8 @@ import AmountButtons from './AmountButtons'
 import {formatPrice, priceCalculator} from '../utils/helpers'
 
 const AddToCart = ({product}) => {
-  const {package : unit, stock, price} = product;
+  const {id, package : unit, stock, price} = product;
+  const {addToCart} = useCartContext();
 
   const [weight, setWeight] = useState(unit[0]);
   const [unitPrice, setUnitPrice] = useState(price/10);
@@ -16,13 +17,14 @@ const AddToCart = ({product}) => {
   const handleUnit = ind => {
     setWeight(unit[ind]);
     setUnitPrice(priceCalculator(unit[ind], parseInt(price)));
+    setAmount(1);
     
   }
 
   const increaseBtn = () => {
     setAmount(amount => {
       let tempAmount = amount + 1;
-      if (tempAmount > stock) {
+      if (tempAmount > stock / weight) {
         return amount;
       }
 
@@ -59,7 +61,8 @@ const AddToCart = ({product}) => {
 
           <div className='btn-container'>
             <AmountButtons amount={amount} decreaseBtn={decreaseBtn} increaseBtn={increaseBtn} />
-            <Link to='cart' className='btn'>u korpu</Link>
+            
+            <Link to='/cart' className='btn' onClick={() => {addToCart(id, weight, unitPrice, amount, product)}}>u korpu</Link>
           </div>
         </Wrapper>
 }
