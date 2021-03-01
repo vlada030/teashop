@@ -5,9 +5,17 @@ import ListView from './ListView'
 
 const ProductList = () => {
 
-  const { filteredProducts: products, gridView } = useFilterContext();
+  const { paginatedProducts, gridView, page } = useFilterContext();
 
-  if (products.length < 1) {
+  let products = [];
+
+  // prosledi direktno elemente na strani
+  if (paginatedProducts.length > 0) {
+    console.log({paginatedProducts, page});
+    products = paginatedProducts[page];
+  }
+
+  if (paginatedProducts.length < 1) {
     return <h5>Vaš kriterijum pretrage nije pronašao nijedan proizvod...</h5>
   }
 

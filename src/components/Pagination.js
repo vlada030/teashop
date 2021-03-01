@@ -4,20 +4,53 @@ import {useFilterContext} from '../context/filter_context';
 
 const Pagination = () => {
 
-    const {filteredProducts, page, nextPage, prevPage, showPage} = useFilterContext();
+    const {paginatedProducts, page, nextPage, prevPage, showPage} = useFilterContext();
 
-    return <Wrapper>
-                <div className="btn-container">
-                    <button className="btn btn-prev" onClick={prevPage}>prethodna</button>
+    if (paginatedProducts.length < 1) {
+        return null;
+    }
 
-                    {filteredProducts.map((product, index) => {
-                        return <button key={index} className={index === page ? 'btn btn-page btn-page-active' : 'btn btn-page'} onClick={() => showPage(index)}>{index + 1}</button>;
-                        })
+    return (
+        <Wrapper>
+            <div className="btn-container">
+                <button
+                    className={page === 0 ? "btn btn-active" : "btn"}
+                    onClick={prevPage}
+                    disabled={page === 0 ? true : false}
+                >
+                    prethodna
+                </button>
+
+                {paginatedProducts.map((product, index) => {
+                    return (
+                        <button
+                            key={index}
+                            className={
+                                index === page ? "btn btn-active" : "btn"
+                            }
+                            onClick={() => showPage(index)}
+                        >
+                            {index + 1}
+                        </button>
+                    );
+                })}
+
+                <button
+                    className={
+                        page === paginatedProducts.length - 1
+                            ? "btn btn-active"
+                            : "btn"
                     }
-            
-                    <button className="btn btn-next" onClick={nextPage}>sledeća</button>
-                </div>
-            </Wrapper>;
+                    onClick={nextPage}
+                    disabled={
+                        page === paginatedProducts.length - 1 ? true : false
+                    }
+                >
+                    sledeća
+                </button>
+            </div>
+        </Wrapper>
+    );
 }
 
 const Wrapper = styled.section`
@@ -34,6 +67,15 @@ const Wrapper = styled.section`
 
     .btn {
         margin: 0.5rem;
+    }
+
+    .btn:disabled {
+        cursor: not-allowed;
+    }
+
+    .btn-active {
+        color: var(--clr-primary-1);
+        background: var(--clr-primary-7)
     }
 `;
 

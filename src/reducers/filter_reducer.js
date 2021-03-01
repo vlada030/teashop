@@ -7,7 +7,12 @@ import {
   UPDATE_FILTERS,
   FILTER_PRODUCTS,
   CLEAR_FILTERS,
+  SHOW_PAGE,
+  NEXT_PAGE,
+  PREV_PAGE
 } from '../actions'
+
+import { pagination } from '../utils/helpers';
 
 const filter_reducer = (state, action) => {
   switch (action.type) {
@@ -15,12 +20,14 @@ const filter_reducer = (state, action) => {
           // pronadji maximalnu vrednost za cenu
           let maxPrice = action.payload.map((product) => product.price);
           maxPrice = Math.max(...maxPrice);
+          const paginatedProducts = pagination(state.filteredProducts);
 
           return {
               ...state,
               allProducts: [...action.payload],
               filteredProducts: [...action.payload],
               filter: { ...state.filter, maxPrice, price: maxPrice },
+              paginatedProducts,
           };
 
       case SET_GRIDVIEW:
@@ -30,7 +37,7 @@ const filter_reducer = (state, action) => {
           return { ...state, gridView: false };
 
       case UPDATE_SORT:
-          return { ...state, sort: action.payload };
+          return { ...state, sort: action.payload, page: 0 };
 
       case SORT_PRODUCTS: {
           const { sort, filteredProducts } = state;
@@ -63,18 +70,20 @@ const filter_reducer = (state, action) => {
                   return b.name.localeCompare(a.name);
               });
           }
+        
+          const paginatedProducts = pagination(tempProducts);
 
-          return { ...state, filteredProducts: [...tempProducts] };
+          return { ...state, filteredProducts: [...tempProducts], paginatedProducts };
       }
 
       case UPDATE_FILTERS: {
           const { name, value } = action.payload;
-          return { ...state, filter: { ...state.filter, [name]: value } };
+          return { ...state, filter: { ...state.filter, [name]: value }, page: 0 };
       }
 
       case CLEAR_FILTERS: {
           const {text, category, illness, unit} = action.payload;
-          return {...state, filter: {...state.filter, text, category, illness, unit, price: state.filter.maxPrice}}
+          return {...state, filter: {...state.filter, text, category, illness, unit, price: state.filter.maxPrice}, page: 0}
       }
 
       case FILTER_PRODUCTS: {
@@ -112,6 +121,32 @@ const filter_reducer = (state, action) => {
 						tempProducts = tempProducts.filter(product => product.price <= price)
 					}
           return {...state, filteredProducts: tempProducts}
+      }
+
+      case SHOW_PAGE: {
+          return {...state, page: action.payload}
+      }
+
+      case NEXT_PAGE: {
+            let newPage = state.page;
+
+            if (newPage < state.paginatedProducts.length - 1) {
+                newPage += 1;
+            }
+
+            return {...state, page: newPage}
+        
+      }
+
+      case PREV_PAGE: {
+            let newPage = state.page;
+
+            if (newPage > 0) {
+                newPage -= 1;
+            }
+
+            return {...state, page: newPage}
+        
       }
   }
 

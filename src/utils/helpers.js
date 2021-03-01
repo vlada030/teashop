@@ -42,3 +42,17 @@ export const priceCalculator = (unit, fullPrice) => {
         }
     }
 }
+
+export const pagination = arr => {
+    const itemsPerPage = 4;
+    const pages = Math.ceil(arr.length / itemsPerPage);
+    // na ovaj nacin se formira novi array sa brojem elemenata pages i svi imaju vrednost undefined, sa callback popunjavamo vrednosti, bitan je index , item je undefined
+    return Array.from({length: pages}, (item, index) => {
+        const start = index * itemsPerPage;
+        return arr.slice(start, start + itemsPerPage)
+    })
+
+    
+}
+
+export default pagination;

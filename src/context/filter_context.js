@@ -29,7 +29,8 @@ const initialState = {
     maxPrice: 0,
     price: 0
   },
-  page: 0
+  page: 0,
+  paginatedProducts: []
 }
 
 const FilterContext = React.createContext()
@@ -46,7 +47,7 @@ useEffect(() => {
 useEffect(() => {
   dispatch({type: FILTER_PRODUCTS});
   dispatch({type: SORT_PRODUCTS});
-}, [products, state.sort, state.filter]);
+}, [products, state.sort, state.filter, state.page]);
 
 const setGridView = () => {
   dispatch({type: SET_GRIDVIEW})
@@ -80,21 +81,12 @@ const clearFilters = () => {
   dispatch({type: CLEAR_FILTERS, payload: {...initialState.filter}})
 }
 
-const showPage = () => {
-  dispatch({type: SHOW_PAGE});
+const showPage = (index) => {
+  dispatch({type: SHOW_PAGE, payload: index});
 }
 
 const nextPage = () => {
   dispatch({type: NEXT_PAGE});
-  // setPage(currPage => {
-  //   let newPage = currPage;
-
-  //   if (page < smoothies.length - 1) {
-  //     newPage = currPage + 1;
-  //   }
-
-  //   return newPage;
-  // })
 }
 
 const prevPage = () => {
