@@ -10,10 +10,19 @@ const cart_reducer = (state, action) => {
   switch (action.type) {
     case ADD_TO_CART: {
       const {id, unit, price, amount, product} = action.payload;
-
+      // caka da nebi stavljali && pa da proveravamo dva uslova i id i pakovanje, ovako se spoji u jedan
       const tempItem = state.cart.find(i => i.id === id + unit);
       if (tempItem) {
-
+        const tempCart = state.cart.map((item) => {
+            if (item.id === id + unit) {
+                let updatedAmount = amount + item.amount;
+                return { ...item, amount: updatedAmount };
+            } else {
+                return item;
+            }
+        });
+        return {...state, cart: tempCart}
+        
       } else {
         const newItem = {
           id: id + unit,

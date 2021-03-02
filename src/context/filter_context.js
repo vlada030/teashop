@@ -30,7 +30,7 @@ const initialState = {
     price: 0
   },
   page: 0,
-  paginatedProducts: []
+  paginatedProducts: [], 
 }
 
 const FilterContext = React.createContext()
@@ -91,15 +91,6 @@ const nextPage = () => {
 
 const prevPage = () => {
   dispatch({type: PREV_PAGE});
-  // setPage(currPage => {
-  //   let newPage = currPage;
-
-  //   if (currPage > 0) {
-  //     newPage = currPage - 1;
-  //   }
-
-  //   return newPage;
-  // })
 }
 
   return (

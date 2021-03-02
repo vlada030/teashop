@@ -73,7 +73,8 @@ const filter_reducer = (state, action) => {
         
           const paginatedProducts = pagination(tempProducts);
 
-          return { ...state, filteredProducts: [...tempProducts], paginatedProducts };
+          return { ...state, filteredProducts: [...tempProducts], paginatedProducts
+          };
       }
 
       case UPDATE_FILTERS: {
@@ -147,6 +148,7 @@ const filter_reducer = (state, action) => {
 
             return {...state, page: newPage}
         
+
       }
   }
 

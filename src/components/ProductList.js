@@ -2,6 +2,7 @@ import React from 'react'
 import { useFilterContext } from '../context/filter_context'
 import GridView from './GridView'
 import ListView from './ListView'
+import Loading from './Loading'
 
 const ProductList = () => {
 
@@ -11,11 +12,11 @@ const ProductList = () => {
 
   // prosledi direktno elemente na strani
   if (paginatedProducts.length > 0) {
-    console.log({paginatedProducts, page});
+    //console.log({paginatedProducts, page});
     products = paginatedProducts[page];
   }
-
-  if (paginatedProducts.length < 1) {
+  
+  if (products.length < 1) {
     return <h5>Vaš kriterijum pretrage nije pronašao nijedan proizvod...</h5>
   }
 
