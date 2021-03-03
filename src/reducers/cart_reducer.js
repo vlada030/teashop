@@ -58,7 +58,6 @@ const cart_reducer = (state, action) => {
           if (item.id.startsWith(productCode)) {
               return sum + parseInt(item.unit) * parseInt(item.amount);
           }
-
           return sum;
       }, 0);
       console.log(existingWeight);
@@ -69,9 +68,10 @@ const cart_reducer = (state, action) => {
           let updatedAmount = item.amount;
 
           if (value === 'inc') {
-            if (existingWeight + item.unit <= item.stock) {
+            if (existingWeight + parseInt(item.unit) <= parseInt(item.stock)) {
               updatedAmount += 1;
             }
+            console.log({existingWeight: existingWeight + parseInt(item.unit), unit: item.unit, stock:item.stock });
           }
 
           if (value === 'dec') {
