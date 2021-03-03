@@ -8,9 +8,9 @@ import {formatPrice, priceCalculator} from '../utils/helpers'
 
 const AddToCart = ({product}) => {
   const {id, package : unit, stock, price} = product;
-  const {addToCart} = useCartContext();
+  const {addToCart, cart} = useCartContext();
 
-  const [weight, setWeight] = useState(unit[0]);
+  const [weight, setWeight] = useState(parseInt(unit[0]));
   const [unitPrice, setUnitPrice] = useState(price/10);
   const [amount, setAmount] = useState(1);
 
@@ -18,13 +18,24 @@ const AddToCart = ({product}) => {
     setWeight(unit[ind]);
     setUnitPrice(priceCalculator(unit[ind], parseInt(price)));
     setAmount(1);
-    
   }
+  
+  const productWeightInCart = cart.reduce((sum, item) => {
+      if (item.id.startsWith(id)) {
+          return sum + parseInt(item.unit) * parseInt(item.amount);
+      }
+      return sum;
+  }, 0);
+
+  console.log({productWeightInCart, stock});
 
   const increaseBtn = () => {
+
+    // proveri najpre tezinu u korpi
+
     setAmount(amount => {
       let tempAmount = amount + 1;
-      if (tempAmount > stock / weight) {
+      if ( productWeightInCart + tempAmount * weight > stock ) {
         return amount;
       }
 
@@ -43,28 +54,55 @@ const AddToCart = ({product}) => {
       })
     }
  
-  return <Wrapper>
+  return (
+      <Wrapper>
+          <h5 className="price">{formatPrice(unitPrice)}</h5>
 
-          <h5 className='price'>{formatPrice(unitPrice)}</h5>
-
-          <div className='units'>
-            <span> pakovanje (gr) : </span>
-            <div>{unit.map((item, index) => {
-              return (
-                  <button key={index} className={item === weight ? 'unit-btn active' : 'unit-btn'} onClick={() => {handleUnit(index)}}>
-                      {item}
-                  </button>
-              );   
-            })}
-            </div>
+          <div className="units">
+              <span> pakovanje (gr) : </span>
+              <div>
+                  {unit.map((item, index) => {
+                      return (
+                          <button
+                              key={index}
+                              className={
+                                  item === weight.toString()
+                                      ? "unit-btn active"
+                                      : "unit-btn"
+                              }
+                              onClick={() => {
+                                  handleUnit(index);
+                              }}
+                          >
+                              {item}
+                          </button>
+                      );
+                  })}
+              </div>
           </div>
+          {stock - productWeightInCart >= weight ? (
+              <div className="btn-container">
+                  <AmountButtons
+                      amount={amount}
+                      decreaseBtn={decreaseBtn}
+                      increaseBtn={increaseBtn}
+                  />
 
-          <div className='btn-container'>
-            <AmountButtons amount={amount} decreaseBtn={decreaseBtn} increaseBtn={increaseBtn} />
-            
-            <Link to='/cart' className='btn' onClick={() => {addToCart(id, weight, unitPrice, amount, product)}}>u korpu</Link>
-          </div>
-        </Wrapper>
+                  <Link
+                      to="/cart"
+                      className="btn"
+                      onClick={() => {
+                          addToCart(id, weight, unitPrice, amount, product);
+                      }}
+                  >
+                      u korpu
+                  </Link>
+              </div>
+          ) : (
+              <p>Svi preostali proizvodi sa stanja su u Vašoj korpi</p>
+          )}
+      </Wrapper>
+  );
 }
 
 const Wrapper = styled.section`

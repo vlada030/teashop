@@ -7,6 +7,18 @@ import {
 } from '../actions'
 
 const cart_reducer = (state, action) => {
+
+  // proveri da li postoji taj proizvod sa drugim pakovanjem i izracunaj ukupnu tezinu proizvoda u korpi
+  const totalWeightCalc = (id) => {
+    const productCode = id.substring(0, 5);
+    return state.cart.reduce((sum, item) => {
+        if (item.id.startsWith(productCode)) {
+            return sum + parseInt(item.unit) * parseInt(item.amount);
+        }
+        return sum;
+    }, 0);
+  }
+
   switch (action.type) {
     case ADD_TO_CART: {
       const {id, unit, price, amount, product} = action.payload;
@@ -52,15 +64,8 @@ const cart_reducer = (state, action) => {
     case TOGGLE_CART_ITEM_AMOUNT: {
       const {id, value} = action.payload;
 
-      // proveri da li postoji taj proizvod sa drugim pakovanjem i izracunaj ukupnu tezinu proizvoda u korpi
-      const productCode = id.substring(0, 5);
-      const existingWeight = state.cart.reduce((sum, item) => {
-          if (item.id.startsWith(productCode)) {
-              return sum + parseInt(item.unit) * parseInt(item.amount);
-          }
-          return sum;
-      }, 0);
-      console.log(existingWeight);
+      // preracunaj ukupnu tezinu
+      const presentWeight = totalWeightCalc( id );
 
       const tempCart = state.cart.map(item => {
         if (item.id === id) {
@@ -68,10 +73,10 @@ const cart_reducer = (state, action) => {
           let updatedAmount = item.amount;
 
           if (value === 'inc') {
-            if (existingWeight + parseInt(item.unit) <= parseInt(item.stock)) {
+            if (presentWeight + parseInt(item.unit) <= parseInt(item.stock)) {
               updatedAmount += 1;
             }
-            console.log({existingWeight: existingWeight + parseInt(item.unit), unit: item.unit, stock:item.stock });
+            console.log({presentWeight: presentWeight + parseInt(item.unit), unit: item.unit, stock:item.stock });
           }
 
           if (value === 'dec') {
