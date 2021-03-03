@@ -4,9 +4,47 @@ import { useCartContext } from '../context/cart_context'
 import { useUserContext } from '../context/user_context'
 import { formatPrice } from '../utils/helpers'
 import { Link } from 'react-router-dom'
+import {BsQuestionCircleFill} from 'react-icons/bs'
 
 const CartTotals = () => {
-  return <h4>cart totals</h4>
+
+  const {totalAmount, shipping} = useCartContext();
+  const updatedShipping = totalAmount > 3000 ? 0 : shipping;
+  return (
+      <Wrapper>
+          <div>
+              <article>
+                  <h5 className="format">
+                      suma :<span>{formatPrice(totalAmount)}</span>
+                  </h5>
+
+                  <div className="format">
+                      poštarina :
+                      <p>
+                        <span>{formatPrice(updatedShipping)}</span>
+                        <span>
+                            <BsQuestionCircleFill />
+                        </span>
+                      </p>
+                  </div>
+
+                  <p className="info">
+                      za iznose preko 3000 RSD poštarina je besplatna
+                  </p>
+
+                  <hr />
+
+                  <h4 className="format">
+                      ukupno :
+                      <span>{formatPrice(totalAmount + updatedShipping)}</span>
+                  </h4>
+              </article>
+              <Link to="/checkout" className="btn">
+                  kasa
+              </Link>
+          </div>
+      </Wrapper>
+  );
 }
 
 const Wrapper = styled.section`
@@ -18,15 +56,38 @@ const Wrapper = styled.section`
     border-radius: var(--radius);
     padding: 1.5rem 3rem;
   }
-  h4,
-  h5,
-  p {
+  .format {
     display: grid;
     grid-template-columns: 200px 1fr;
   }
-  p {
-    text-transform: capitalize;
+
+  .info {
+    opacity: 0;
+    transition: var(--transition);
+    margin: 0.6rem 0;
+
+    &::first-letter {
+      text-transform: capitalize;
+    }
   }
+
+  div.format p {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 1rem;
+    align-items: start;
+    margin: 0;
+    
+    span {
+      display: inline-block;
+      /* margin: 0 1rem; */
+    }
+  }
+
+  div.format:hover + .info {
+    opacity: 1;
+  }  
+
   h4 {
     margin-top: 2rem;
   }

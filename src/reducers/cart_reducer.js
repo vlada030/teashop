@@ -36,6 +36,58 @@ const cart_reducer = (state, action) => {
         return {...state, cart: [...state.cart, newItem]}
       }
     }
+
+    case REMOVE_CART_ITEM: {
+      const updatedCart = state.cart.filter(item => {
+        return item.id !== action.payload
+      })
+
+      return {...state, cart: updatedCart}
+    }
+
+    case CLEAR_CART: {
+      return {...state, cart: []}
+    }
+
+    case TOGGLE_CART_ITEM_AMOUNT: {
+      const {id, value} = action.payload;
+
+      // proveri da li postoji taj proizvod sa drugim pakovanjem i izracunaj ukupnu tezinu proizvoda u korpi
+      const productCode = id.substring(0, 5);
+      const existingWeight = state.cart.reduce((sum, item) => {
+          if (item.id.startsWith(productCode)) {
+              return sum + parseInt(item.unit) * parseInt(item.amount);
+          }
+
+          return sum;
+      }, 0);
+      console.log(existingWeight);
+
+      const tempCart = state.cart.map(item => {
+        if (item.id === id) {
+
+          let updatedAmount = item.amount;
+
+          if (value === 'inc') {
+            if (existingWeight + item.unit <= item.stock) {
+              updatedAmount += 1;
+            }
+          }
+
+          if (value === 'dec') {
+            if (updatedAmount > 1) {
+              updatedAmount -= 1;
+            } 
+          }
+
+          return {...item, amount: updatedAmount}
+        }
+
+        return item
+      })
+
+      return {...state, cart: tempCart}
+    }
   }
   throw new Error(`No Matching "${action.type}" - action type`)
 }

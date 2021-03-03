@@ -39,7 +39,7 @@ const Wrapper = styled.section`
   }
   .link-btn {
     background: var(--clr-primary-5);
-    border-color: transparent;
+    border: 2px solid transparent;
     text-transform: uppercase;
     padding: 0.25rem 0.5rem;
     color: var(--clr-white);
@@ -47,9 +47,15 @@ const Wrapper = styled.section`
     letter-spacing: var(--spacing);
     font-weight: 400;
     cursor: pointer;
+    transition: var(--transition);
   }
+
+  .link-btn:hover {
+    color: var(--clr-primary-7)
+  }
+
   .clear-btn {
-    background: var(--clr-black);
+    background: var(--clr-primary-1);
   }
 `
 export default CartContent

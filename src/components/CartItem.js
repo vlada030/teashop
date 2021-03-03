@@ -4,8 +4,38 @@ import { formatPrice } from '../utils/helpers'
 import AmountButtons from './AmountButtons'
 import { FaTrash } from 'react-icons/fa'
 import { useCartContext } from '../context/cart_context'
-const CartItem = () => {
-  return <h4>cart item</h4>
+const CartItem = ({id, name, unit, price, amount, image, stock}) => {
+
+  const {removeItem, toggleAmount} = useCartContext();
+
+  const increaseBtn = () => {
+    toggleAmount(id, 'inc');
+  }
+  const decreaseBtn = () => {
+    toggleAmount(id, 'dec')
+  }
+
+  return <Wrapper>
+          <div className='title'>
+            <img src={image} alt={name} />
+            <div>
+              <h5>{name}</h5>
+              <p className='unit'>pakovanje: {unit} gr</p>
+              <h5 className='price-small'>{formatPrice(price)}</h5>
+            </div>
+          </div>
+
+          <h5 className='price'>{formatPrice(price)}</h5>
+          
+          <AmountButtons increaseBtn={increaseBtn} decreaseBtn={decreaseBtn} amount={amount}/>
+
+          <h5 className='subtotal'>{formatPrice(amount * price)}</h5>
+
+          <button className='remove-btn' onClick={() => removeItem(id)}>
+            <FaTrash />
+          </button>
+
+        </Wrapper>
 }
 
 const Wrapper = styled.article`
@@ -22,6 +52,7 @@ const Wrapper = styled.article`
   justify-items: center;
   margin-bottom: 3rem;
   align-items: center;
+
   .title {
     grid-template-rows: 75px;
     display: grid;
@@ -42,23 +73,11 @@ const Wrapper = styled.article`
     margin-bottom: 0;
   }
 
-  .color {
+  .unit {
     color: var(--clr-grey-5);
     font-size: 0.75rem;
     letter-spacing: var(--spacing);
-    text-transform: capitalize;
     margin-bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    span {
-      display: inline-block;
-      width: 0.5rem;
-      height: 0.5rem;
-      background: red;
-      margin-left: 0.5rem;
-      border-radius: var(--radius);
-    }
   }
   .price-small {
     color: var(--clr-primary-5);
@@ -116,7 +135,7 @@ const Wrapper = styled.article`
         height: 0.75rem;
       }
     }
-    grid-template-columns: 1fr 1fr 1fr 1fr auto;
+    grid-template-columns: 9fr 9fr 9fr 9fr 1fr;
     align-items: center;
     grid-template-rows: 75px;
     img {
