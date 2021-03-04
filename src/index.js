@@ -8,29 +8,29 @@ import { CartProvider } from "./context/cart_context";
 import { UserProvider } from "./context/user_context";
 import { GlobalProvider } from "./context/global_context";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { Products } from "./pages";
-const dotenv = require('dotenv');
+require('dotenv').config({ path: '/.env' });
 
-dotenv.config({path: '/.env'});
-
-console.log(process.env.DOMAIN, process.env.CLIENTID);
+const domain = process.env.REACT_APP_DOMAIN;
+console.log(domain);
 
 ReactDOM.render(
     <Auth0Provider
-        domain={process.env.DOMAIN}
-        clientId={process.env.CLIENTID}
+        domain={process.env.REACT_APP_DOMAIN}
+        clientId={process.env.REACT_APP_CLIENTID}
         redirectUri={window.location.origin}
-        cacheLocation='localstorage'
+        cacheLocation="localstorage"
     >
-        <GlobalProvider>
-            <ProductsProvider>
-                <FilterProvider>
-                    <CartProvider>
-                        <App />
-                    </CartProvider>
-                </FilterProvider>
-            </ProductsProvider>
-        </GlobalProvider>
+        <UserProvider>
+            <GlobalProvider>
+                <ProductsProvider>
+                    <FilterProvider>
+                        <CartProvider>
+                            <App />
+                        </CartProvider>
+                    </FilterProvider>
+                </ProductsProvider>
+            </GlobalProvider>
+        </UserProvider>
     </Auth0Provider>,
     document.getElementById("root")
 );
