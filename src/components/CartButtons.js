@@ -10,6 +10,7 @@ import {useGlobalContext} from '../context/global_context'
 const CartButtons = () => {
 
 const {closeSidebar} = useGlobalContext();
+const {totalItems} = useCartContext();
 
   return <Wrapper className='cart-btn-wrapper'>
           <Link to='/cart' className='cart-btn'  onClick={closeSidebar}>
@@ -17,7 +18,7 @@ const {closeSidebar} = useGlobalContext();
             <span className='cart-container'>
               <FaShoppingCart />
               <span className='cart-value'>
-                5
+                {totalItems}
               </span>
             </span>
           </Link>
