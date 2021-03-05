@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 const CheckoutPage = () => {
   return <main>
-          <PageHero title='poruči'/>
+          <PageHero title='kasa'/>
           <Wrapper className='page'>
             <h1>Checkout here</h1>
           </Wrapper>

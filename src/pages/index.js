@@ -5,7 +5,7 @@ import About from './AboutPage';
 import Cart from './CartPage';
 import Error from './ErrorPage';
 import Checkout from './CheckoutPage';
-import PrivateRoute from './PrivateRoute';
+import ProtectedRoute from './ProtectedRoute';
 
 export {
     Home,
@@ -15,5 +15,5 @@ export {
     Cart,
     Error,
     Checkout,
-    PrivateRoute,
+    ProtectedRoute,
 };

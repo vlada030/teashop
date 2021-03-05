@@ -12,6 +12,7 @@ import Footer from './Footer'
 
 const Nav = () => {
   const {openSidebar} = useGlobalContext();
+  const {customer} = useUserContext();
 
   return <NavContainer>
           <div className='nav-center'>
@@ -31,6 +32,11 @@ const Nav = () => {
                         <Link to={url}>{text}</Link>
                       </li>
               })}
+              { customer &&
+                <li>
+                  <Link to='/checkout'>kasa</Link>
+                </li>
+              }
             </ul>
 
             <CartButtons />
