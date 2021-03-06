@@ -1,16 +1,15 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-// will remove later
-import { useUserContext } from "../context/user_context";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ProtectedRoute = ({ children, ...rest }) => {
-    const { customer } = useUserContext();
+    const { user } = useAuth0();
 
     return (
         <Route
             {...rest}
             render={() => {
-                return customer ? children : <Redirect to="/" />;
+                return user ? children : <Redirect to="/" />;
             }}
         ></Route>
     );
