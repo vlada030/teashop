@@ -76,7 +76,7 @@ const cart_reducer = (state, action) => {
             if (presentWeight + parseInt(item.unit) <= parseInt(item.stock)) {
               updatedAmount += 1;
             }
-            console.log({presentWeight: presentWeight + parseInt(item.unit), unit: item.unit, stock:item.stock });
+            //console.log({presentWeight: presentWeight + parseInt(item.unit), unit: item.unit, stock:item.stock });
           }
 
           if (value === 'dec') {
@@ -105,8 +105,9 @@ const cart_reducer = (state, action) => {
 
       return {...state, totalAmount, totalItems}
     }
+
+    default: throw new Error(`U globalnom reduceru ne postoji action type ${action.type}`)
   }
-  throw new Error(`No Matching "${action.type}" - action type`)
 }
 
 export default cart_reducer

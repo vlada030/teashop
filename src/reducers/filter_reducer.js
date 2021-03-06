@@ -146,13 +146,12 @@ const filter_reducer = (state, action) => {
                 newPage -= 1;
             }
 
-            return {...state, page: newPage}
-        
+            return {...state, page: newPage} 
 
       }
-  }
 
-    throw new Error(`No Matching "${action.type}" - action type`)
+      default: throw new Error(`U globalnom reduceru ne postoji action type ${action.type}`)
+  }
 }
 
 export default filter_reducer

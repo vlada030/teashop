@@ -33,9 +33,11 @@ const products_reducer = (state, action) => {
     case GET_SINGLE_PRODUCT_ERROR: {
       return ({...state, singleProductLoading: false, singleProductError: true})
     }
+
+    default: 
+    throw new Error(`No Matching "${action.type}" - action type`)
   }
 
-  throw new Error(`No Matching "${action.type}" - action type`)
 }
 
 export default products_reducer

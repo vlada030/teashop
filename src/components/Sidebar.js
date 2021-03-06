@@ -18,7 +18,7 @@ const Sidebar = () => {
                 className={isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}
             >
                 <div className="sidebar-header">
-                    <img src={logo} alg="logo" className="logo" />
+                    <img src={logo} alt="logo" className="logo" />
 
                     <button className="close-btn" onClick={closeSidebar}>
                         <FaAngleDoubleLeft />

@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { useProductsContext } from '../context/products_context'
-import { url } from '../utils/constants'
-import { formatPrice } from '../utils/helpers'
-import {GiFeather, GiTeapotLeaves, GiHeartPlus, GiHealing, GiHeartMinus, GiHalt} from 'react-icons/gi'
+import {GiFeather, GiTeapotLeaves, GiHealing, GiHalt} from 'react-icons/gi'
 import {
   Loading,
   Error,
@@ -29,6 +27,7 @@ const SingleProductPage = () => {
 
   useEffect(() => {
     fetchSingleProduct(id);
+    // eslint-disable-next-line
   }, [id]);
 
   // u slucaju greske nakon 3 sekunde uradi redirekciju
@@ -39,6 +38,7 @@ const SingleProductPage = () => {
         history.push('/');
       }, 3000)
     }
+    // eslint-disable-next-line
   }, [singleProductError]);
 
   if (singleProductLoading) {
@@ -53,7 +53,8 @@ const SingleProductPage = () => {
           </div>
   }
 
-  const {id: productCode, name, price, description, goal, disclaimer, preparation, images, reviews, stars, stock, filter, category, package:unit} = singleProduct;
+  const { name,  description, goal, disclaimer, preparation, images, reviews, stars, stock} = singleProduct;
+
   return <Wrapper>
           <PageHero title={name} product/>
           <div className='section section-center page'>

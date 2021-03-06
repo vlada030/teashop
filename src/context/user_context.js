@@ -4,7 +4,8 @@ import { useAuth0 } from '@auth0/auth0-react'
 const UserContext = React.createContext();
 
 export const UserProvider = ({ children }) => {
-
+  
+  // eslint-disable-next-line
   const {isAuthenticated, loginWithRedirect, logout, user,isLoading, error} = useAuth0();
 
   const [customer, setCustomer] = useState(false);

@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useReducer } from 'react'
 import reducer from '../reducers/products_reducer'
-import { products_url as url } from '../utils/constants'
 import {
   GET_PRODUCTS_BEGIN,
   GET_PRODUCTS_SUCCESS,
@@ -43,8 +42,7 @@ export const ProductsProvider = ({ children }) => {
         // console.log("Error: " + error.code);
         dispatch({type: GET_PRODUCTS_ERROR})
         
-    });
-    
+    });    
   }
 
   const fetchSingleProduct = (id) => {

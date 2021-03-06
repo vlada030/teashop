@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import logo from '../assets/logo.png'
+// eslint-disable-next-line
 import { FaBars } from 'react-icons/fa'
 import { SiGitea } from 'react-icons/si'
 import { Link } from 'react-router-dom'
@@ -8,7 +9,6 @@ import { links } from '../utils/constants'
 import CartButtons from './CartButtons'
 import { useGlobalContext } from '../context/global_context'
 import { useUserContext } from '../context/user_context'
-import Footer from './Footer'
 
 const Nav = () => {
   const {openSidebar} = useGlobalContext();

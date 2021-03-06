@@ -10,8 +10,6 @@ import { GlobalProvider } from "./context/global_context";
 import { Auth0Provider } from "@auth0/auth0-react";
 require('dotenv').config({ path: '/.env' });
 
-const domain = process.env.REACT_APP_DOMAIN;
-
 ReactDOM.render(
     <Auth0Provider
         domain={process.env.REACT_APP_DOMAIN}

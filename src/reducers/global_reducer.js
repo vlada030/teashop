@@ -9,9 +9,10 @@ const globalReducer = (state, action) => {
         case SIDEBAR_CLOSE: {
             return {...state, isSidebarOpen: false}
         }
+
+        default: throw new Error(`U globalnom reduceru ne postoji action type ${action.type}`)
     }
 
-    throw new Error(`U globalnom reduceru ne postoji action type ${action.type}`)
 
 }
 
