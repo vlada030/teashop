@@ -2,9 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 import { useUserContext } from "../context/user_context";
+import { useCartContext } from "../context/cart_context";
 
 const LoggedUserButton = () => {
-    const { logout, customer } = useUserContext();
+    const { logout, customer} = useUserContext();
+    const { clearCart} = useCartContext();
+
     let transformedName = customer.name;
 
     if (transformedName.includes('@')) {
@@ -20,6 +23,7 @@ const LoggedUserButton = () => {
         <Wrapper
             onClick={() => {
                 logout({ returnTo: window.location.origin });
+                clearCart();
             }}
         >
             <p>{transformedName}</p>
