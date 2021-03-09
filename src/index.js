@@ -12,8 +12,8 @@ require('dotenv').config({ path: '/.env' });
 
 ReactDOM.render(
     <Auth0Provider
-        domain={process.env.REACT_APP_DOMAIN}
-        clientId={process.env.REACT_APP_CLIENTID}
+        domain={process.env.REACT_APP_AUTH0_DOMAIN}
+        clientId={process.env.REACT_APP_AUTH0_CLIENTID}
         redirectUri={window.location.origin}
         cacheLocation="localstorage"
     >
