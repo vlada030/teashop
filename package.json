@@ -1,49 +1,24 @@
 {
-  "name": "store",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@auth0/auth0-react": "^1.2.0",
-    "@stripe/react-stripe-js": "^1.2.2",
-    "@stripe/stripe-js": "^1.12.1",
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.7.1",
-    "axios": "^0.21.1",
-    "dotenv": "^8.2.0",
-    "firebase": "^8.2.8",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-icons": "^4.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.0",
-    "stripe": "^8.135.0",
-    "styled-components": "^5.2.1",
-    "web-vitals": "^0.2.4"
-  },
+  "name": "teashop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "CI= react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "netlify": "netlify dev"
+    "start": "node server.js",
+    "dev-server": "nodemon server.js"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vlada030/teashop.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "author": "Vlada",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vlada030/teashop/issues"
+  },
+  "homepage": "https://github.com/vlada030/teashop#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
   }
 }
