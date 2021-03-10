@@ -1,5 +1,5 @@
 // prekopirano sve sa stripe custom payment flow
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -50,7 +50,12 @@ const CheckoutForm = () => {
     };
 
     const createPaymentIntent = async () => {
-        console.log("hello");
+        try {
+            const data = axios.post('http://localhost:4242/create-payment-intent', { cart, totalAmount, shipping });
+            console.log(data);            
+        } catch (error) {
+            console.log(error.response);
+        }
     };
 
     useEffect(() => {
