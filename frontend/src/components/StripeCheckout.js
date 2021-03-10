@@ -1,5 +1,5 @@
 // prekopirano sve sa stripe custom payment flow
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { loadStripe } from "@stripe/stripe-js";
 import {
@@ -51,30 +51,71 @@ const CheckoutForm = () => {
 
     const createPaymentIntent = async () => {
         try {
-            const data = axios.post('http://localhost:4242/create-payment-intent', { cart, totalAmount, shipping });
-            console.log(data);            
+            const { data } = await axios.post('http://localhost:4242/create-payment-intent', { cart, totalAmount, shipping });
+            setClientSecret(data.clientSecret)           
         } catch (error) {
-            console.log(error.response);
+            //console.log(error.response);
         }
     };
 
     useEffect(() => {
         createPaymentIntent();
+        // eslint-disable-next-line
     }, []);
 
-    const handleChange = async (event) => {};
+    const handleChange = async (event) => {
+        setDisabled(event.empty);
+        setError(event.error ? event.error.message : "");
+    };
 
-    const handleSubmit = async (event) => {};
+    const handleSubmit = async (ev) => {
+        ev.preventDefault();
+        setProcessing(true);
+        const payload = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement)
+            }
+        })
+
+        if (payload.error) {
+            setError(`Plaćanje nije uspelo. ${payload.error.message}`);
+            setProcessing(false);
+            
+        } else {
+            setError(null);
+            setProcessing(false);
+            setSucceeded(true);
+            setTimeout(() => {
+                clearCart();
+                history.push('/');
+            }, 5000)
+        }
+    };
 
     return (
         <div>
+            {succeeded ? (
+                <article>
+                    <h4>Plaćanje je uspešno.</h4>
+                    <h4>Hvala na kupovini!</h4>
+                    <h4>Vraćanje na početnu stranu...</h4>
+                </article>
+            ) : (
+                <article>
+                    <h4>Zdravo {customer.name}</h4>
+                    <p>Vaš ukupan račun iznosi {formatPrice(shipping + totalAmount)}.</p>
+                </article>
+            )}
             <form id="payment-form" onSubmit={handleSubmit}>
                 <CardElement
                     id="card-element"
                     options={cardStyle}
                     onChange={handleChange}
                 />
-                <button disabled={processing || succeeded || disabled}      id="submit" >
+                <button
+                    disabled={processing || succeeded || disabled}
+                    id="submit"
+                >
                     <span id="button-text">
                         {processing ? (
                             <div className="spinner" id="spinner"></div>
@@ -92,16 +133,23 @@ const CheckoutForm = () => {
                 )}
 
                 {/* Show a success message upon completion */}
-                <p
-                    className={ succeeded ? "result-message" : "result-message hidden"} >
+                {/* <p
+                    className={
+                        succeeded ? "result-message" : "result-message hidden"
+                    }
+                >
                     Plaćanje uspešno! see the result in your
                     <a href={`https://dashboard.stripe.com/test/payments`}>
                         {" "}
                         Stripe dashboard.
                     </a>{" "}
                     Refresh the page to pay again.
-                </p>
+                </p> */}
             </form>
+            <p className='additional-info'>*** test kartica: 4242 4242 4242 4242</p>
+            <p className='additional-info'>*** MM/YY: buduci datum</p>
+            <p className='additional-info'>*** CVC : bilo koje 3 cifre</p>
+            <p className='additional-info'>*** ZIP : bilo koje 5 cifre</p>
         </div>
     );
 };
@@ -254,6 +302,11 @@ const Wrapper = styled.section`
         form {
             width: 80vw;
         }
+    }
+    .additional-info {
+        text-align: left;
+        margin: 0;
+        margin-top: 0.5rem;
     }
 `;
 
