@@ -3,14 +3,25 @@ const { join, resolve } = require('path');
 const dotenv = require('dotenv');
 const colors = require('colors');
 const cors = require('cors');
+const morgan = require('morgan');
 
 dotenv.config({path: resolve(__dirname, '../frontend/.env')});
 
+const dbConnection = require('./utils/mongoDB');
+
+const productsRoute = require('./routes/productsRoute');
+
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
+// konektuj se na mobgoDB
+dbConnection();
 
 const app = express();
 
 app.use(cors())
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('combined'));
+}
 
 // Serve the static files from the React app
 app.use(express.static(resolve(__dirname, '../frontend/build')));
@@ -23,6 +34,8 @@ const calculateOrderAmount = (total, cost) => {
   // people from directly manipulating the amount on the client
   return total + cost;
 };
+
+app.use('/products', productsRoute);
 
 app.post("/create-payment-intent", async (req, res) => {
     const { cart, totalAmount, shipping  } = req.body;

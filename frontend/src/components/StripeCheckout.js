@@ -51,7 +51,7 @@ const CheckoutForm = () => {
 
     const createPaymentIntent = async () => {
         try {
-            const { data } = await axios.post('http://localhost:4242/create-payment-intent', { cart, totalAmount, shipping });
+            const { data } = await axios.post('/create-payment-intent', { cart, totalAmount, shipping });
             setClientSecret(data.clientSecret)           
         } catch (error) {
             //console.log(error.response);
@@ -165,6 +165,10 @@ const StripeCheckout = () => {
 };
 
 const Wrapper = styled.section`
+    article {
+        margin-top: 2rem;
+    }
+
     form {
         width: 30vw;
         align-self: center;
@@ -307,6 +311,11 @@ const Wrapper = styled.section`
         text-align: left;
         margin: 0;
         margin-top: 0.5rem;
+
+        &:last-child{
+            margin-bottom: 2rem;
+
+        }
     }
 `;
 
