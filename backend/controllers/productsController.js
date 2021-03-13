@@ -10,7 +10,7 @@ const EnhancedError = require('../utils/enhancedError');
 
 exports.allProducts = asyncHandler (async (req, res, next) => {
   
-    const data =await AllProducts.find();
+    const data = await AllProducts.find();
 
     if (data.length < 1) {
         return next(new EnhancedError('Ne mogu da učitam proizvode', 500))
@@ -31,7 +31,6 @@ exports.singleProduct = asyncHandler(
         const data = await Singles.findOne({id});
         
         if (!data) {
-            console.log('Ne postojeci proizvod');
             return next(new EnhancedError('Ne postojeci proizvod', 404));
         }
     

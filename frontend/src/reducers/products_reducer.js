@@ -10,7 +10,7 @@ import {
 const products_reducer = (state, action) => {
   switch (action.type) {
     case GET_PRODUCTS_BEGIN: {
-      return ({...state, productsLoading: true})
+      return ({...state, productsLoading: true, errorMsg: ''})
     }
 
     case GET_PRODUCTS_SUCCESS: {
@@ -19,11 +19,11 @@ const products_reducer = (state, action) => {
     }
 
     case GET_PRODUCTS_ERROR: {
-      return ({...state, productsLoading: false, productsError: true})
+      return ({...state, productsLoading: false, productsError: true, errorMsg: action.payload.message})
     }
 
     case GET_SINGLE_PRODUCT_BEGIN: {
-      return ({...state, singleProductLoading: true, singleProductError: false})
+      return ({...state, singleProductLoading: true, singleProductError: false, errorMsg: ''})
     }
 
     case GET_SINGLE_PRODUCT_SUCCESS: {
@@ -31,7 +31,7 @@ const products_reducer = (state, action) => {
     }
 
     case GET_SINGLE_PRODUCT_ERROR: {
-      return ({...state, singleProductLoading: false, singleProductError: true})
+      return ({...state, singleProductLoading: false, singleProductError: true, errorMsg: action.payload.message})
     }
 
     default: 

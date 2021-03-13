@@ -9,9 +9,7 @@ import {
   GET_SINGLE_PRODUCT_ERROR,
 } from '../actions'
 
-import database from '../firebaseConfig';
-const databaseRef = database.database().ref();
-
+import axios from 'axios';
 
 const initialState = {
   productsLoading: false,
@@ -20,7 +18,8 @@ const initialState = {
   featuredProducts: [],
   singleProductLoading: false,
   singleProductError: false,
-  singleProduct: {}
+  singleProduct: {},
+  errorMsg: ''
 }
 
 const ProductsContext = React.createContext()
@@ -29,33 +28,32 @@ export const ProductsProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const fetchProducts = () => {
+  const fetchProducts = async () => {
     dispatch({type: GET_PRODUCTS_BEGIN})
-    // POSTAVLJANJE FIREBASE
-    databaseRef.child("productsList").once("value")
-    .then(snapshot => {
-        const data = snapshot.val();
-        // console.log(data);
-        dispatch({type: GET_PRODUCTS_SUCCESS, payload: data});
-    })
-    .catch((error) => {
-        // console.log("Error: " + error.code);
-        dispatch({type: GET_PRODUCTS_ERROR})
-        
-    });    
+    
+    try {
+      const { data } = await axios('/products');
+      //console.log(data);
+      dispatch({type: GET_PRODUCTS_SUCCESS, payload: data.data});
+    } catch (error) {
+      const errData = error.response.data;
+      console.log(errData);
+      dispatch({type: GET_PRODUCTS_ERROR, payload: errData})
+    }  
   }
 
-  const fetchSingleProduct = (id) => {
+  const fetchSingleProduct = async ( id ) => {
     dispatch({type: GET_SINGLE_PRODUCT_BEGIN});
 
-    databaseRef.child("singleProduct").orderByChild('id').equalTo(id).once("value").then(snapshot => {
-      // mora ovako jer tako firebase uvek vraca neku vrstu array
-      snapshot.forEach( data => {
-        dispatch({type: GET_SINGLE_PRODUCT_SUCCESS, payload: data.val()});
-    });
-  }).catch(error => {
-    dispatch({type: GET_SINGLE_PRODUCT_ERROR});
-  })
+    try {
+      const { data } = await axios(`/products/${id}`);
+      //console.log(data);
+      dispatch({type: GET_SINGLE_PRODUCT_SUCCESS, payload: data.data});
+    } catch (error) {
+      const errData = error.response.data;
+      //console.log(errData);
+      dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: errData});
+    }
   }
 
   useEffect(() => {
