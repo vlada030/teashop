@@ -10,6 +10,7 @@ dotenv.config({path: resolve(__dirname, '../frontend/.env')});
 const dbConnection = require('./utils/mongoDB');
 
 const productsRoute = require('./routes/productsRoute');
+const errorHandler = require('./middleware/errorHandler');
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
 // konektuj se na mobgoDB
@@ -24,7 +25,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Serve the static files from the React app
-app.use(express.static(resolve(__dirname, '../frontend/build')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(resolve(__dirname, '../frontend/build')));
+}
 
 app.use(express.json());
 
@@ -37,6 +40,7 @@ const calculateOrderAmount = (total, cost) => {
 
 app.use('/products', productsRoute);
 
+// stripe default setup
 app.post("/create-payment-intent", async (req, res) => {
     const { cart, totalAmount, shipping  } = req.body;
     // Create a PaymentIntent with the order amount and currency
@@ -54,14 +58,19 @@ app.post("/create-payment-intent", async (req, res) => {
 
 if (process.env.NODE_ENV === 'production') {
     // Handles any requests that don't match the ones above
+    console.log('PRODUCTION');
     app.get('*', (req,res) => {
         res.sendFile(resolve(__dirname, '../frontend/build/index.html'));
     });
 } else {
     app.get('*', (req,res) => {
+      console.log('DEVELOPMENT');
         res.status(404).json({success: false, message: 'Unknown URL'});
     });
 }
+
+// error handler
+app.use(errorHandler);
 
 const port = process.env.SERVER_PORT || 5000;
 

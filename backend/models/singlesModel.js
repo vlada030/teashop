@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const {Schema, model} = require('mongoose');
 
-const AllProductsSchema = new mongoose.Schema({
+const SinglesSchema = new Schema({
     id: {
         type: String,
         required: true,
@@ -22,6 +22,25 @@ const AllProductsSchema = new mongoose.Schema({
         maxlength: [500, 'Opis proizvoda moze da sadrži najviše 500 karaktera'],
     },
 
+    preparation: {
+        type: String,
+        trim: true,
+        maxlength: [500, 'Priprema moze da sadrži najviše 500 karaktera'],
+    },
+
+    goal: {
+        type: String,
+        trim: true,
+        maxlength: [500, 'Dejstvo moze da sadrži najviše 500 karaktera'],
+    },
+
+    disclaimer: {
+        type: String,
+        trim: true,
+        maxlength: [500, 'Neželjeno dejstvo moze da sadrži najviše 500 karaktera'],
+    },
+
+
     price: {
         type: Number,
         required: [true, 'Unesite cenu proizvoda'],
@@ -37,9 +56,30 @@ const AllProductsSchema = new mongoose.Schema({
 
     category: {
         type: String,
+        required: [true, 'Unesite kategoriju proizvoda'],
         trim: true,
         lowercase: true,
         maxlength: [20, 'Kategorija proizvoda sadrži najviše 20 karaktera']
+    },
+
+    stock: {
+        type: Number,
+        required: [true, 'Unesite količinu na stanju'],
+        min: [1, 'Najmanja količina proizvoda je 30gr'],
+        max: [10000, 'Najveća količina proizvoda je 10kg']
+    },
+
+    stars: {
+        type: String,
+        trim: true,
+        required: [true, 'Unesite prosečnu ocenu'],
+    },
+
+    reviews: {
+        type: Number,
+        required: [true, 'Unesite broj pregleda'],
+        min: [1, 'Najmanji broj pregleda je 1'],
+        max: [10000, 'Najveći broj pregleda je 10000']
     },
 
     filter: {
@@ -48,19 +88,13 @@ const AllProductsSchema = new mongoose.Schema({
         maxlength: [20, 'Filter sadrži najviše 20 karaktera'] 
     },
 
-    image: {
-        type: String,
+    images: {
+        type: [String],
         trim: true,
         maxlength: [100, 'Link za sliku proizvoda može da sadrži najviše 100 karaktera']
-    },
-
-    featured: {
-        type: Boolean,
-        default: false
     }
-
 }, {
     timestamps: true
 });
 
-module.exports=mongoose.model('AllProducts', AllProductsSchema);
+module.exports=model('Singles', SinglesSchema);
