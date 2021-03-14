@@ -10,10 +10,11 @@ dotenv.config({path: resolve(__dirname, '../frontend/.env')});
 const dbConnection = require('./utils/mongoDB');
 
 const productsRoute = require('./routes/productsRoute');
+const {createPaymentIntent} = require('./controllers/stripeController');
+const {calculateOrderAmount} = require('./middleware/calculateTotals');
 const errorHandler = require('./middleware/errorHandler');
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
-// konektuj se na mobgoDB
+// konektuj se na mongoDB
 dbConnection();
 
 const app = express();
@@ -31,30 +32,11 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(express.json());
 
-const calculateOrderAmount = (total, cost) => {
-  // Replace this constant with a calculation of the order's amount
-  // Calculate the order total on the server to prevent
-  // people from directly manipulating the amount on the client
-  return total + cost;
-};
-
 app.use('/products', productsRoute);
 
 // stripe default setup
-app.post("/create-payment-intent", async (req, res) => {
-    const { cart, totalAmount, shipping  } = req.body;
-    // Create a PaymentIntent with the order amount and currency
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: calculateOrderAmount(totalAmount, shipping),
-      currency: "usd"
-    });
-
-    //console.log({ cart, totalAmount, shipping  });
-
-    res.status(200).json({
-      clientSecret: paymentIntent.client_secret
-    });
-  });
+// pre naplate OBAVEZNO IZVRSITI proracun ukupne suma na server strani
+app.post("/create-payment-intent", calculateOrderAmount, createPaymentIntent);
 
 if (process.env.NODE_ENV === 'production') {
     // Handles any requests that don't match the ones above
