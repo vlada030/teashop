@@ -49,11 +49,14 @@ exports.calculateOrderAmount = async(req, res, next) => {
         totalPrice: 0,
         orderedWeightIsValid: true
     });
-    
-    // prosledi rezultate dalje
-    req.calculateTotals = final;
-    next();    
 
+    // proveri da li je manipulisano sa podacima poslatih sa frontenda, ako nije produzi na stripe middleware
+    if (!(totalAmount === final.totalPrice && final.orderedWeightIsValid)) {
+        res.status(400).send('GRESKA');
+    } else {
+        next();    
+    }
+    
     // res.status(200).json({
     //     success: true,
     //     data: {final}

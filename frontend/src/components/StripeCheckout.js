@@ -92,6 +92,11 @@ const CheckoutForm = () => {
         }
     };
 
+    const totalPriceAndShipping = () => {
+        const updatedCost = totalAmount >= 3000 ? totalAmount : totalAmount + shipping;
+        return formatPrice(updatedCost);
+    }
+
     return (
         <div>
             {succeeded ? (
@@ -103,7 +108,7 @@ const CheckoutForm = () => {
             ) : (
                 <article>
                     <h4>Zdravo {customer.name}</h4>
-                    <p>Vaš ukupan račun iznosi {formatPrice(shipping + totalAmount)}.</p>
+                    <p>Vaš ukupan račun iznosi {totalPriceAndShipping()}.</p>
                 </article>
             )}
             <form id="payment-form" onSubmit={handleSubmit}>

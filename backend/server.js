@@ -21,13 +21,13 @@ const app = express();
 
 app.use(cors())
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('combined'));
-}
-
 // Serve the static files from the React app
+// ukoliko je postavljen na HEROKU, NODE_ENV je production i preuzmi build version React app
+// u suprotnom startuj loger
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(resolve(__dirname, '../frontend/build')));
+} else {
+  app.use(morgan('combined'));
 }
 
 app.use(express.json());
@@ -38,15 +38,15 @@ app.use('/products', productsRoute);
 // pre naplate OBAVEZNO IZVRSITI proracun ukupne suma na server strani
 app.post("/create-payment-intent", calculateOrderAmount, createPaymentIntent);
 
+// Handles any requests that don't match the ones above
 if (process.env.NODE_ENV === 'production') {
-    // Handles any requests that don't match the ones above
-    console.log('PRODUCTION');
+    //console.log('PRODUCTION');
     app.get('*', (req,res) => {
         res.sendFile(resolve(__dirname, '../frontend/build/index.html'));
     });
 } else {
     app.get('*', (req,res) => {
-      console.log('DEVELOPMENT');
+     // console.log('DEVELOPMENT');
         res.status(404).json({success: false, message: 'Unknown URL'});
     });
 }
