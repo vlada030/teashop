@@ -27,11 +27,15 @@ exports.allProducts = asyncHandler (async (req, res, next) => {
 exports.singleProduct = asyncHandler(
     async (req, res, next) => {
         const {id} = req.params;
+
+        if (id.length !== 5) {
+            return next(new EnhancedError('Pogrešan format šifre porizvoda', 404));
+        }
     
         const data = await Singles.findOne({id});
         
         if (!data) {
-            return next(new EnhancedError('Ne postojeci proizvod', 404));
+            return next(new EnhancedError('Ne postojeći proizvod', 404));
         }
     
         res.status(200).json({success: true, data})
