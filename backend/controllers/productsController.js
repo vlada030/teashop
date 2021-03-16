@@ -5,7 +5,7 @@ const asyncHandler = require('../middleware/asyncHandler');
 const EnhancedError = require('../utils/enhancedError');
 
 // @desc   Get All Products
-// @route  GET /products
+// @route  GET /allproducts
 // @access Public
 
 exports.allProducts = asyncHandler (async (req, res, next) => {
@@ -21,7 +21,7 @@ exports.allProducts = asyncHandler (async (req, res, next) => {
 });
 
 // @desc   Get Single Product
-// @route  GET /products/:id
+// @route  GET /allproducts/:id
 // @access Public
 
 exports.singleProduct = asyncHandler(
