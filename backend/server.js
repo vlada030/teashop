@@ -54,7 +54,8 @@ if (process.env.NODE_ENV === 'production') {
 // error handler
 app.use(errorHandler);
 
-const port = process.env.SERVER_PORT || 5000;
+// za development, PORT nije definisan u .env, tako da server koristi 443 (default za https) (moze i 80 - http). Ovo je ubaceno zbog herokua jer on koristi random port definisan preko process.env.PORT na samom serveru
+const port = process.env.PORT || 443;
 
 const server = app.listen(port, () => console.log(`Server is running in ${process.env.NODE_ENV} mode on port ${port}`.magenta));
 
