@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(express.json());
 
-app.use('/products', productsRoute);
+app.use('/allproducts', productsRoute);
 
 // stripe default setup
 // pre naplate OBAVEZNO IZVRSITI proracun ukupne suma na server strani

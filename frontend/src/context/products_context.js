@@ -32,7 +32,7 @@ export const ProductsProvider = ({ children }) => {
     dispatch({type: GET_PRODUCTS_BEGIN})
     
     try {
-      const { data } = await axios('/products');
+      const { data } = await axios('/allproducts');
       //console.log(data);
       dispatch({type: GET_PRODUCTS_SUCCESS, payload: data.data});
     } catch (error) {
@@ -46,7 +46,7 @@ export const ProductsProvider = ({ children }) => {
     dispatch({type: GET_SINGLE_PRODUCT_BEGIN});
 
     try {
-      const { data } = await axios(`/products/${id}`);
+      const { data } = await axios(`/allproducts/${id}`);
       //console.log(data);
       dispatch({type: GET_SINGLE_PRODUCT_SUCCESS, payload: data.data});
     } catch (error) {
