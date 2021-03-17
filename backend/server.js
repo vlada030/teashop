@@ -1,9 +1,11 @@
 const express = require('express');
-const { join, resolve } = require('path');
+const { resolve } = require('path');
 const dotenv = require('dotenv');
 const colors = require('colors');
 const cors = require('cors');
 const morgan = require('morgan');
+const session = require('express-session');
+const MongoDbSessionStore = require('connect-mongodb-session')(session);
 
 dotenv.config({path: resolve(__dirname, '../frontend/.env')});
 
@@ -31,6 +33,22 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(express.json());
+
+// konfigurisanje session store
+const sessionStore = new MongoDbSessionStore({
+    uri: process.env.MONGO_URL,
+    collection: 'sessions'
+})
+
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24
+    },
+    store: sessionStore
+}))
 
 app.use('/allproducts', productsRoute);
 
