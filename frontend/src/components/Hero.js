@@ -8,8 +8,8 @@ const Hero = () => {
   return <Wrapper className='section section-center'>
           <article className='content'>
             <h1>Naručite Vaše <br />omiljene čajeve</h1>
-            <p>Nestao Vam je čaj u teglici? Danima zaboravljate i nemate vremena da odete do prodavnice? Zašto ne biste odmah kasali i preuzeli na kućnoj adresi!</p>
-            <Link to='/products' className='btn hero-btn'>kasa odmah</Link>
+            <p>Nestao Vam je čaj u teglici? Danima zaboravljate i nemate vremena da odete do prodavnice? Zašto ne biste odmah poručili i preuzeli na kućnoj adresi!</p>
+            <Link to='/products' className='btn hero-btn'>poruči odmah</Link>
           </article>
           <article className='img-container'>
             <img src={heroTea1} alt='tea-1' className='main-img' />
