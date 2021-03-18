@@ -1,13 +1,18 @@
 const LocalStrategy = require('passport-local').Strategy;
 const bcript = require('bcrypt');
+//const getUserByEmail = require('../utils/getUserByEmail');
+const User = require('../models/userModel');
+const EnhancedError = require('../utils/enhancedError');
+
 
 const initializePassport = (passport) => {
     const authenticateUser = async(email, password, done) => {
         // nasa fja za pronalazenje korisnika na osnovu maila, u zavisnosti sta je storage medium
-        const user = getUserByEmail(email);
+        const user = await User.findOne({email}).select('+password');
+        //console.log(user);
         if (user === null) {
-            // prvi element je error, stavljamo null jernema greske, nije greska na serveru, false - nema korisnika
-            return done(null, false, {messsage: 'Ne postoji korisnik sa tim e-mailom'})
+            // prvi element je error, stavljamo null jer nema greske, nije greska na serveru, false - oznacava da nema korisnika
+            return done(new EnhancedError('Ne postoji korisnik sa tim e-mailom.', 400), false);
         }
 
         // korisnik postoji, proveri sifru
@@ -15,10 +20,11 @@ const initializePassport = (passport) => {
             if (await bcript.compare(password, user.password)) {
                 return done(null, user);
             } else {
-                return done(null, false, {message: 'Uneli ste pogrešnu šifru'}) 
+                return done(new EnhancedError('Uneli ste pogrešnu šifru.', 400), false) 
             }
         } catch (error) {
-            
+            // greska u aplikaciji
+            return done(error);
         }
     };
 
@@ -27,13 +33,13 @@ const initializePassport = (passport) => {
         // usernameField: 'name',
         // passwordField: 'password',
         usernameField: 'email'
-    }, authenticateUser))
-    // sacuvaj korisnika unutar session
-    passport.serializeUser((user, done) => {})
+    }, authenticateUser));
+    // sacuvaj korisnikov id unutar session
+    passport.serializeUser((user, done) => done(null, user.id))
 
-    // suprtono od fje iznad, imamo id jer se user serializuje kao single id
-    passport.deserializeUser((id, done) => {})
-
+    const getUserById = async (id) => {return await User.findById(user.id)};
+    // suprotno od fje iznad, imamo id jer se user serializuje kao single id
+    passport.deserializeUser((id, done) =>  done(null, getUserById(id)))
 }
 
 module.exports = initializePassport;

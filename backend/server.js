@@ -1,6 +1,5 @@
 const express = require('express');
 const { resolve } = require('path');
-const dotenv = require('dotenv');
 const colors = require('colors');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -8,14 +7,14 @@ const session = require('express-session');
 const MongoDbSessionStore = require('connect-mongodb-session')(session);
 const bcrypt = require('bcrypt');
 const passport = require('passport');
+require('dotenv').config({path: resolve(__dirname, '../frontend/.env')});
 
-dotenv.config({path: resolve(__dirname, '../frontend/.env')});
 const initializePassport = require('./utils/passportConfig');
 const dbConnection = require('./utils/mongoDBConfig');
-const EnhancedError = require('./utils/enhancedError');
 
 const productsRoute = require('./routes/productsRoute');
 const {createPaymentIntent} = require('./controllers/stripeController');
+const {userRegistration, userLogin} = require('./controllers/authenticationController');
 const {calculateOrderAmount} = require('./middleware/calculateTotals');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -57,27 +56,20 @@ app.use(session({
     store: sessionStore
 }))
 
-app.post('/login', (req, res) => {
-    
-})
+app.use(passport.initialize());
+app.use(passport.session())
 
-app.post('/register', async (req, res) => {
-    const {name, email, password} = req.body;
-    try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const user = {
-            name,
-            email,
-            password: hashedPassword
-        };
+//app.post('/login', userLogin);
+app.post('/login', passport.authenticate('local'), userLogin);
 
-        // ZAPAMTI USERA U MONGODB
-        console.log(user);
-        
-        res.status(200).json({success: true})
-    } catch (error) {
-        next(new EnhancedError('Greška prilikom registrovanja novog korisnika, pokušajte ponovo', 500))
-    }
+app.post('/register', userRegistration);
+
+app.delete('/logout', (req, res) => {
+    req.logOut();
+    res.status(200).json({
+        success: true,
+        message: 'Odjava uspešna.'
+    })
 })
 
 app.use('/allproducts', productsRoute);
@@ -85,6 +77,11 @@ app.use('/allproducts', productsRoute);
 // stripe default setup
 // pre naplate OBAVEZNO IZVRSITI proracun ukupne suma na server strani
 app.post("/create-payment-intent", calculateOrderAmount, createPaymentIntent);
+
+// ZA TESTIRANJE
+app.get('/error', (req, res) => {
+    res.status(500).json({success: false, message: 'PASSPORT GRESKA'})
+})
 
 // Handles any requests that don't match the ones above
 if (process.env.NODE_ENV === 'production') {

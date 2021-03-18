@@ -13,7 +13,7 @@ const SinglesSchema = new Schema({
         required: [true, 'Unesite naziv proizvoda'],
         lowercase: true,
         trim: true,
-        maxlength: [15, 'Naziv moze da sadrži najviše 15 karaktera'],
+        maxlength: [15, 'Naziv može da sadrži najviše 15 karaktera'],
     },
 
     description: {
