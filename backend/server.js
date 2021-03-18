@@ -6,20 +6,27 @@ const cors = require('cors');
 const morgan = require('morgan');
 const session = require('express-session');
 const MongoDbSessionStore = require('connect-mongodb-session')(session);
+const bcrypt = require('bcrypt');
+const passport = require('passport');
 
 dotenv.config({path: resolve(__dirname, '../frontend/.env')});
-
-const dbConnection = require('./utils/mongoDB');
+const initializePassport = require('./utils/passportConfig');
+const dbConnection = require('./utils/mongoDBConfig');
+const EnhancedError = require('./utils/enhancedError');
 
 const productsRoute = require('./routes/productsRoute');
 const {createPaymentIntent} = require('./controllers/stripeController');
 const {calculateOrderAmount} = require('./middleware/calculateTotals');
 const errorHandler = require('./middleware/errorHandler');
 
+
 // konektuj se na mongoDB
 dbConnection();
 
 const app = express();
+
+// inicijalizacija passport autentikacije
+initializePassport(passport);
 
 app.use(cors())
 
@@ -49,6 +56,29 @@ app.use(session({
     },
     store: sessionStore
 }))
+
+app.post('/login', (req, res) => {
+    
+})
+
+app.post('/register', async (req, res) => {
+    const {name, email, password} = req.body;
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const user = {
+            name,
+            email,
+            password: hashedPassword
+        };
+
+        // ZAPAMTI USERA U MONGODB
+        console.log(user);
+        
+        res.status(200).json({success: true})
+    } catch (error) {
+        next(new EnhancedError('Greška prilikom registrovanja novog korisnika, pokušajte ponovo', 500))
+    }
+})
 
 app.use('/allproducts', productsRoute);
 
