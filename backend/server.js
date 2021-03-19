@@ -5,7 +5,6 @@ const cors = require('cors');
 const morgan = require('morgan');
 const session = require('express-session');
 const MongoDbSessionStore = require('connect-mongodb-session')(session);
-const bcrypt = require('bcrypt');
 const passport = require('passport');
 require('dotenv').config({path: resolve(__dirname, '../frontend/.env')});
 
@@ -13,10 +12,13 @@ const initializePassport = require('./utils/passportConfig');
 const dbConnection = require('./utils/mongoDBConfig');
 
 const productsRoute = require('./routes/productsRoute');
+
 const {createPaymentIntent} = require('./controllers/stripeController');
 const {userRegistration, userLogin} = require('./controllers/authenticationController');
+
 const {calculateOrderAmount} = require('./middleware/calculateTotals');
 const errorHandler = require('./middleware/errorHandler');
+const { userIsAuthenticated} = require('./middleware/checkUserAuthentication');
 
 
 // konektuj se na mongoDB
@@ -35,7 +37,7 @@ app.use(cors())
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(resolve(__dirname, '../frontend/build')));
 } else {
-  app.use(morgan('combined'));
+  app.use(morgan('dev'));
 }
 
 app.use(express.json());
@@ -59,16 +61,29 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session())
 
-//app.post('/login', userLogin);
-app.post('/login', passport.authenticate('local'), userLogin);
+app.use((req, res, next) => {
+    console.log(req.session);
+    next();
+})
 
-app.post('/register', userRegistration);
+//app.post('/login', userLogin);
+app.post('/login',userIsAuthenticated, passport.authenticate('local'), userLogin);
+
+app.post('/register',userIsAuthenticated, userRegistration);
 
 app.delete('/logout', (req, res) => {
-    req.logOut();
+    if (req.user) {
+        req.logOut();
+        //console.log(req.session);
+        return res.status(200).json({
+            success: true,
+            message: 'Odjava uspešna.'
+        })        
+    }
+
     res.status(200).json({
         success: true,
-        message: 'Odjava uspešna.'
+        message: 'Korisnik nije prijavljen'
     })
 })
 

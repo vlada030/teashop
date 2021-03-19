@@ -37,7 +37,7 @@ const initializePassport = (passport) => {
     // sacuvaj korisnikov id unutar session
     passport.serializeUser((user, done) => done(null, user.id))
 
-    const getUserById = async (id) => {return await User.findById(user.id)};
+    const getUserById = async (id) => {return await User.findById(id)};
     // suprotno od fje iznad, imamo id jer se user serializuje kao single id
     passport.deserializeUser((id, done) =>  done(null, getUserById(id)))
 }

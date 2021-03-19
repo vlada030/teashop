@@ -9,12 +9,6 @@ exports.userRegistration = asyncHandler (async (req, res, next) => {
     const { name, email, password } = req.body;
    
         const hashedPassword = await bcrypt.hash(password, 10);
-        
-        // const user = {
-        //     name,
-        //     email,
-        //     password: hashedPassword,
-        // };
 
         // ZAPAMTI USERA U MONGODB
         const user = await User.create({
@@ -22,7 +16,7 @@ exports.userRegistration = asyncHandler (async (req, res, next) => {
             email,
             password: hashedPassword 
         });
-        console.log(user);
+        //console.log(user);
 
         res.status(200).json({ success: true });
     })
@@ -30,5 +24,5 @@ exports.userRegistration = asyncHandler (async (req, res, next) => {
 // OVAJ MIDDLEWARE JE PRESPOJEN SA PASSPORTOM
 exports.userLogin = asyncHandler ( (req, res) => {
         //console.log(req.user);
-        res.status(200).json({ success: true, data: req.user });
+        res.status(200).json({ success: true, data: req.user.name });
     })
