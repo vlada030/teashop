@@ -1,12 +1,13 @@
 const LocalStrategy = require('passport-local').Strategy;
-const bcript = require('bcrypt');
+const bcrypt = require('bcrypt');
 //const getUserByEmail = require('../utils/getUserByEmail');
 const User = require('../models/userModel');
 const asyncHandler = require('../middleware/asyncHandler');
 
 
 const initializePassport = (passport) => {
-    const authenticateUser = async(email, password, done) => {
+    // po defaultu prvo ide usernameField, ALI je definisan kao 'email' ispod
+    const  verifyCallback = async(email, password, done) => {
             // nasa fja za pronalazenje korisnika na osnovu maila, u zavisnosti sta je storage medium, mongo u ovom slucaju
             try {
                 const user = await User.findOne({email}).select('+password');            
@@ -19,7 +20,7 @@ const initializePassport = (passport) => {
         
                 // korisnik postoji, proveri sifru
                 
-                if (await bcript.compare(password, user.password)) {
+                if (await bcrypt.compare(password, user.password)) {
                     return done(null, user);
                 } else {
                     return done(null, false) 
@@ -28,36 +29,38 @@ const initializePassport = (passport) => {
                 // greska u aplikaciji
                 return done(error);
             }
-        }        
+        }   
 
-    passport.use(new LocalStrategy({
-        // // defaultne vrednosti
-        // usernameField: 'name',
+    // defaultne vrednosti za passport LOCAL inpute su 'username' za ime i 'password' za sifru, ukoliko su imena razlicita od ovog mora obde da se navedu
+    // npr ako se ide preko form elementa inputi bi po passport defaultu trebali da imaju name property username / password
+    const customFields = {
+        // usernameField: 'username',
         // passwordField: 'password',
-        usernameField: 'email'
-    }, authenticateUser));
+        usernameField: "email",
+    }
+    
+    passport.use(new LocalStrategy(customFields,verifyCallback));
 
-    // sacuvaj korisnikov id unutar session
+    // upis / ispis passport user id iz sessiona
+    // sacuvaj korisnikov id unutar session da znas da je logovan
     passport.serializeUser((user, done) => done(null, user.id))
 
-    const getUserById = async (id) => {
-        const user = await User.findById(id);
-        return {username: user.username};
-    };
-    // suprotno od fje iznad, imamo id jer se user serializuje kao single id
-    //passport.deserializeUser((id, done) => done(null, getUserById(id)))
-    // passport.deserializeUser((id, done) => done(null, async (id) => {
-    //     const user = await User.findById(id);
-    //     return {username: user.username};
-    // }))
-    passport.deserializeUser((id, done) => {
-        User.findOne({ _id: id }, (err, user) => {
-          const userInformation = {
-            username: user.username,
-          };
-          done(err, userInformation);
-        });
-      });
+    // suprotno od fje iznad, na osnovu id cupamo user iz base i OVDE definisemo sta ce biti dodato u req.user
+    // passport.deserializeUser((id, done) => {
+    //     User.findOne({ _id: id }, (err, user) => {
+    //       const userInformation = {
+    //         username: user.username,
+    //       };
+    //       done(err, userInformation);
+    //     });
+    //   });
+    passport.deserializeUser((userId, done) => {
+        User.findById(userId)
+            .then((user) => {
+                done(null, user);
+            })
+            .catch(err => done(err))
+        })
 }
 
 module.exports = initializePassport;

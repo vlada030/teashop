@@ -14,21 +14,22 @@ exports.userRegistration = asyncHandler (async (req, res, next) => {
    
     const userCheck = await User.findOne({ email }); 
         
-    if (userCheck) next(new EnhancedError("Korisnik sa unetim e-mailom postoji.", 400));
-
-    if (!userCheck) {
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        const user = await User.create({
-            username,
-            email,
-            password: hashedPassword,
-        });
-
-        res.status(201).json({success: true, message: 'Kreiran novi korisnik.'});
+    if (userCheck) {
+        return next(new EnhancedError("Korisnik sa unetim e-mailom postoji.", 400));
     }
+    
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = await User.create({
+        username,
+        email,
+        password: hashedPassword,
+    });
+
+    res.status(201).json({success: true, message: 'Kreiran novi korisnik.'});
      
-    })
+})
 // exports.userRegistration = asyncHandler (async (req, res, next) => {
 //     const { name, email, password } = req.body;
    
@@ -60,7 +61,7 @@ exports.userLogin = (req, res, next) => {
         req.logIn(user, (err) => {
 
             if (err) next(err);
-            console.log(req.user);
+            //console.log(req.user);
             res.status(200).json({success: true, message: 'Korisnik je uspešno prijavljen.'});
         });
         
@@ -75,7 +76,7 @@ exports.userLogin = (req, res, next) => {
 // @route   DELETE /logout
 // @access  Public
 
-exports.userLogout = async (req, res) => {
+exports.userLogout = async (req, res, next) => {
     console.log(req.user);
     if (req.user) {
         req.logOut();
@@ -86,10 +87,8 @@ exports.userLogout = async (req, res) => {
         })        
     }
 
-    res.status(200).json({
-        success: true,
-        message: 'Nema prijavljenog korisnika.'
-    })
+    next(new EnhancedError('Nema prijavljenog korisnika.', 400))
+    
 }
 
 // @desc    Get User 

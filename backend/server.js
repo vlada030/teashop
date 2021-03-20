@@ -28,7 +28,7 @@ const app = express();
 
 // inicijalizacija passport autentikacije
 initializePassport(passport);
-
+// preusmeravanje na default react port 3000, credentials OBAVEZNO zbog cookie
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
@@ -60,6 +60,17 @@ app.use(session({
     },
     store: sessionStore
 }))
+
+if (process.env.NODE_ENV === 'production') {
+    // Use secure cookies in production (requires SSL/TLS)
+    sess.cookie.secure = true;
+  
+    // Uncomment the line below if your application is behind a proxy (like on Heroku)
+    // or if you're encountering the error message:
+    // "Unable to verify authorization request state"
+    // app.set('trust proxy', 1);
+  }
+
 // pozivanje paspport
 app.use(passport.initialize());
 app.use(passport.session())
