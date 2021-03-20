@@ -14,7 +14,7 @@ const dbConnection = require('./utils/mongoDBConfig');
 const productsRoute = require('./routes/productsRoute');
 
 const {createPaymentIntent} = require('./controllers/stripeController');
-const {userRegistration, userLogin} = require('./controllers/authenticationController');
+const {userRegistration, userLogin, userLogout, getUser} = require('./controllers/authenticationController');
 
 const {calculateOrderAmount} = require('./middleware/calculateTotals');
 const errorHandler = require('./middleware/errorHandler');
@@ -29,7 +29,10 @@ const app = express();
 // inicijalizacija passport autentikacije
 initializePassport(passport);
 
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}))
 
 // Serve the static files from the React app
 // ukoliko je postavljen na HEROKU, NODE_ENV je production i preuzmi build version React app
@@ -57,35 +60,23 @@ app.use(session({
     },
     store: sessionStore
 }))
-
+// pozivanje paspport
 app.use(passport.initialize());
 app.use(passport.session())
 
 app.use((req, res, next) => {
     console.log(req.session);
+    console.log(req.user);
     next();
 })
 
-//app.post('/login', userLogin);
-app.post('/login',userIsAuthenticated, passport.authenticate('local'), userLogin);
+app.post('/login', userIsAuthenticated, userLogin);
 
-app.post('/register',userIsAuthenticated, userRegistration);
+app.post('/register', userIsAuthenticated, userRegistration);
 
-app.delete('/logout', (req, res) => {
-    if (req.user) {
-        req.logOut();
-        //console.log(req.session);
-        return res.status(200).json({
-            success: true,
-            message: 'Odjava uspešna.'
-        })        
-    }
+app.delete('/logout', userLogout);
 
-    res.status(200).json({
-        success: true,
-        message: 'Korisnik nije prijavljen'
-    })
-})
+app.get('/getUser', getUser);
 
 app.use('/allproducts', productsRoute);
 
@@ -101,7 +92,7 @@ app.get('/error', (req, res) => {
 // Handles any requests that don't match the ones above
 if (process.env.NODE_ENV === 'production') {
     //console.log('PRODUCTION');
-    app.get('*', (req,res) => {
+    app.get('*', (req, res) => {
         res.sendFile(resolve(__dirname, '../frontend/build/index.html'));
     });
 } else {
