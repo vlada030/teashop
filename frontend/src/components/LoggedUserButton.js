@@ -1,18 +1,14 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 
 import { useUserContext } from "../context/user_context";
 import { useCartContext } from "../context/cart_context";
 
 const LoggedUserButton = () => {
-    const { logout, customer} = useUserContext();
+    const { logout, user, userLogout} = useUserContext();
     const { clearCart} = useCartContext();
 
-    let transformedName = customer.name;
-
-    if (transformedName.includes('@')) {
-        transformedName = transformedName.split('@')[0];
-    }
+    let transformedName = user.username;
 
     if (transformedName.length > 13 ) {
     
@@ -22,7 +18,7 @@ const LoggedUserButton = () => {
     return (
         <Wrapper
             onClick={() => {
-                logout({ returnTo: window.location.origin });
+                userLogout();
                 clearCart();
             }}
         >

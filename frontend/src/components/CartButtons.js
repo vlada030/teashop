@@ -11,7 +11,7 @@ const CartButtons = () => {
 
 const {closeSidebar} = useGlobalContext();
 const {totalItems} = useCartContext();
-const {loginWithRedirect, customer} = useUserContext();
+const {user} = useUserContext();
 
   return <Wrapper className='cart-btn-wrapper'>
           <Link to='/cart' className='cart-btn'  onClick={closeSidebar}>
@@ -23,11 +23,11 @@ const {loginWithRedirect, customer} = useUserContext();
               </span>
             </span>
           </Link>
-          { !customer ?
-            <button className='auth-btn' onClick={loginWithRedirect}>
+          { !user ?
+            <Link to='/authentication' className='auth-btn' onClick={closeSidebar}>
               Prijava 
               <FaUserPlus />
-            </button>
+            </Link>
           :
             // <button className='auth-btn' onClick={() => {
             //   logout({ returnTo: window.location.origin });

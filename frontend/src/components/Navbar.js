@@ -12,7 +12,7 @@ import { useUserContext } from '../context/user_context'
 
 const Nav = () => {
   const {openSidebar} = useGlobalContext();
-  const {customer} = useUserContext();
+  const {user} = useUserContext();
 
   return <NavContainer>
           <div className='nav-center'>
@@ -32,7 +32,7 @@ const Nav = () => {
                         <Link to={url}>{text}</Link>
                       </li>
               })}
-              { customer &&
+              { user &&
                 <li>
                   <Link to='/checkout'>kasa</Link>
                 </li>

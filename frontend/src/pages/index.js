@@ -7,6 +7,7 @@ import Error from './ErrorPage';
 import Checkout from './CheckoutPage';
 import ProtectedRoute from './ProtectedRoute';
 import AuthWrapper from './AuthWrapper';
+import AuthenticationPage from './AuthenticationPage';
 
 export {
     Home,
@@ -17,5 +18,6 @@ export {
     Error,
     Checkout,
     ProtectedRoute,
-    AuthWrapper
+    AuthWrapper,
+    AuthenticationPage
 };

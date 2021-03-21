@@ -8,7 +8,7 @@ import { BsQuestionCircleFill } from "react-icons/bs";
 
 const CartTotals = () => {
     const { totalAmount, shipping } = useCartContext();
-    const { customer, loginWithRedirect } = useUserContext();
+    const { user } = useUserContext();
 
     const updatedShipping = totalAmount > 3000 ? 0 : shipping;
 
@@ -43,14 +43,14 @@ const CartTotals = () => {
                         </span>
                     </h4>
                 </article>
-                {customer ? (
+                {user ? (
                     <Link to="/checkout" className="btn">
                         kasa
                     </Link>
                 ) : (
-                    <button className="btn" onClick={loginWithRedirect}>
+                    <Link to="/authentication" className="btn">
                         Prijava
-                    </button>
+                    </Link>
                 )}
             </div>
         </Wrapper>

@@ -62,7 +62,11 @@ exports.userLogin = (req, res, next) => {
 
             if (err) next(err);
             //console.log(req.user);
-            res.status(200).json({success: true, message: 'Korisnik je uspešno prijavljen.'});
+            const filteredeUserData = {
+                username: req.user.username,
+                cart: req.user.cart
+            }
+            res.status(200).json({success: true, data: filteredeUserData, message: 'Korisnik je uspešno prijavljen.'});
         });
         
       })(req, res, next);

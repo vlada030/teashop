@@ -18,7 +18,7 @@ const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
 
 const CheckoutForm = () => {
     const { cart, totalAmount, shipping, clearCart } = useCartContext();
-    const { customer } = useUserContext();
+    const { user } = useUserContext();
     const history = useHistory();
 
     // stripe da bi radio, prekopirano
@@ -107,7 +107,7 @@ const CheckoutForm = () => {
                 </article>
             ) : (
                 <article>
-                    <h4>Zdravo {customer.name}</h4>
+                    <h4>Zdravo {user.username}</h4>
                     <p>Vaš ukupan račun iznosi {totalPriceAndShipping()}.</p>
                 </article>
             )}

@@ -81,6 +81,7 @@ app.use((req, res, next) => {
     next();
 })
 
+
 app.post('/login', userIsAuthenticated, userLogin);
 
 app.post('/register', userIsAuthenticated, userRegistration);

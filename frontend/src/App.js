@@ -11,6 +11,7 @@ import {
     Error,
     ProtectedRoute,
     AuthWrapper,
+    AuthenticationPage
 } from "./pages";
 
 // mora da sa uvede ova komponenta jer iako je user logovan kada se ide direktno na /checkout OPET VRACA na pocetnu
@@ -34,6 +35,10 @@ function App() {
 
                     <Route exact path="/cart">
                         <Cart />
+                    </Route>
+
+                    <Route exact path="/authentication">
+                        <AuthenticationPage />
                     </Route>
 
                     <Route exact path="/products">
