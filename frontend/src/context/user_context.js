@@ -1,16 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useReducer} from 'react';
 import axios from 'axios';
 
+import {PICK_AUTHENTICATION_PAGE} from '../actions';
+import reducer from '../reducers/user_reducer';
+
 const UserContext = React.createContext();
+const initialState = {
+  loginPage: true,
+  user: false,
+  infoMsg: ''
+};
 
 export const UserProvider = ({ children }) => {
   
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [loginPage, setLoginPage] = useState(true);
-  const [user, setUser] = useState(null);
-  const [err, setErr] = useState('');
+  const [user, setUser] = useState(false);
+  const [info, setInfo] = useState('');
 
   const toggleForm = () => {
-    setLoginPage(!loginPage)
+    //setLoginPage(!loginPage)
+    dispatch({type: PICK_AUTHENTICATION_PAGE});
   }
 
   const userLogin = async(userData) => {
@@ -25,8 +35,12 @@ export const UserProvider = ({ children }) => {
       setUser(data.data);  
       
     } catch (error) {
-      //console.log(error.response.data.message);
-      setErr(error.response.data.message)
+      if (error.response) {
+        setInfo(error.response.data.message)
+      } else {
+        // u slucaju da nema mreze, a hocemo da se logujemo izbacuje Promise pending
+        setInfo(error.message)
+      }
     }
   }
 
@@ -53,11 +67,15 @@ export const UserProvider = ({ children }) => {
         withCredentials: true
       });
       
-   
-        setUser(false);
+      setUser(false);
       
     } catch (error) {
-      
+      if (error.response) {
+        setInfo(error.response.data.message)
+      } else {
+        // u slucaju da nema mreze, a hocemo da se logujemo izbacuje Promise pending
+        setInfo(error.message)
+      }
     }
   }
 
@@ -66,7 +84,7 @@ export const UserProvider = ({ children }) => {
     }
     
   return (
-    <UserContext.Provider value={{loginPage, user, err, toggleForm, fetchUser, userLogout}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{...state, toggleForm, fetchUser, userLogout}}>{children}</UserContext.Provider>
   )
 }
 // make sure use

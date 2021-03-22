@@ -5,7 +5,7 @@ import {useHistory} from 'react-router-dom';
 
 const AuthenticationPage = () => {
 
-    const {loginPage, err, user, toggleForm, fetchUser} = useUserContext();
+    const {loginPage, infoMsg, user, toggleForm, fetchUser} = useUserContext();
     const history = useHistory();
     const usernameField = useRef(null);
 
@@ -28,7 +28,6 @@ const AuthenticationPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         fetchUser({username, email, password});
-        //history.push('/');
     }
 
     // OBAVEZNO za button u okviru forma da se ubaci preventDefault()
@@ -41,6 +40,15 @@ const AuthenticationPage = () => {
         usernameField.current.focus();
     }, []);    
 
+    useEffect(() => {
+        if (user) {
+            setTimeout(() => {
+                history.push('/');
+            }, 1000)
+        }
+        // eslint-disable-next-line
+    }, [user]) 
+
     return <Wrapper className='section-center page-100'>
                 <form onSubmit={handleSubmit} className='form' noValidate>
                 
@@ -48,7 +56,7 @@ const AuthenticationPage = () => {
                     
                     <div className='form-container'>
 
-                        {err ? <p className='info'>{err}</p> : null}
+                        {info ? <p className='info'>{infoMsg}</p> : null}
 
                         {!loginPage ? 
                             <div className='form-control'>
