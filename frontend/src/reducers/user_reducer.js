@@ -1,30 +1,17 @@
-import {PICK_AUTHENTICATION_PAGE} from '../actions';
+import {PICK_AUTHENTICATION_PAGE, SET_USER, SET_INFO} from '../actions';
 
 const user_reducer = (state, action) => {
     switch (action.type) {
       case PICK_AUTHENTICATION_PAGE: {
-        return ({...state, loginPage: !state.loginPage})
+        return ({...state, loginPage: !state.loginPage, infoMsg: ''})
       }
   
-      case GET_PRODUCTS_SUCCESS: {
-        const featuredProducts = action.payload.filter(({featured}) => featured === true)
-        return ({...state, productsLoading: false, products: action.payload, featuredProducts})
+      case SET_USER: {
+        return ({...state, user: action.payload, infoMsg: ''})
       }
   
-      case GET_PRODUCTS_ERROR: {
-        return ({...state, productsLoading: false, productsError: true, errorMsg: action.payload.message})
-      }
-  
-      case GET_SINGLE_PRODUCT_BEGIN: {
-        return ({...state, singleProductLoading: true, singleProductError: false, errorMsg: ''})
-      }
-  
-      case GET_SINGLE_PRODUCT_SUCCESS: {
-        return ({...state, singleProductLoading: false, singleProduct: action.payload})
-      }
-  
-      case GET_SINGLE_PRODUCT_ERROR: {
-        return ({...state, singleProductLoading: false, singleProductError: true, errorMsg: action.payload.message})
+      case SET_INFO: {
+        return ({...state, infoMsg: action.payload})
       }
   
       default: 

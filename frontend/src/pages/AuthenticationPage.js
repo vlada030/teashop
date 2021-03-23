@@ -56,7 +56,7 @@ const AuthenticationPage = () => {
                     
                     <div className='form-container'>
 
-                        {info ? <p className='info'>{infoMsg}</p> : null}
+                        {infoMsg ? <p className='info'>{infoMsg}</p> : null}
 
                         {!loginPage ? 
                             <div className='form-control'>

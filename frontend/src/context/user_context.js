@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer} from 'react';
 import axios from 'axios';
 
-import {PICK_AUTHENTICATION_PAGE} from '../actions';
+import {PICK_AUTHENTICATION_PAGE, SET_USER, SET_INFO} from '../actions';
 import reducer from '../reducers/user_reducer';
 
 const UserContext = React.createContext();
@@ -14,12 +14,8 @@ const initialState = {
 export const UserProvider = ({ children }) => {
   
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [loginPage, setLoginPage] = useState(true);
-  const [user, setUser] = useState(false);
-  const [info, setInfo] = useState('');
 
   const toggleForm = () => {
-    //setLoginPage(!loginPage)
     dispatch({type: PICK_AUTHENTICATION_PAGE});
   }
 
@@ -32,14 +28,15 @@ export const UserProvider = ({ children }) => {
         data: userData
       })
 
-      setUser(data.data);  
+      dispatch({type: SET_USER, payload: data.data});
+      //setUser(data.data);  
       
     } catch (error) {
       if (error.response) {
-        setInfo(error.response.data.message)
+        dispatch({type: SET_INFO, payload: error.response.data.message});
       } else {
         // u slucaju da nema mreze, a hocemo da se logujemo izbacuje Promise pending
-        setInfo(error.message)
+        dispatch({type: SET_INFO, payload: error.message});
       }
     }
   }
@@ -53,7 +50,6 @@ export const UserProvider = ({ children }) => {
         data: userData
       })
       //console.log(data.data);
-      setUser(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -67,20 +63,21 @@ export const UserProvider = ({ children }) => {
         withCredentials: true
       });
       
-      setUser(false);
+      dispatch({type: SET_USER, payload: false});
       
     } catch (error) {
       if (error.response) {
-        setInfo(error.response.data.message)
+        dispatch({type: SET_INFO, payload: error.response.data.message});
+
       } else {
         // u slucaju da nema mreze, a hocemo da se logujemo izbacuje Promise pending
-        setInfo(error.message)
+        dispatch({type: SET_INFO, payload: error.message});
       }
     }
   }
 
   const fetchUser = userData => {
-    loginPage ? userLogin(userData) : userRegister(userData);
+    state.loginPage ? userLogin(userData) : userRegister(userData);
     }
     
   return (
