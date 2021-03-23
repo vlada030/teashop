@@ -75,11 +75,12 @@ if (process.env.NODE_ENV === 'production') {
 app.use(passport.initialize());
 app.use(passport.session())
 
-app.use((req, res, next) => {
-    console.log(req.session);
-    console.log(req.user);
-    next();
-})
+// proveri session i usera
+// app.use((req, res, next) => {
+//     console.log(req.session);
+//     console.log(req.user);
+//     next();
+// })
 
 
 app.post('/login', userIsAuthenticated, userLogin);

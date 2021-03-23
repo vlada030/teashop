@@ -4,6 +4,7 @@ const UserSchema = new Schema({
     username: {
         type: String,
         trim: true,
+        lowercase: true,
         required: [true, 'Unesite korisničko ime'],
         maxlength: [15, 'Korisničko ime može da sadrži najviše 15 karaktera'],
     }, 
@@ -11,6 +12,7 @@ const UserSchema = new Schema({
     email: {
         type: String,
         trim: true,
+        lowercase: true,
         required: [true, "Unesite e-mail"],
         match: [/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Pogrešan format email adrese'],
         unique: true

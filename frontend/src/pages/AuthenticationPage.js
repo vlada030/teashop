@@ -44,7 +44,7 @@ const AuthenticationPage = () => {
         if (user) {
             setTimeout(() => {
                 history.push('/');
-            }, 1000)
+            }, 500)
         }
         // eslint-disable-next-line
     }, [user]) 

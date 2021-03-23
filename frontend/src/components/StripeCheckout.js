@@ -175,7 +175,7 @@ const Wrapper = styled.section`
     }
 
     form {
-        width: 30vw;
+        width: 95vw;
         align-self: center;
         box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1),
             0px 2px 5px 0px rgba(50, 50, 93, 0.1),
@@ -307,11 +307,26 @@ const Wrapper = styled.section`
             transform: rotate(360deg);
         }
     }
-    @media only screen and (max-width: 600px) {
+
+    @media only screen and (min-width: 600px) {
         form {
             width: 80vw;
         }
     }
+
+    @media only screen and (min-width: 900px) {
+        form {
+            width: 60vw;
+        }
+    }
+
+    @media only screen and (min-width: 1200px) {
+        form {
+            width: 40vw;
+        }
+    }
+
+
     .additional-info {
         text-align: left;
         margin: 0;
