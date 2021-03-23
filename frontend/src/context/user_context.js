@@ -49,9 +49,17 @@ export const UserProvider = ({ children }) => {
         withCredentials: true,
         data: userData
       })
-      //console.log(data.data);
+      if (data.success === true) {
+        dispatch({type: PICK_AUTHENTICATION_PAGE});
+        dispatch({type: SET_INFO, payload: 'Uspešno kreiran korisnik, sad možete da se ulogujete.'});
+      }
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        dispatch({type: SET_INFO, payload: error.response.data.message});
+      } else {
+        // u slucaju da nema mreze, a hocemo da se logujemo izbacuje Promise pending
+        dispatch({type: SET_INFO, payload: error.message});
+      }
     }
   }
 
