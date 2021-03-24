@@ -26,7 +26,7 @@ const UserSchema = new Schema({
         select: false
     },
 
-    cart: {
+    favorites: {
         type: [String],
         default: []
     }

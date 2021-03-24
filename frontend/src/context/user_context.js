@@ -81,7 +81,6 @@ export const UserProvider = ({ children }) => {
       });
       
       dispatch({type: SET_USER, payload: false});
-      localStorage.removeItem('user');
       
     } catch (error) {
       if (error.response) {
@@ -97,8 +96,6 @@ export const UserProvider = ({ children }) => {
   const fetchUser = userData => {
     state.loginPage ? userLogin(userData) : userRegister(userData);
     }
-
-    console.log(state.user);
 
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(state.user));

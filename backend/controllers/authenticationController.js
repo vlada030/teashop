@@ -64,7 +64,7 @@ exports.userLogin = (req, res, next) => {
             //console.log(req.user);
             const filteredeUserData = {
                 username: req.user.username,
-                cart: req.user.cart
+                favorites: req.user.favorites
             }
             res.status(200).json({success: true, data: filteredeUserData, message: 'Korisnik je uspešno prijavljen.'});
         });

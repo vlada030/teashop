@@ -10,7 +10,6 @@ import {
     Checkout,
     Error,
     ProtectedRoute,
-    AuthWrapper,
     AuthenticationPage
 } from "./pages";
 
@@ -19,7 +18,6 @@ import {
 
 function App() {
     return (
-        <AuthWrapper>
             <BrowserRouter>
                 <Navbar />
                 <Sidebar />
@@ -62,7 +60,6 @@ function App() {
 
                 <Footer />
             </BrowserRouter>
-        </AuthWrapper>
     );
 }
 
