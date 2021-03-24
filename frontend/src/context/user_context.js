@@ -4,10 +4,19 @@ import axios from 'axios';
 import {PICK_AUTHENTICATION_PAGE, SET_USER, SET_INFO} from '../actions';
 import reducer from '../reducers/user_reducer';
 
+const getUserFromLocalStorage = () => {
+  let user = false;
+  const tempUser = localStorage.getItem('user');
+  if (tempUser) {
+    user = JSON.parse(tempUser);
+  }
+  return user;
+}
+
 const UserContext = React.createContext();
 const initialState = {
   loginPage: true,
-  user: false,
+  user: getUserFromLocalStorage(),
   infoMsg: ''
 };
 
@@ -72,6 +81,7 @@ export const UserProvider = ({ children }) => {
       });
       
       dispatch({type: SET_USER, payload: false});
+      localStorage.removeItem('user');
       
     } catch (error) {
       if (error.response) {
@@ -87,6 +97,12 @@ export const UserProvider = ({ children }) => {
   const fetchUser = userData => {
     state.loginPage ? userLogin(userData) : userRegister(userData);
     }
+
+    console.log(state.user);
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(state.user));
+  }, [state.user])
     
   return (
     <UserContext.Provider value={{...state, toggleForm, fetchUser, userLogout}}>{children}</UserContext.Provider>
