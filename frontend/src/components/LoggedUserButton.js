@@ -71,11 +71,7 @@ const Wrapper = styled.div`
     }    
 
     ul {
-        position: absolute;
-        top: -50%;
-        left: 0;
-        opacity: 0;
-        visibility: hidden;
+        color: var(--clr-grey-2);
         font-size: 1rem;
         text-align: left;
         padding-left: 1.5rem;
@@ -102,6 +98,7 @@ const Wrapper = styled.div`
         button {
             background-color: transparent;
             border: none;
+            color: inherit;
             font: inherit;
             font-size: inherit;
             letter-spacing: inherit;
@@ -111,6 +108,11 @@ const Wrapper = styled.div`
 
     @media screen and (min-width: 992px) {
         ul {
+            position: absolute;
+        top: -50%;
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
             text-align: center;
             padding-left: 0;
             background: linear-gradient( transparent, var(--clr-primary-10));
