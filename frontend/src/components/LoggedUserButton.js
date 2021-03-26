@@ -3,11 +3,13 @@ import styled from "styled-components";
 
 import { useUserContext } from "../context/user_context";
 import { useCartContext } from "../context/cart_context";
+import { useGlobalContext } from "../context/global_context";
 import { Link } from "react-router-dom";
 
 const LoggedUserButton = () => {
     const { logout, user, userLogout} = useUserContext();
     const { clearCart} = useCartContext();
+    const { closeSidebar} = useGlobalContext();
 
     let transformedName = user.username;
 
@@ -27,10 +29,10 @@ const LoggedUserButton = () => {
                     }}>odjava</button>
                 </li>
                 <li>
-                    <Link to="/checkout">omiljeni</Link>
+                    <Link to="/checkout" onClick={closeSidebar}>omiljeni</Link>
                 </li>
                 <li>
-                    <Link to="/products">izmeni proizvod</Link>
+                    <Link to="/products" onClick={closeSidebar}>izmeni proizvod</Link>
                 </li>
             </ul>
         </Wrapper>
@@ -42,7 +44,6 @@ const Wrapper = styled.div`
     color: var(--clr-grey-1);
     transition: var(--transition);
     position: relative;
-    z-index: 10;
 
     p {
         text-align: left;
@@ -57,11 +58,13 @@ const Wrapper = styled.div`
     &:hover > ul {
         top: 100%;
         opacity: 1;
+        visibility: visible;
         transition: var(--transition);
     }
 
     @media screen and (min-width: 992px) {
         margin-top: 0;
+        z-index: 10;
         p {
             padding-left: 0;
         }
@@ -72,6 +75,7 @@ const Wrapper = styled.div`
         top: -50%;
         left: 0;
         opacity: 0;
+        visibility: hidden;
         font-size: 1rem;
         text-align: left;
         padding-left: 1.5rem;
@@ -109,6 +113,8 @@ const Wrapper = styled.div`
         ul {
             text-align: center;
             padding-left: 0;
+            background: linear-gradient( transparent, var(--clr-primary-10));
+            border-radius: var(--radius);
         }
         
         li:hover {
