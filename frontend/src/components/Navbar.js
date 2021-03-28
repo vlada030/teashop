@@ -17,8 +17,9 @@ const Nav = () => {
   return <NavContainer>
           <div className='nav-center'>
             <div className='nav-header'>
-              <Link to='/'>
-                <img src={logo} alt='tea' />
+              <Link to='/' className='logo'>
+                {/* <img src={logo} alt='tea' /> */}
+                tea shop
               </Link>
               <button type='button' className='nav-toggle' onClick={openSidebar}>
                 <SiGitea />
@@ -59,7 +60,7 @@ const NavContainer = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    img {
+    /* img {
       width: 175px;
       margin-left: -15px;
       scale: 1;
@@ -67,7 +68,21 @@ const NavContainer = styled.nav`
       &:hover {
         scale: 1.05;
       }
-    }
+    } */
+    .logo {
+        font-size: 2.5rem;
+        color: var(--clr-primary-5);
+        //font-weight: 600;
+        letter-spacing: var(--spacing);
+        text-shadow: 2px 2px 5px var(--clr-primary-5);
+        text-transform: capitalize;
+        font-style: italic;
+        transition: var(--transition);
+
+        &:hover {
+          text-shadow: 3px 3px 8px var(--clr-primary-5);
+        }
+      }
   }
   .nav-toggle {
     background: transparent;

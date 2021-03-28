@@ -106,9 +106,6 @@ const Wrapper = styled.div`
     letter-spacing: var(--spacing);
     border: 2px solid transparent;
     transition: var(--transition);
-    &:hover {
-      border-bottom: 2px solid var(--clr-primary-7);
-    }
     svg {
       margin-left: 5px;
     }
@@ -119,6 +116,10 @@ const Wrapper = styled.div`
     @media screen and (min-width: 992px) {
       padding-left: 0;
       margin-top: 0;
+
+      &:hover {
+      border-bottom: 2px solid var(--clr-primary-7);
+    }
     }
   }
 `

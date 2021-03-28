@@ -7,15 +7,15 @@ import { useGlobalContext } from "../context/global_context";
 import { Link } from "react-router-dom";
 
 const LoggedUserButton = () => {
-    const { logout, user, userLogout} = useUserContext();
+    const { user, userLogout} = useUserContext();
     const { clearCart} = useCartContext();
     const { closeSidebar} = useGlobalContext();
 
     let transformedName = user.username;
 
-    if (transformedName.length > 13 ) {
+    if (transformedName.length > 9 ) {
     
-        transformedName = `${transformedName.substring(0, 10)}...`;
+        transformedName = `${transformedName.substring(0, 7)}...`;
     }
 
     return (
@@ -50,9 +50,14 @@ const Wrapper = styled.div`
         padding-left: 1.5rem;
         
         font-size: 1.5rem;
-        letter-spacing: var(--spacing);
+        //letter-spacing: var(--spacing);
         cursor: pointer;
         margin: 0;
+
+        &::first-letter {
+            text-transform: capitalize;
+        }
+
     }
 
     &:hover > ul {
@@ -61,6 +66,7 @@ const Wrapper = styled.div`
         visibility: visible;
         transition: var(--transition);
     }
+
 
     @media screen and (min-width: 992px) {
         margin-top: 0;
@@ -83,6 +89,7 @@ const Wrapper = styled.div`
         padding: 1rem 0;
         border-bottom: 2px solid transparent;
         transition: var(--transition);
+        text-transform: capitalize;
 
         &:hover {
             background: var(--clr-grey-10);
@@ -103,6 +110,7 @@ const Wrapper = styled.div`
             font-size: inherit;
             letter-spacing: inherit;
             cursor: pointer;
+            text-transform: capitalize;
         }       
     }
 

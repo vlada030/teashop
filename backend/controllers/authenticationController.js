@@ -81,7 +81,7 @@ exports.userLogin = (req, res, next) => {
 // @access  Public
 
 exports.userLogout = async (req, res, next) => {
-    console.log(req.user);
+    //console.log(req.user);
     if (req.user) {
         req.logOut();
         //console.log(req.session);

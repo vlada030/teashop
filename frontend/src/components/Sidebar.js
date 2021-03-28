@@ -18,8 +18,6 @@ const Sidebar = () => {
                 className={isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}
             >
                 <div className="sidebar-header">
-                    <img src={logo} alt="logo" className="logo" />
-
                     <button className="close-btn" onClick={closeSidebar}>
                         <FaAngleDoubleLeft />
                     </button>
@@ -65,13 +63,11 @@ const SidebarContainer = styled.div`
         transition: var(--transition);
         cursor: pointer;
         margin-top: 0.2rem;
+        display: block;
+        margin-left: auto;
     }
     .close-btn:hover {
         color: var(--clr-red-light);
-    }
-    .logo {
-        justify-self: center;
-        height: 45px;
     }
     .links {
         margin-bottom: 2rem;
