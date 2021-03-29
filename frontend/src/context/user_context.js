@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
   const userLogin = async(userData) => {
     try {
       const {data} = await axios({
-        url: '/login',
+        url: 'auth/login',
         method: 'POST',
         withCredentials: true,
         data: userData
@@ -53,7 +53,7 @@ export const UserProvider = ({ children }) => {
   const userRegister = async(userData) => {
     try {
       const {data} = await axios({
-        url: '/register',
+        url: 'auth/register',
         method: 'POST',
         withCredentials: true,
         data: userData
@@ -75,7 +75,7 @@ export const UserProvider = ({ children }) => {
   const userLogout = async () => {
     try {
       const {data} = await axios({
-        url: '/logout',
+        url: 'auth/logout',
         method: 'DELETE',
         withCredentials: true
       });

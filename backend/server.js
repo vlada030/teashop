@@ -12,13 +12,12 @@ const initializePassport = require('./utils/passportConfig');
 const dbConnection = require('./utils/mongoDBConfig');
 
 const productsRoute = require('./routes/productsRoute');
+const authRouter = require('./routes/authRoute');
 
 const {createPaymentIntent} = require('./controllers/stripeController');
-const {userRegistration, userLogin, userLogout, getUser} = require('./controllers/authenticationController');
 
 const {calculateOrderAmount} = require('./middleware/calculateTotals');
 const errorHandler = require('./middleware/errorHandler');
-const { userIsAuthenticated} = require('./middleware/checkUserAuthentication');
 
 
 // konektuj se na mongoDB
@@ -82,14 +81,7 @@ app.use(passport.session())
 //     next();
 // })
 
-
-app.post('/login', userIsAuthenticated, userLogin);
-
-app.post('/register', userIsAuthenticated, userRegistration);
-
-app.delete('/logout', userLogout);
-
-app.get('/getUser', getUser);
+app.use('/auth', authRouter);
 
 app.use('/allproducts', productsRoute);
 
@@ -98,9 +90,9 @@ app.use('/allproducts', productsRoute);
 app.post("/create-payment-intent", calculateOrderAmount, createPaymentIntent);
 
 // ZA TESTIRANJE
-app.get('/error', (req, res) => {
-    res.status(500).json({success: false, message: 'PASSPORT GRESKA'})
-})
+// app.get('/error', (req, res) => {
+//     res.status(500).json({success: false, message: 'PASSPORT GRESKA'})
+// })
 
 // Handles any requests that don't match the ones above
 if (process.env.NODE_ENV === 'production') {

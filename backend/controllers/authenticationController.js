@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const passport = require('passport');
+const { validationResult } = require('express-validator');
 
 const EnhancedError = require('../utils/enhancedError');
 const asyncHandler = require('../middleware/asyncHandler');
@@ -11,6 +12,20 @@ const User = require('../models/userModel');
 
 exports.userRegistration = asyncHandler (async (req, res, next) => {
     const { username, email, password } = req.body;
+
+    // validacija preko express-validatora
+    const  errors = validationResult(req);
+    const errorsString = errors.array().reduce((acc, val) => {
+        acc += `${val.msg}; `;
+        return acc
+    }, '');
+        
+    if (!errors.isEmpty()) {
+        return res.status(401).json({
+            success: false,
+            message: errorsString
+        })
+    }
    
     const userCheck = await User.findOne({ email }); 
         
@@ -55,7 +70,7 @@ exports.userLogin = (req, res, next) => {
         if (err) next(err);
 
         if (!user) {
-            return next(new EnhancedError('Pogrešno unet korisnički e-mail ili šifra.', 400));
+            return next(new EnhancedError('Pogrešno unet korisnički e-mail ili šifra.', 401));
         }
         
         req.logIn(user, (err) => {
