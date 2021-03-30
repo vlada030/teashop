@@ -1,5 +1,5 @@
 import React from 'react';
-import style from 'styled-components';
+import styled from 'styled-components';
 import {PageHero, FavoritesContent} from '../components';
 
 const FavoriteProducts = () => {
@@ -11,7 +11,7 @@ const FavoriteProducts = () => {
             </Wrapper>
 }
 
-const Wrapper = style.main`
+const Wrapper = styled.main`
 
 `;
 
