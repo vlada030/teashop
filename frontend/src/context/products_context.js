@@ -19,7 +19,8 @@ const initialState = {
   singleProductLoading: false,
   singleProductError: false,
   singleProduct: {},
-  errorMsg: ''
+  errorMsg: '',
+  favoriteProducts: []
 }
 
 const ProductsContext = React.createContext()

@@ -32,6 +32,11 @@ const Wrapper = styled.article`
   align-items: center;
   margin-bottom: 3rem;
 
+  &:hover {
+    background-color: var(--clr-grey-10);
+    cursor: pointer;
+  } 
+
   .title {
       justify-self: start;
       margin-left: 1rem;
@@ -53,6 +58,7 @@ const Wrapper = styled.article`
 
   h5 {
     font-size: 0.75rem;
+    color: var(--clr-primary-5);
     margin-bottom: 0;
   }
 

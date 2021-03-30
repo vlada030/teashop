@@ -10,7 +10,11 @@ const FavoritesContent = () => {
     return <Wrapper className="section section-center">
 
                 {favorites.map(item => {
-                    return <FavoriteItem key={item.id} {...item}/>
+                    let {id} = item;
+                    id = id.substring(0, 5);
+                    return <Link to={`/products/${id}`}>
+                                <FavoriteItem key={id} {...item} id/>
+                            </Link>
                 }) }
 
                 <div className='link-container'>
