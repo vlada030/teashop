@@ -10,7 +10,8 @@ import {
     Checkout,
     Error,
     ProtectedRoute,
-    AuthenticationPage
+    AuthenticationPage,
+    FavoriteProducts
 } from "./pages";
 
 // mora da sa uvede ova komponenta jer iako je user logovan kada se ide direktno na /checkout OPET VRACA na pocetnu
@@ -41,6 +42,10 @@ function App() {
 
                     <Route exact path="/products">
                         <Products />
+                    </Route>
+
+                    <Route exact path="/products/favorites">
+                        <FavoriteProducts />
                     </Route>
 
                     <Route

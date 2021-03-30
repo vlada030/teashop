@@ -29,7 +29,7 @@ const LoggedUserButton = () => {
                     }}>odjava</button>
                 </li>
                 <li>
-                    <Link to="/checkout" onClick={closeSidebar}>omiljeni</Link>
+                    <Link to="/products/favorites" onClick={closeSidebar}>omiljeni</Link>
                 </li>
                 <li>
                     <Link to="/products" onClick={closeSidebar}>izmeni proizvod</Link>

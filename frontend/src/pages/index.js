@@ -7,6 +7,7 @@ import Error from './ErrorPage';
 import Checkout from './CheckoutPage';
 import ProtectedRoute from './ProtectedRoute';
 import AuthenticationPage from './AuthenticationPage';
+import FavoriteProducts from './FavoriteProducts';
 
 export {
     Home,
@@ -17,5 +18,6 @@ export {
     Error,
     Checkout,
     ProtectedRoute,
-    AuthenticationPage
+    AuthenticationPage,
+    FavoriteProducts
 };

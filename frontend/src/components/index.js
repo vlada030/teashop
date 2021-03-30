@@ -18,6 +18,8 @@ import CartContent from './CartContent'
 import PageHero from './PageHero'
 import StripeCheckout from './StripeCheckout'
 import Pagination from './Pagination'
+import FavoritesContent from './FavoritesContent'
+
 export {
   FeaturedProducts,
   Navbar,
@@ -38,5 +40,6 @@ export {
   CartContent,
   PageHero,
   StripeCheckout,
-  Pagination
+  Pagination,
+  FavoritesContent
 }
