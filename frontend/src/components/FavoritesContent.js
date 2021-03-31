@@ -2,31 +2,33 @@ import React from 'react';
 import styled from 'styled-components';
 import FavoriteItem from './FavoriteItem';
 import {Link} from 'react-router-dom';
+import {useProductsContext} from '../context/products_context';
 
 const FavoritesContent = () => {
 
-    const favorites = [{id:"10014100",name:"hibiskus",unit:100,price:150,amount:1,image:"https://i.ibb.co/CvKPD3f/hibiskus-3-min.jpg",stock:400}, {id:"10014101",name:"hibiskus",unit:100,price:150,amount:1,image:"https://i.ibb.co/CvKPD3f/hibiskus-3-min.jpg",stock:400}];
+  const {favoriteProducts} = useProductsContext();
 
-    return <Wrapper className="section section-center">
+    console.log(favoriteProducts);
+  return <Wrapper className="section section-center">
 
-                {favorites.map(item => {
-                    let {id} = item;
-                    id = id.substring(0, 5);
-                    return <Link to={`/products/${id}`}>
-                                <FavoriteItem key={id} {...item} id/>
-                            </Link>
-                }) }
+              {favoriteProducts.map(item => {
+                  let {id} = item;
+                  id = id.substring(0, 5);
+                  return <Link to={`/products/${id}`}>
+                              <FavoriteItem key={id} {...item} id/>
+                          </Link>
+              }) }
 
-                <div className='link-container'>
-                    <Link to='/products' className='link-btn'>
-                    svi proizvodi
-                    </Link>
-                    <button className='link-btn clear-btn' onClick={() => {}}>
-                    isprazni listu
-                    </button>
-                </div>
+              <div className='link-container'>
+                  <Link to='/products' className='link-btn'>
+                  svi proizvodi
+                  </Link>
+                  <button className='link-btn clear-btn' onClick={() => {}}>
+                  isprazni listu
+                  </button>
+              </div>
 
-            </Wrapper>;
+          </Wrapper>;
 }
 
 const Wrapper = styled.section`

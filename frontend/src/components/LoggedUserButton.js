@@ -26,6 +26,7 @@ const LoggedUserButton = () => {
                     <button onClick={() => {
                         userLogout();
                         clearCart();
+                        closeSidebar();
                     }}>odjava</button>
                 </li>
                 <li>

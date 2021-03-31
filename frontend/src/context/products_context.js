@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useReducer } from 'react'
 import reducer from '../reducers/products_reducer'
+import {useUserContext} from '../context/user_context';
 import {
   GET_PRODUCTS_BEGIN,
   GET_PRODUCTS_SUCCESS,
@@ -7,6 +8,8 @@ import {
   GET_SINGLE_PRODUCT_BEGIN,
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
+  UPDATE_FAVORITES_LIST,
+  PULL_FAVORITES_LIST
 } from '../actions'
 
 import axios from 'axios';
@@ -28,6 +31,7 @@ const ProductsContext = React.createContext()
 export const ProductsProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
+  const {user} = useUserContext();
 
   const fetchProducts = async () => {
     dispatch({type: GET_PRODUCTS_BEGIN})
@@ -57,14 +61,38 @@ export const ProductsProvider = ({ children }) => {
     }
   }
 
+  const loadFavorites = () => {
+    let tempFavoritesList = [];
+    
+    if (user) {
+      tempFavoritesList = user.favorites;
+    }
+    //console.log(user);
+    dispatch({type: PULL_FAVORITES_LIST, payload: tempFavoritesList})
+  }
+
+  const updateFavorites = (id) => {
+    dispatch({type: UPDATE_FAVORITES_LIST, payload: id})
+  }
+
+  // ucitaj proizvode prilikom podizanja app
   useEffect(() => {
   
     fetchProducts();
   
   }, []);
 
+  // ucitaj favorite items kad se user loguje
+  useEffect(() => {
+    loadFavorites();
+
+    // eslint-disable-next-line
+  }, [user])  
+
+
+
   return (
-    <ProductsContext.Provider value={{...state, fetchSingleProduct}}>
+    <ProductsContext.Provider value={{...state, fetchSingleProduct, updateFavorites}}>
       {children}
     </ProductsContext.Provider>
   )

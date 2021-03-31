@@ -105,7 +105,8 @@ const AddToCart = ({product}) => {
 }
 
 const Wrapper = styled.section`
-  margin-top: 2rem;
+  margin: 2rem 0;
+  
   h5 {
     margin-bottom: 2rem;
   }

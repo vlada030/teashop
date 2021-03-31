@@ -35,6 +35,7 @@ const Wrapper = styled.article`
   &:hover {
     background-color: var(--clr-grey-10);
     cursor: pointer;
+    border-radius: var(--radius);
   } 
 
   .title {

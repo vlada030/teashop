@@ -1,8 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 import {PageHero, FavoritesContent} from '../components';
+import {useProductsContext} from '../context/products_context';
 
 const FavoriteProducts = () => {
+
+    const {favoriteProducts} = useProductsContext();
+
+    if (favoriteProducts.length < 1) {
+        return <Wrapper className='page-100'>
+                <div className='empty'>
+                  <h2>vaša lista omiljenih proizvoda je prazna</h2>
+                  <Link to='/products' className='btn'>dodajte proizvode</Link>
+                </div>
+              </Wrapper>
+      }
+
     return <Wrapper className='page'>
                 <PageHero title='omiljeni'/>
                 <div className=' page'>
@@ -12,7 +26,13 @@ const FavoriteProducts = () => {
 }
 
 const Wrapper = styled.main`
-
+    .empty {
+        text-align: center;
+        
+        h2 {
+            margin-bottom: 3rem;
+        }
+    }
 `;
 
 export default FavoriteProducts;

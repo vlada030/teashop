@@ -19,6 +19,7 @@ import PageHero from './PageHero'
 import StripeCheckout from './StripeCheckout'
 import Pagination from './Pagination'
 import FavoritesContent from './FavoritesContent'
+import LikeButton from './LikeButton'
 
 export {
   FeaturedProducts,
@@ -41,5 +42,6 @@ export {
   PageHero,
   StripeCheckout,
   Pagination,
-  FavoritesContent
+  FavoritesContent,
+  LikeButton
 }

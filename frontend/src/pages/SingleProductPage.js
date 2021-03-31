@@ -9,6 +9,7 @@ import {
   AddToCart,
   Stars,
   PageHero,
+  LikeButton
 } from '../components'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
@@ -20,6 +21,8 @@ const SingleProductPage = () => {
       singleProductError,
       singleProduct,
       fetchSingleProduct,
+      favoriteProducts,
+      updateFavorites
   } = useProductsContext();
 
   const { id } = useParams();
@@ -53,7 +56,7 @@ const SingleProductPage = () => {
           </div>
   }
 
-  const { name,  description, goal, disclaimer, preparation, images, reviews, stars, stock} = singleProduct;
+  const {name, description, goal, disclaimer, preparation, images, reviews, stars, stock} = singleProduct;
 
   return <Wrapper>
           <PageHero title={name} product/>
@@ -72,6 +75,8 @@ const SingleProductPage = () => {
                 </p>
 
                 {stock > 0 && <AddToCart product={singleProduct}/>}
+
+                <LikeButton arr={favoriteProducts} id={id} toggleLike={updateFavorites}/>
                 
                 <hr />
 
@@ -98,6 +103,7 @@ const SingleProductPage = () => {
 }
 
 const Wrapper = styled.main`
+
   h2 {
     text-transform: capitalize;
   }
