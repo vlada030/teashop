@@ -44,16 +44,15 @@ function App() {
                         <Products />
                     </Route>
 
-                    <Route
-                        exact
-                        path="/products/:id"
-                        children={<SingleProduct />}
-                    ></Route>
-                    
                     <ProtectedRoute exact path="/products/favorites">
                         <FavoriteProducts />
                     </ProtectedRoute>
 
+                    <Route
+                        exact
+                        path="/products/:id"
+                        children={<SingleProduct />}
+                    ></Route>    
 
                     <ProtectedRoute path="/checkout">
                         <Checkout />

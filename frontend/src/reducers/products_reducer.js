@@ -6,7 +6,8 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
   UPDATE_FAVORITES_LIST,
-  PULL_FAVORITES_LIST
+  PULL_FAVORITES_LIST,
+  CLEAR_FAVORITES_LIST
 } from '../actions'
 
 const products_reducer = (state, action) => {
@@ -41,16 +42,22 @@ const products_reducer = (state, action) => {
     }
 
     case UPDATE_FAVORITES_LIST: {
-      const id = action.payload;
+      const product = action.payload;
       let {favoriteProducts} = {...state};
 
-      if (favoriteProducts.includes(id)) {
-        favoriteProducts = favoriteProducts.filter(itemID => itemID !== id);
+      const isLiked = favoriteProducts.find(item => item.id === product.id);
+
+      if (isLiked) {
+        favoriteProducts = favoriteProducts.filter(item => item.id !== product.id);
       } else {
-        favoriteProducts.push(id);
+        favoriteProducts.push(product);
       }
-      console.log(favoriteProducts);
+      //console.log(favoriteProducts);
       return({...state, favoriteProducts})
+    }
+
+    case CLEAR_FAVORITES_LIST: {
+      return({...state, favoriteProducts: []})
     }
 
     default: 

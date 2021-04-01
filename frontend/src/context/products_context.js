@@ -9,7 +9,8 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
   UPDATE_FAVORITES_LIST,
-  PULL_FAVORITES_LIST
+  PULL_FAVORITES_LIST,
+  CLEAR_FAVORITES_LIST
 } from '../actions'
 
 import axios from 'axios';
@@ -71,8 +72,12 @@ export const ProductsProvider = ({ children }) => {
     dispatch({type: PULL_FAVORITES_LIST, payload: tempFavoritesList})
   }
 
-  const updateFavorites = (id) => {
-    dispatch({type: UPDATE_FAVORITES_LIST, payload: id})
+  const updateFavorites = (product) => {
+    dispatch({type: UPDATE_FAVORITES_LIST, payload: product})
+  }
+
+  const clearFavorites = () => {
+    dispatch({type: CLEAR_FAVORITES_LIST})
   }
 
   // ucitaj proizvode prilikom podizanja app
@@ -92,7 +97,7 @@ export const ProductsProvider = ({ children }) => {
 
 
   return (
-    <ProductsContext.Provider value={{...state, fetchSingleProduct, updateFavorites}}>
+    <ProductsContext.Provider value={{...state, fetchSingleProduct, updateFavorites, clearFavorites}}>
       {children}
     </ProductsContext.Provider>
   )

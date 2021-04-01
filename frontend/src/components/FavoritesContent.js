@@ -6,16 +6,14 @@ import {useProductsContext} from '../context/products_context';
 
 const FavoritesContent = () => {
 
-  const {favoriteProducts} = useProductsContext();
+  const {favoriteProducts, clearFavorites} = useProductsContext();
 
-    console.log(favoriteProducts);
   return <Wrapper className="section section-center">
 
               {favoriteProducts.map(item => {
                   let {id} = item;
-                  id = id.substring(0, 5);
                   return <Link to={`/products/${id}`}>
-                              <FavoriteItem key={id} {...item} id/>
+                              <FavoriteItem key={id} {...item}/>
                           </Link>
               }) }
 
@@ -23,7 +21,7 @@ const FavoritesContent = () => {
                   <Link to='/products' className='link-btn'>
                   svi proizvodi
                   </Link>
-                  <button className='link-btn clear-btn' onClick={() => {}}>
+                  <button className='link-btn clear-btn' onClick={() => {clearFavorites()}}>
                   isprazni listu
                   </button>
               </div>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { useProductsContext } from '../context/products_context'
+import {useUserContext} from '../context/user_context'
 import {GiFeather, GiTeapotLeaves, GiHealing, GiHalt} from 'react-icons/gi'
 import {
   Loading,
@@ -24,6 +25,8 @@ const SingleProductPage = () => {
       favoriteProducts,
       updateFavorites
   } = useProductsContext();
+
+  const { user } = useUserContext();
 
   const { id } = useParams();
   const history = useHistory();
@@ -56,7 +59,7 @@ const SingleProductPage = () => {
           </div>
   }
 
-  const {name, description, goal, disclaimer, preparation, images, reviews, stars, stock} = singleProduct;
+  const {name, description, goal, disclaimer, preparation, images, reviews, stars, stock, price} = singleProduct;
 
   return <Wrapper>
           <PageHero title={name} product/>
@@ -76,7 +79,7 @@ const SingleProductPage = () => {
 
                 {stock > 0 && <AddToCart product={singleProduct}/>}
 
-                <LikeButton arr={favoriteProducts} id={id} toggleLike={updateFavorites}/>
+                <LikeButton arr={favoriteProducts} singleProduct={{id, name, price, images}} toggleLike={updateFavorites} user={user}/>
                 
                 <hr />
 

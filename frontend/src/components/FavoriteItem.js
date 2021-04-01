@@ -3,23 +3,22 @@ import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
 import {formatPrice} from '../utils/helpers';
 
-const FavoriteItem = ({name, image, unit, price}) => {
+const FavoriteItem = ({name, images, price}) => {
     return <Wrapper>
             <div className='title'>
-                <img src={image} alt={name} />
+                <img src={images} alt={name} />
                 <div>
                     <h5>{name}</h5>
-                    <p className='unit'>pakovanje: {unit} gr</p>
-                    <h5 className='price-small'>{formatPrice(price)}</h5>
+                    <p className='unit'>pakovanje: 100 gr</p>
+                    <h5 className='price-small'>{formatPrice(price / 10)}</h5>
                 </div>
             </div>
 
-            <h5 className='price'>{formatPrice(price)}</h5>
+            <h5 className='price'>{formatPrice(price / 10)}</h5>
 
             <button className='remove-btn' onClick={() => {}}>
                     <FaTrash />
             </button>
-
         </Wrapper>
 }
 
