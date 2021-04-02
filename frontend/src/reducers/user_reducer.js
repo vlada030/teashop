@@ -1,4 +1,4 @@
-import {PICK_AUTHENTICATION_PAGE, SET_USER, SET_INFO} from '../actions';
+import {PICK_AUTHENTICATION_PAGE, SET_USER, SET_INFO, UPDATE_USER_DATA} from '../actions';
 
 const user_reducer = (state, action) => {
     switch (action.type) {
@@ -12,6 +12,11 @@ const user_reducer = (state, action) => {
   
       case SET_INFO: {
         return ({...state, infoMsg: action.payload})
+      }
+
+      // update favorites listu
+      case UPDATE_USER_DATA: {
+        return({...state, user: action.payload})
       }
   
       default: 

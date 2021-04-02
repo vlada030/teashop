@@ -8,7 +8,7 @@ import {
   COUNT_CART_TOTALS,
 } from '../actions'
 
-const getLocalStorage = () => {
+const getCartFromLocalStorage = () => {
   let storage = localStorage.getItem('cart');
   if (storage) {
     return JSON.parse(storage)
@@ -18,7 +18,7 @@ const getLocalStorage = () => {
 }
 
 const initialState = {
-  cart: getLocalStorage(),
+  cart: getCartFromLocalStorage(),
   totalItems: 0, 
   totalAmount: 0,
   shipping: 460

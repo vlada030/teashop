@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer} from 'react';
 import axios from 'axios';
 
-import {PICK_AUTHENTICATION_PAGE, SET_USER, SET_INFO} from '../actions';
+import {PICK_AUTHENTICATION_PAGE, SET_USER, SET_INFO, UPDATE_USER_DATA} from '../actions';
 import reducer from '../reducers/user_reducer';
 
 const getUserFromLocalStorage = () => {
@@ -93,6 +93,14 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  const updateUserData = (newData) => {
+    dispatch({type: UPDATE_USER_DATA, payload: newData})
+    // zapamti u local storage
+
+    // posalji na server
+
+  }
+
   const fetchUser = userData => {
     state.loginPage ? userLogin(userData) : userRegister(userData);
     }
@@ -102,7 +110,7 @@ export const UserProvider = ({ children }) => {
   }, [state.user])
     
   return (
-    <UserContext.Provider value={{...state, toggleForm, fetchUser, userLogout}}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{...state, toggleForm, fetchUser, userLogout, updateUserData}}>{children}</UserContext.Provider>
   )
 }
 // make sure use

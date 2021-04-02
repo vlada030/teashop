@@ -15,6 +15,17 @@ import {
 
 import axios from 'axios';
 
+// const getFavoritesFromLocalStorage = () => {
+//   let user = localStorage.getItem('user');
+//   let tempUser = JSON.parse(user);
+
+//   if (tempUser) {
+//     return tempUser.favorites;
+//   }
+
+//   return []
+// }
+
 const initialState = {
   productsLoading: false,
   productsError: false,
@@ -34,6 +45,7 @@ export const ProductsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {user} = useUserContext();
 
+  // preuzmi sve proizvode
   const fetchProducts = async () => {
     dispatch({type: GET_PRODUCTS_BEGIN})
     
@@ -48,6 +60,7 @@ export const ProductsProvider = ({ children }) => {
     }  
   }
 
+  // preuzmi jedan proizvod
   const fetchSingleProduct = async ( id ) => {
     dispatch({type: GET_SINGLE_PRODUCT_BEGIN});
 
@@ -62,6 +75,7 @@ export const ProductsProvider = ({ children }) => {
     }
   }
 
+  //preuzmi favorites listu kad se korisnik loguje
   const loadFavorites = () => {
     let tempFavoritesList = [];
     
@@ -72,10 +86,29 @@ export const ProductsProvider = ({ children }) => {
     dispatch({type: PULL_FAVORITES_LIST, payload: tempFavoritesList})
   }
 
+  // izmeni favorites listu
   const updateFavorites = (product) => {
-    dispatch({type: UPDATE_FAVORITES_LIST, payload: product})
+    dispatch({type: UPDATE_FAVORITES_LIST, payload: product});
+    // updajtuj local storage
+    const favorites = getFavoritesFromLocalStorage();
+    if (user) {
+      let tempFavoriteProducts = favorites;
+      console.log(tempFavoriteProducts);
+      const isLiked = tempFavoriteProducts.find(item => item.id === product.id);
+
+      if (isLiked) {
+        tempFavoriteProducts = tempFavoriteProducts.filter(item => item.id !== product.id);
+      } else {
+        tempFavoriteProducts.push(product);
+      }
+      console.log(tempFavoriteProducts);
+
+      localStorage.setItem('user', JSON.stringify({...user, favorites: tempFavoriteProducts}));
+    }
   }
 
+
+  // obrisi celu favorites listu
   const clearFavorites = () => {
     dispatch({type: CLEAR_FAVORITES_LIST})
   }
@@ -88,11 +121,11 @@ export const ProductsProvider = ({ children }) => {
   }, []);
 
   // ucitaj favorite items kad se user loguje
-  useEffect(() => {
-    loadFavorites();
+  // useEffect(() => {
+  //   loadFavorites();
 
-    // eslint-disable-next-line
-  }, [user])  
+  //   // eslint-disable-next-line
+  // }, [user])  
 
 
   return (
