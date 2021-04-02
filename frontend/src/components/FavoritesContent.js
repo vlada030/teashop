@@ -12,8 +12,8 @@ const FavoritesContent = () => {
 
               {favoriteProducts.map(item => {
                   let {id} = item;
-                  return <Link to={`/products/${id}`}>
-                              <FavoriteItem key={id} {...item}/>
+                  return <Link to={`/products/${id}`} key={id}>
+                              <FavoriteItem key={id} product={item}/>
                           </Link>
               }) }
 

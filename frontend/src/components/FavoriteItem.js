@@ -2,9 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
 import {formatPrice} from '../utils/helpers';
+import {useProductsContext} from '../context/products_context';
 
-const FavoriteItem = ({name, images, price}) => {
-    return <Wrapper>
+const FavoriteItem = ({product}) => {
+  const {name, images, price} = product;
+  const {updateFavorites} = useProductsContext();
+
+  const handleRemoveBtn = (e) => {
+    e.preventDefault();
+    updateFavorites(product);
+  }
+  return <Wrapper>
             <div className='title'>
                 <img src={images} alt={name} />
                 <div>
@@ -16,7 +24,7 @@ const FavoriteItem = ({name, images, price}) => {
 
             <h5 className='price'>{formatPrice(price / 10)}</h5>
 
-            <button className='remove-btn' onClick={() => {}}>
+            <button className='remove-btn' onClick={handleRemoveBtn}>
                     <FaTrash />
             </button>
         </Wrapper>
@@ -81,12 +89,11 @@ const Wrapper = styled.article`
     justify-self: end;
     margin-right: 1rem;
     color: var(--clr-white);
-    background: transparent;
     border: transparent;
     letter-spacing: var(--spacing);
     background: var(--clr-red-dark);
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;

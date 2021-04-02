@@ -43,6 +43,7 @@ const products_reducer = (state, action) => {
 
     case UPDATE_FAVORITES_LIST: {
       const product = action.payload;
+      console.log(product);
       let {favoriteProducts} = {...state};
 
       const isLiked = favoriteProducts.find(item => item.id === product.id);

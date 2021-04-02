@@ -95,7 +95,6 @@ export const ProductsProvider = ({ children }) => {
   }, [user])  
 
 
-
   return (
     <ProductsContext.Provider value={{...state, fetchSingleProduct, updateFavorites, clearFavorites}}>
       {children}
