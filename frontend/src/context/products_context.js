@@ -7,24 +7,10 @@ import {
   GET_PRODUCTS_ERROR,
   GET_SINGLE_PRODUCT_BEGIN,
   GET_SINGLE_PRODUCT_SUCCESS,
-  GET_SINGLE_PRODUCT_ERROR,
-  UPDATE_FAVORITES_LIST,
-  PULL_FAVORITES_LIST,
-  CLEAR_FAVORITES_LIST
+  GET_SINGLE_PRODUCT_ERROR
 } from '../actions'
 
 import axios from 'axios';
-
-// const getFavoritesFromLocalStorage = () => {
-//   let user = localStorage.getItem('user');
-//   let tempUser = JSON.parse(user);
-
-//   if (tempUser) {
-//     return tempUser.favorites;
-//   }
-
-//   return []
-// }
 
 const initialState = {
   productsLoading: false,
@@ -34,8 +20,7 @@ const initialState = {
   singleProductLoading: false,
   singleProductError: false,
   singleProduct: {},
-  errorMsg: '',
-  favoriteProducts: []
+  errorMsg: ''
 }
 
 const ProductsContext = React.createContext()
@@ -43,7 +28,7 @@ const ProductsContext = React.createContext()
 export const ProductsProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {user} = useUserContext();
+  const {user, updateUserData} = useUserContext();
 
   // preuzmi sve proizvode
   const fetchProducts = async () => {
@@ -75,44 +60,6 @@ export const ProductsProvider = ({ children }) => {
     }
   }
 
-  //preuzmi favorites listu kad se korisnik loguje
-  const loadFavorites = () => {
-    let tempFavoritesList = [];
-    
-    if (user) {
-      tempFavoritesList = user.favorites;
-    }
-    //console.log(user);
-    dispatch({type: PULL_FAVORITES_LIST, payload: tempFavoritesList})
-  }
-
-  // izmeni favorites listu
-  const updateFavorites = (product) => {
-    dispatch({type: UPDATE_FAVORITES_LIST, payload: product});
-    // updajtuj local storage
-    const favorites = getFavoritesFromLocalStorage();
-    if (user) {
-      let tempFavoriteProducts = favorites;
-      console.log(tempFavoriteProducts);
-      const isLiked = tempFavoriteProducts.find(item => item.id === product.id);
-
-      if (isLiked) {
-        tempFavoriteProducts = tempFavoriteProducts.filter(item => item.id !== product.id);
-      } else {
-        tempFavoriteProducts.push(product);
-      }
-      console.log(tempFavoriteProducts);
-
-      localStorage.setItem('user', JSON.stringify({...user, favorites: tempFavoriteProducts}));
-    }
-  }
-
-
-  // obrisi celu favorites listu
-  const clearFavorites = () => {
-    dispatch({type: CLEAR_FAVORITES_LIST})
-  }
-
   // ucitaj proizvode prilikom podizanja app
   useEffect(() => {
   
@@ -120,16 +67,8 @@ export const ProductsProvider = ({ children }) => {
   
   }, []);
 
-  // ucitaj favorite items kad se user loguje
-  // useEffect(() => {
-  //   loadFavorites();
-
-  //   // eslint-disable-next-line
-  // }, [user])  
-
-
   return (
-    <ProductsContext.Provider value={{...state, fetchSingleProduct, updateFavorites, clearFavorites}}>
+    <ProductsContext.Provider value={{...state, fetchSingleProduct}}>
       {children}
     </ProductsContext.Provider>
   )

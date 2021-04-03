@@ -40,6 +40,7 @@ const Wrapper = styled.section`
   .link-btn {
     background: var(--clr-primary-5);
     border: 2px solid transparent;
+    text-align: center;
     text-transform: uppercase;
     padding: 0.25rem 0.5rem;
     color: var(--clr-white);

@@ -13,6 +13,8 @@ const LoggedUserButton = () => {
 
     let transformedName = user.username;
 
+    transformedName = transformedName.split(' ')[0];
+
     if (transformedName.length > 9 ) {
     
         transformedName = `${transformedName.substring(0, 7)}...`;
@@ -30,7 +32,8 @@ const LoggedUserButton = () => {
                     }}>odjava</button>
                 </li>
                 <li>
-                    <Link to="/products/favorites" onClick={closeSidebar}>omiljeni</Link>
+                    <Link to="/products/favorites" onClick={closeSidebar}>  {`omiljeni (${user.favorites.length})`}
+                    </Link>
                 </li>
                 <li>
                     <Link to="/products" onClick={closeSidebar}>izmeni proizvod</Link>
@@ -74,6 +77,7 @@ const Wrapper = styled.div`
         z-index: 10;
         p {
             padding-left: 0;
+            text-align: center;
         }
     }    
 

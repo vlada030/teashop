@@ -2,15 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import {GiHeartBeats} from 'react-icons/gi';
 
-const LikedButton = ({arr, singleProduct, toggleLike, user}) => {
-    const isLiked = arr.find(item => item.id === singleProduct.id);
-
+const LikedButton = ({singleProduct, toggleLike, user}) => {
+    
     if (!user) {
         return <Wrapper>
                     <GiHeartBeats className={'disabled unlike'}/>
                     morate prvo da se ulogujete
                 </Wrapper>
     }
+    
+    const arr = user.favorites;
+    const isLiked = arr.find(item => item.id === singleProduct.id);
 
     return (
         <Wrapper onClick={() => toggleLike(singleProduct)}>
@@ -30,10 +32,15 @@ const Wrapper = styled.button`
     cursor: pointer;
     display: flex;
     align-items: center;
+    padding: 0.375rem 0.75rem;
     margin-bottom: 2rem;
     
     &:hover .like-icon{
         opacity: 1;
+    }
+
+    &:focus {
+        outline: none;
     }
     
     svg {

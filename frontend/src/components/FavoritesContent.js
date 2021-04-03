@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import FavoriteItem from './FavoriteItem';
 import {Link} from 'react-router-dom';
-import {useProductsContext} from '../context/products_context';
+import {useUserContext} from '../context/user_context';
 
 const FavoritesContent = () => {
 
-  const {favoriteProducts, clearFavorites} = useProductsContext();
+  const {user, clearFavoritesList} = useUserContext();
 
   return <Wrapper className="section section-center">
 
-              {favoriteProducts.map(item => {
+              {user.favorites.map(item => {
                   let {id} = item;
                   return <Link to={`/products/${id}`} key={id}>
                               <FavoriteItem key={id} product={item}/>
@@ -21,7 +21,7 @@ const FavoritesContent = () => {
                   <Link to='/products' className='link-btn'>
                   svi proizvodi
                   </Link>
-                  <button className='link-btn clear-btn' onClick={() => {clearFavorites()}}>
+                  <button className='link-btn clear-btn' onClick={() => {clearFavoritesList()}}>
                   isprazni listu
                   </button>
               </div>

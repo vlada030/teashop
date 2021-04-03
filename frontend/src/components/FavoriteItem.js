@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaTrash } from 'react-icons/fa';
 import {formatPrice} from '../utils/helpers';
-import {useProductsContext} from '../context/products_context';
+import {useUserContext} from '../context/user_context';
 
 const FavoriteItem = ({product}) => {
   const {name, images, price} = product;
-  const {updateFavorites} = useProductsContext();
+  const {updateUserData} = useUserContext();
 
   const handleRemoveBtn = (e) => {
     e.preventDefault();
-    updateFavorites(product);
+    updateUserData(product);
   }
   return <Wrapper>
             <div className='title'>

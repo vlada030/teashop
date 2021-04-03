@@ -21,12 +21,10 @@ const SingleProductPage = () => {
       singleProductLoading,
       singleProductError,
       singleProduct,
-      fetchSingleProduct,
-      favoriteProducts,
-      updateFavorites
+      fetchSingleProduct
   } = useProductsContext();
 
-  const { user } = useUserContext();
+  const { user, updateUserData } = useUserContext();
 
   const { id } = useParams();
   const history = useHistory();
@@ -79,7 +77,7 @@ const SingleProductPage = () => {
 
                 {stock > 0 && <AddToCart product={singleProduct}/>}
 
-                <LikeButton arr={favoriteProducts} singleProduct={{id, name, price, images}} toggleLike={updateFavorites} user={user}/>
+                <LikeButton singleProduct={{id, name, price, images}} toggleLike={updateUserData} user={user}/>
                 
                 <hr />
 

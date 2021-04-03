@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import {PageHero, FavoritesContent} from '../components';
-import {useProductsContext} from '../context/products_context';
+import {useUserContext} from '../context/user_context';
 
 const FavoriteProducts = () => {
 
-    const {favoriteProducts} = useProductsContext();
+    const {user} = useUserContext();
 
-    if (favoriteProducts.length < 1) {
+    if (user && user.favorites.length < 1) {
         return <Wrapper className='page-100'>
                 <div className='empty'>
                   <h2>vaša lista omiljenih proizvoda je prazna</h2>

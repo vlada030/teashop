@@ -1,7 +1,13 @@
 import React, { useContext, useEffect, useReducer} from 'react';
 import axios from 'axios';
 
-import {PICK_AUTHENTICATION_PAGE, SET_USER, SET_INFO, UPDATE_USER_DATA} from '../actions';
+import {
+    PICK_AUTHENTICATION_PAGE,
+    SET_USER,
+    SET_INFO,
+    UPDATE_USER_FAVORITES,
+    CLEAR_USER_FAVORITES,
+} from "../actions";
 import reducer from '../reducers/user_reducer';
 
 const getUserFromLocalStorage = () => {
@@ -93,25 +99,39 @@ export const UserProvider = ({ children }) => {
     }
   }
 
-  const updateUserData = (newData) => {
-    dispatch({type: UPDATE_USER_DATA, payload: newData})
-    // zapamti u local storage
-
+  const updateUserData = (item) => {
+    dispatch({type: UPDATE_USER_FAVORITES, payload: item})
     // posalji na server
 
+  }
+
+  //obrisi celu favorites listu
+  const clearFavoritesList = () => {
+    dispatch({type: CLEAR_USER_FAVORITES})
   }
 
   const fetchUser = userData => {
     state.loginPage ? userLogin(userData) : userRegister(userData);
     }
-
+  // prilikom svake promene usera zapamti promenu u storage
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(state.user));
   }, [state.user])
     
   return (
-    <UserContext.Provider value={{...state, toggleForm, fetchUser, userLogout, updateUserData}}>{children}</UserContext.Provider>
-  )
+      <UserContext.Provider
+          value={{
+              ...state,
+              toggleForm,
+              fetchUser,
+              userLogout,
+              updateUserData,
+              clearFavoritesList
+          }}
+      >
+          {children}
+      </UserContext.Provider>
+  );
 }
 // make sure use
 export const useUserContext = () => {
