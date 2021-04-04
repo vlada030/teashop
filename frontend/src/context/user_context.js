@@ -116,6 +116,24 @@ export const UserProvider = ({ children }) => {
   // prilikom svake promene usera zapamti promenu u storage
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(state.user));
+
+    // updajetuj podatke na serveru
+    const sendFavoritesList = async(newData) => {
+      try {
+        const {data} = await axios({
+          url: '/auth/updateUser',
+          method: 'PUT',
+          data: newData,
+          withCredentials: true
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    } 
+
+    if (state.user) {
+      sendFavoritesList(state.user);
+    }
   }, [state.user])
     
   return (

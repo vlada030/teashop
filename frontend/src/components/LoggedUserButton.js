@@ -116,6 +116,7 @@ const Wrapper = styled.div`
             letter-spacing: inherit;
             cursor: pointer;
             text-transform: capitalize;
+            padding: 0.25rem 0.75rem;
         }       
     }
 
@@ -137,6 +138,10 @@ const Wrapper = styled.div`
             background: transparent;
             color: var(--clr-grey-2);
             border-bottom: 2px solid var(--clr-primary-7);
+        }
+
+        button:focus {  
+            outline: none;    
         }
     }
 `;
