@@ -39,9 +39,12 @@ export const ProductsProvider = ({ children }) => {
       //console.log(data);
       dispatch({type: GET_PRODUCTS_SUCCESS, payload: data.data});
     } catch (error) {
-      const errData = error.response.data;
-      console.log(errData);
-      dispatch({type: GET_PRODUCTS_ERROR, payload: errData})
+      if (error.response) {
+        dispatch({type: GET_PRODUCTS_ERROR, payload: error.response.data});
+      } else {
+        // u slucaju da nema mreze, a hocemo products izbacuje Promise pending
+        dispatch({type: GET_PRODUCTS_ERROR, payload: error.message});
+      }
     }  
   }
 
@@ -54,9 +57,13 @@ export const ProductsProvider = ({ children }) => {
       //console.log(data);
       dispatch({type: GET_SINGLE_PRODUCT_SUCCESS, payload: data.data});
     } catch (error) {
-      const errData = error.response.data;
-      //console.log(errData);
-      dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: errData});
+      if (error.response) {
+        dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: error.response.data});
+
+      } else {
+        // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
+        dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: error.message});
+      }
     }
   }
 
