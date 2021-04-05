@@ -78,6 +78,7 @@ exports.userLogin = (req, res, next) => {
             if (err) next(err);
             const filteredeUserData = {
                 username: req.user.username,
+                role: req.user.role,
                 favorites: req.user.favorites
             }
             // console.log(req.user);

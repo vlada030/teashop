@@ -8,6 +8,8 @@ import Checkout from './CheckoutPage';
 import ProtectedRoute from './ProtectedRoute';
 import AuthenticationPage from './AuthenticationPage';
 import FavoriteProducts from './FavoriteProducts';
+import ProtectedAdminRoute from './ProtectedAdminRoute';
+import UpdateProductPage from './UpdateProductPage';
 
 export {
     Home,
@@ -19,5 +21,7 @@ export {
     Checkout,
     ProtectedRoute,
     AuthenticationPage,
-    FavoriteProducts
+    FavoriteProducts,
+    ProtectedAdminRoute,
+    UpdateProductPage
 };

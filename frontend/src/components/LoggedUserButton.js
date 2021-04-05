@@ -25,19 +25,33 @@ const LoggedUserButton = () => {
             <p>{transformedName}</p>
             <ul>
                 <li>
-                    <button onClick={() => {
-                        userLogout();
-                        clearCart();
-                        closeSidebar();
-                    }}>odjava</button>
+                    <button
+                        onClick={() => {
+                            userLogout();
+                            clearCart();
+                            closeSidebar();
+                        }}
+                    >
+                        odjava
+                    </button>
                 </li>
                 <li>
-                    <Link to="/products/favorites" onClick={closeSidebar}>  {`omiljeni (${user.favorites.length})`}
+                    <Link to="/products/favorites" onClick={closeSidebar}>
+                        {" "}
+                        {`omiljeni (${user.favorites.length})`}
                     </Link>
                 </li>
-                <li>
-                    <Link to="/products" onClick={closeSidebar}>izmeni proizvod</Link>
-                </li>
+
+                {user && user.role === "admin" ? (
+                    <li>
+                        <Link
+                            to="/products/update-product"
+                            onClick={closeSidebar}
+                        >
+                            izmeni proizvod
+                        </Link>
+                    </li>
+                ) : null}
             </ul>
         </Wrapper>
     );
@@ -61,7 +75,6 @@ const Wrapper = styled.div`
         &::first-letter {
             text-transform: capitalize;
         }
-
     }
 
     &:hover > ul {
@@ -70,7 +83,6 @@ const Wrapper = styled.div`
         visibility: visible;
         transition: var(--transition);
     }
-
 
     @media screen and (min-width: 992px) {
         margin-top: 0;
@@ -123,10 +135,10 @@ const Wrapper = styled.div`
     @media screen and (min-width: 992px) {
         ul {
             position: absolute;
-        top: -50%;
-        left: 0;
-        opacity: 0;
-        visibility: hidden;
+            top: -50%;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
             text-align: center;
             padding-left: 0;
             background: linear-gradient( transparent, var(--clr-primary-10));
