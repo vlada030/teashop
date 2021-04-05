@@ -65,7 +65,7 @@ const SinglesSchema = new Schema({
     stock: {
         type: Number,
         required: [true, 'Unesite količinu na stanju'],
-        min: [1, 'Najmanja količina proizvoda je 30gr'],
+        min: [30, 'Najmanja količina proizvoda je 30gr'],
         max: [10000, 'Najveća količina proizvoda je 10kg']
     },
 

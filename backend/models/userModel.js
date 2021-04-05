@@ -29,6 +29,12 @@ const UserSchema = new Schema({
     favorites: {
         type: [Object],
         default: []
+    },
+
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     }
     },
 

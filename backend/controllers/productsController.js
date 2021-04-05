@@ -3,6 +3,7 @@ const Singles = require('../models/singlesModel');
 
 const asyncHandler = require('../middleware/asyncHandler');
 const EnhancedError = require('../utils/enhancedError');
+const {validationResult} = require('express-validator');
 
 // @desc   Get All Products
 // @route  GET /allproducts
@@ -41,3 +42,34 @@ exports.singleProduct = asyncHandler(
         res.status(200).json({success: true, data})
     }
 ) 
+
+// @desc   Update Product
+// @route  PUT /allproducts/:id
+// @access Private
+
+exports.updateProduct = asyncHandler(async(req, res, next) => {
+    const errors = validationResult(req);
+
+    const errorsString = errors.array().reduce((acc, val) => {
+        acc += `${val.msg}; `;
+        return acc
+    }, '');
+        
+    // validacija preko express-validatora
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            success: false,
+            message: errorsString
+        })
+    }
+    
+    const product = await Singles.findOne({id: req.body.id});
+    if (!product) {
+        return next(new EnhancedError('Traženi proizvod ne postoji u sistemu.', 404))
+    }
+
+    const updatedProduct = await Singles.findOneAndUpdate({id: req.body.id}, req.body, {
+        new: true });
+    
+    res.status(200).json({success: true, data: {stock: updatedProduct.stock, price: updatedProduct.price}, message: 'Proizvod uspešno izmenjen.'})
+}) 

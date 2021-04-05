@@ -76,11 +76,11 @@ exports.userLogin = (req, res, next) => {
         req.logIn(user, (err) => {
 
             if (err) next(err);
-            //console.log(req.user);
             const filteredeUserData = {
                 username: req.user.username,
                 favorites: req.user.favorites
             }
+            // console.log(req.user);
             res.status(200).json({success: true, data: filteredeUserData, message: 'Korisnik je uspešno prijavljen.'});
         });
         
