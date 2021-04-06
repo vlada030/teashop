@@ -20,6 +20,8 @@ import StripeCheckout from './StripeCheckout'
 import Pagination from './Pagination'
 import FavoritesContent from './FavoritesContent'
 import LikeButton from './LikeButton'
+import FindProductForm from './FindProductForm'
+import UpdateProductForm from './UpdateProductForm'
 
 export {
   FeaturedProducts,
@@ -43,5 +45,7 @@ export {
   StripeCheckout,
   Pagination,
   FavoritesContent,
-  LikeButton
+  LikeButton, 
+  FindProductForm,
+  UpdateProductForm
 }
