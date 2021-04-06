@@ -58,7 +58,7 @@ const Wrapper = styled.div`
     color: var(--clr-grey-1);
     display: flex;
     align-items: center;
-    margin-right: 2rem;
+    //margin-right: 2rem;
     border: 2px solid transparent;
     transition: var(--transition);
     

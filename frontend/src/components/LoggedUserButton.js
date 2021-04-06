@@ -70,7 +70,7 @@ const Wrapper = styled.div`
         font-size: 1.5rem;
         //letter-spacing: var(--spacing);
         cursor: pointer;
-        margin: 0;
+        //margin: 0;
 
         &::first-letter {
             text-transform: capitalize;
@@ -128,11 +128,15 @@ const Wrapper = styled.div`
             letter-spacing: inherit;
             cursor: pointer;
             text-transform: capitalize;
-            padding: 0.25rem 0.75rem;
+            
         }       
     }
 
     @media screen and (min-width: 992px) {
+        p {
+            margin: 0 2rem;
+        }
+
         ul {
             position: absolute;
             top: -50%;
@@ -152,8 +156,14 @@ const Wrapper = styled.div`
             border-bottom: 2px solid var(--clr-primary-7);
         }
 
-        button:focus {  
+        button:focus {              
             outline: none;    
+        }
+
+        a {
+            padding: .25rem 0.5rem;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
         }
     }
 `;
