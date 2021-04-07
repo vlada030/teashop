@@ -48,6 +48,8 @@ Variables
   --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   --max-width: 1170px;
   --fixed-width: 500px;
+  --fixed-width-2: 600px;
+  
 }
 /*
 =============== 
@@ -78,7 +80,7 @@ a {
 }
 hr {
   border: none;
-  border-top: 1px solid var(--clr-grey-8);
+  border-top: 1px solid var(--clr-grey-6);
 }
 h1,
 h2,

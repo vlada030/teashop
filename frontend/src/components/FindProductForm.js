@@ -1,15 +1,24 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import styled from 'styled-components';
 
-const FindProductForm = ({handleSubmit}) => {
+const FindProductForm = ({handleSubmit, findId, setFindId}) => {
+
+    const idField = useRef();
+
+    useEffect(() => {
+        idField.current.focus()
+    }, []);
+
     return (
         <Wrapper onSubmit={handleSubmit}>
+            <h4>pronađi proizvod</h4>
+            <hr />
             <div className="form-control">
-                <label>Unesite šifru proizvoda :</label>
-                <input type="text" name="id" placeholder="npr 12345" />
+                <label>unesite šifru proizvoda :</label>
+                <input type="text" name="id" placeholder="npr 12345" value={findId} onChange={e => setFindId(e.target.value)} ref={idField}/>
             </div>
             <button type="submit" className="btn">
-                pronađi proizvod
+                pošalji
             </button>
         </Wrapper>
     );
@@ -19,7 +28,15 @@ const Wrapper = styled.form`
     
     background: var(--clr-primary-9);
     border-radius: var(--radius);
-    padding: 3rem;    
+    padding: 3rem;  
+
+    h4 {
+        margin-bottom: 2rem;
+    }
+
+    hr {
+        margin-bottom: 3rem;
+    }
 
     .form-control {
         display: flex;
@@ -30,6 +47,9 @@ const Wrapper = styled.form`
 
         label {
            margin-bottom: 1rem;
+           &::first-letter{
+               text-transform: uppercase;
+           }
         }
 
         input {
@@ -54,7 +74,14 @@ const Wrapper = styled.form`
         }
     }
 
-    @media screen and (min-width: 992px) {
+    button {
+        margin: 1rem 0;
+    }
+
+    @media screen and (min-width: 700px) {
+        max-width: var(--fixed-width-2);
+        margin: 0 auto;
+
         .form-control {
             flex-direction: row;
 
