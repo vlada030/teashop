@@ -24,13 +24,31 @@ const UpdateProductPage = () => {
             } else {
             // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
             //dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: error.message});
-            }
-        
+            }        
         }
     }
 
-    const updateProductSubmit = (e) => {
+    const updateProductSubmit = async (e) => {
         e.preventDefault();
+
+        try {
+            const { data } = await axios({
+                url: `/allproducts/${product.id}`,
+                method: 'PUT',
+                data: product
+            });
+            //console.log(data);
+            setProduct(null);
+            //dispatch({type: GET_SINGLE_PRODUCT_SUCCESS, payload: data.data});
+        } catch (error) {
+            if (error.response) {
+            //dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: error.response.data});
+    
+            } else {
+            // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
+            //dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: error.message});
+            }        
+        }
     }
 
     const resetUpdateForm = () => {
@@ -38,7 +56,7 @@ const UpdateProductPage = () => {
     }
 
     const updatePropertyValue = (name, value) => {
-        console.log({name, value});
+        //console.log({name, value});
         setProduct({...product, [name]: value});
     }
 

@@ -98,17 +98,11 @@ exports.userLogin = (req, res, next) => {
 
 exports.userLogout = async (req, res, next) => {
     //console.log(req.user);
-    if (req.user) {
-        req.logOut();
-        //console.log(req.session);
-        return res.status(200).json({
-            success: true,
-            message: 'Korisnik je uspešno odjavljen.'
-        })        
-    }
-
-    next(new EnhancedError('Nema prijavljenog korisnika.', 400))
-    
+    req.logOut();
+    return res.status(200).json({
+        success: true,
+        message: 'Korisnik je uspešno odjavljen.'
+    })   
 }
 
 // @desc    Get User 
