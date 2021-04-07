@@ -1,4 +1,3 @@
-const AllProducts = require('../models/allProductsModel');
 const Singles = require('../models/singlesModel');
 
 const asyncHandler = require('../middleware/asyncHandler');
@@ -11,13 +10,19 @@ const {validationResult} = require('express-validator');
 
 exports.allProducts = asyncHandler (async (req, res, next) => {
   
-    const data = await AllProducts.find();
-
+    const data = await Singles.find().select('id name description price package category filter images featured');
+    
+    // prilagodjavanje podataka koji se vracaju front-endu
+    let updatedData = data.map(item => {
+        const {id, name, description, price, package, category, filter, images, featured} = item;
+        return {id, name, description, price, package, category, filter, image: images[0], featured}
+    })
+    
     if (data.length < 1) {
         return next(new EnhancedError('Ne mogu da učitam proizvode', 500))
     }
 
-    res.status(200).json({success: true, data})
+    res.status(200).json({success: true, data: updatedData});
         
 });
 

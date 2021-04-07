@@ -92,6 +92,11 @@ const SinglesSchema = new Schema({
         type: [String],
         trim: true,
         maxlength: [100, 'Link za sliku proizvoda može da sadrži najviše 100 karaktera']
+    },
+    
+    featured: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

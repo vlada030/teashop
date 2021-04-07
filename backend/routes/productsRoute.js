@@ -4,7 +4,6 @@ const {body} = require('express-validator');
 
 const {allProducts, singleProduct, updateProduct} = require('../controllers/productsController');
 const {userIsNotAuthenticated, isUserAdmin} = require('../middleware/checkUserAuthentication');
-const {Singles} = require('../models/singlesModel');
 
 router.route('/').get(allProducts);
 router.route('/:id')

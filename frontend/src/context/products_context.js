@@ -28,7 +28,6 @@ const ProductsContext = React.createContext()
 export const ProductsProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {user, updateUserData} = useUserContext();
 
   // preuzmi sve proizvode
   const fetchProducts = async () => {
