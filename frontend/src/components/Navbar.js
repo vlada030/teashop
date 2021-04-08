@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+// eslint-disable-next-line
 import logo from '../assets/logo.png'
 // eslint-disable-next-line
 import { FaBars } from 'react-icons/fa'

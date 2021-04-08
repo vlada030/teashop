@@ -80,6 +80,7 @@ export const UserProvider = ({ children }) => {
 
   const userLogout = async () => {
     try {
+      // eslint-disable-next-line
       const {data} = await axios({
         url: '/auth/logout',
         method: 'DELETE',
@@ -120,6 +121,7 @@ export const UserProvider = ({ children }) => {
     // updajetuj podatke na serveru
     const sendFavoritesList = async(newData) => {
       try {
+        // eslint-disable-next-line
         const {data} = await axios({
           url: '/auth/updateUser',
           method: 'PUT',

@@ -1,4 +1,5 @@
 import React from "react";
+// eslint-disable-next-line
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { FaAngleDoubleLeft } from "react-icons/fa";

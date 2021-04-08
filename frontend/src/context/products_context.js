@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useReducer } from 'react'
 import reducer from '../reducers/products_reducer'
-import {useUserContext} from '../context/user_context';
 import {
   GET_PRODUCTS_BEGIN,
   GET_PRODUCTS_SUCCESS,

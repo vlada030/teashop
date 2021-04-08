@@ -33,6 +33,7 @@ const UpdateProductPage = () => {
         e.preventDefault();
 
         try {
+            // eslint-disable-next-line
             const { data } = await axios({
                 url: `/allproducts/${product.id}`,
                 method: 'PUT',
