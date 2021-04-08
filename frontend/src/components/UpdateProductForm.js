@@ -70,6 +70,31 @@ const UpdateProductForm =  ({product, handleSubmit, handleFormReset, handleFormC
                 <p>{product.package.join(", ")}</p>
             </div>
 
+            {/* <div className="form-control">
+                <label>istaknut proizvod :</label>
+                <input
+                    type="checkbox"
+                    name="featured"
+                    checked={product.featured}
+                    onChange={(e) =>
+                        handleFormChange(e.target.name, e.target.checked)
+                    }
+                />
+            </div> */}
+            <div className="form-control">
+                <label>istaknut proizvod :</label>
+                <div className="checkbox">
+                    <input type="checkbox" type="checkbox"
+                    name="featured"
+                    id="checkboxInput"
+                    checked={product.featured}
+                    onChange={(e) =>
+                        handleFormChange(e.target.name, e.target.checked)
+                    }  />
+                    <label htmlFor="checkboxInput"></label>
+                </div>
+            </div>
+
             <div className="form-control">
                 <label>opis :</label>
                 <textarea
@@ -142,11 +167,10 @@ const UpdateProductForm =  ({product, handleSubmit, handleFormReset, handleFormC
 };
 
 const Wrapper = styled.form`
-    
     background: var(--clr-primary-9);
     border-radius: var(--radius);
-    padding: 3rem;   
-    
+    padding: 3rem;
+
     h4 {
         margin-bottom: 2rem;
     }
@@ -160,10 +184,10 @@ const Wrapper = styled.form`
         margin-bottom: 2rem;
 
         label {
-           margin-bottom: 1rem;
-           &::first-letter{
-               text-transform: uppercase;
-           }
+            margin-bottom: 1rem;
+            &::first-letter {
+                text-transform: uppercase;
+            }
         }
 
         p {
@@ -176,7 +200,6 @@ const Wrapper = styled.form`
             background-color: transparent;
             border: none;
             border-bottom: 1px solid var(--clr-primary-5);
-            border-radius: var(--radius);
             text-align: center;
             font: inherit;
             letter-spacing: var(--spacing);
@@ -184,7 +207,7 @@ const Wrapper = styled.form`
 
             &:focus {
                 border-bottom: 1px solid var(--clr-primary-4);
-                box-shadow: var(--light-shadow); 
+                box-shadow: var(--light-shadow);
                 outline: none;
             }
         }
@@ -200,7 +223,9 @@ const Wrapper = styled.form`
             overflow: auto;
         }
 
-        input, textarea {
+        input,
+        textarea {
+            border-radius: var(--radius);
             &::placeholder {
                 font-style: italic;
             }
@@ -208,9 +233,40 @@ const Wrapper = styled.form`
 
         .btn-addition {
             margin: 1rem 0;
-    
         }
-    }    
+    }
+
+    // checkbox style
+    input[type="checkbox"] {
+        visibility: hidden;
+    }
+
+    .checkbox {
+        width: 40px;
+        height: 10px;
+        background: var(--clr-primary-8);
+        margin: 20px auto;
+        position: relative;
+        border-radius: var(--radius);
+    }
+    .checkbox label {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+
+        transition: var(--transition);
+        cursor: pointer;
+        position: absolute;
+        top: -5px;
+        left: -5px;
+
+        background: var(--clr-primary-5);
+    }
+
+    .checkbox input[type="checkbox"]:checked + label {
+        left: 27px;
+    }
 
     @media screen and (min-width: 700px) {
         max-width: var(--fixed-width-2);
@@ -223,13 +279,13 @@ const Wrapper = styled.form`
             label {
                 margin: 0 1rem 0 0;
             }
-        } 
-        
+        }
+
         .btn-addition {
             justify-self: center;
             width: 70%;
         }
-    }    
+    }
 `;
 
 export default UpdateProductForm;

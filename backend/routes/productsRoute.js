@@ -22,20 +22,20 @@ router.route('/:id')
                 .isLength({max: 15})
                 .trim()
                 .toLowerCase(),
-            body('description', 'Polje OPIS može da sadrži najviše 500 karaktera.')
-                .isLength({max: 500})
+            body('description', 'Polje OPIS može da sadrži najviše 1000 karaktera.')
+                .isLength({max: 1000})
                 .trim()
                 .toLowerCase(),
-            body('preparation', 'Polje PRIPREMA može da sadrži najviše 500 karaktera.')
-                .isLength({max: 500})
+            body('preparation', 'Polje PRIPREMA može da sadrži najviše 1000 karaktera.')
+                .isLength({max: 1000})
                 .trim()
                 .toLowerCase(),
-            body('goal', 'Polje DEJSTVO može da sadrži najviše 500 karaktera.')
-                .isLength({max: 500})
+            body('goal', 'Polje DEJSTVO može da sadrži najviše 1000 karaktera.')
+                .isLength({max: 1000})
                 .trim()
                 .toLowerCase(),
-            body('disclaimer', 'Polje NEZELJENA DEJSTVA može da sadrži najviše 500 karaktera.')
-                .isLength({max: 500})
+            body('disclaimer', 'Polje NEZELJENA DEJSTVA može da sadrži najviše 1000 karaktera.')
+                .isLength({max: 1000})
                 .trim()
                 .toLowerCase(),
             body('price')

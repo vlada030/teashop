@@ -19,25 +19,25 @@ const SinglesSchema = new Schema({
     description: {
         type: String,
         trim: true,
-        maxlength: [500, 'Opis proizvoda moze da sadrži najviše 500 karaktera'],
+        maxlength: [1000, 'Opis proizvoda moze da sadrži najviše 1000 karaktera'],
     },
 
     preparation: {
         type: String,
         trim: true,
-        maxlength: [500, 'Priprema moze da sadrži najviše 500 karaktera'],
+        maxlength: [1000, 'Priprema moze da sadrži najviše 1000 karaktera'],
     },
 
     goal: {
         type: String,
         trim: true,
-        maxlength: [500, 'Dejstvo moze da sadrži najviše 500 karaktera'],
+        maxlength: [1000, 'Dejstvo moze da sadrži najviše 1000 karaktera'],
     },
 
     disclaimer: {
         type: String,
         trim: true,
-        maxlength: [500, 'Neželjeno dejstvo moze da sadrži najviše 500 karaktera'],
+        maxlength: [1000, 'Neželjeno dejstvo moze da sadrži najviše 1000 karaktera'],
     },
 
 
