@@ -1,4 +1,4 @@
-import {SIDEBAR_OPEN, SIDEBAR_CLOSE} from '../actions';
+import {SIDEBAR_OPEN, SIDEBAR_CLOSE, HIDE_MODAL} from '../actions';
 
 const globalReducer = (state, action) => {
     switch(action.type) {
@@ -8,6 +8,10 @@ const globalReducer = (state, action) => {
 
         case SIDEBAR_CLOSE: {
             return {...state, isSidebarOpen: false}
+        }
+
+        case HIDE_MODAL: {
+            return {...state, showModal: false, modalMsg: ''}
         }
 
         default: throw new Error(`U globalnom reduceru ne postoji action type ${action.type}`)

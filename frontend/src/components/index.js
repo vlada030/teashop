@@ -22,6 +22,7 @@ import FavoritesContent from './FavoritesContent'
 import LikeButton from './LikeButton'
 import FindProductForm from './FindProductForm'
 import UpdateProductForm from './UpdateProductForm'
+import Modal from './Modal'
 
 export {
   FeaturedProducts,
@@ -47,5 +48,6 @@ export {
   FavoritesContent,
   LikeButton, 
   FindProductForm,
-  UpdateProductForm
+  UpdateProductForm,
+  Modal
 }

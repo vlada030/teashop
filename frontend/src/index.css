@@ -218,3 +218,11 @@ p {
 .page {
   min-height: calc(100vh - (20vh + 10rem));
 }
+
+.success {
+  background-color: var(--clr-green-light);
+}
+
+.error {
+  background-color: var(--clr-red-light);
+}
