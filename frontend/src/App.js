@@ -23,13 +23,13 @@ import {useGlobalContext} from './context/global_context';
 // obratiti paznju na protected route - ukoliko nije wrapovana ovoj ruti i dalje moze da se pristupi direktnim linkom - ODLICNA KONSTRUKCIJA
 
 function App() {
-    const {showModal, modalError, closeModal} = useGlobalContext();
+    const {showModal, modalError, modalMsg, closeModal} = useGlobalContext();
 
     return (
             <BrowserRouter>
                 <Navbar />
                 <Sidebar />
-                {showModal ? <Modal type={modalError} handleClose={closeModal}/> : null}
+                {showModal ? <Modal type={modalError} handleClose={closeModal} message={modalMsg} /> : null}
 
                 <Switch>
                     <Route exact path="/">

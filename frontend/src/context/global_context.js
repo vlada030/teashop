@@ -1,10 +1,15 @@
 import React, {useContext, useReducer} from 'react';
-import { SIDEBAR_OPEN, SIDEBAR_CLOSE, HIDE_MODAL } from "../actions";
+import {
+    SIDEBAR_OPEN,
+    SIDEBAR_CLOSE,
+    HIDE_MODAL,
+    SHOW_MODAL,
+} from "../actions";
 import reducer from '../reducers/global_reducer';
 
 const initialState = {
     isSidebarOpen: false,
-    showModal: true,
+    showModal: false,
     modalMsg: '',
     modalError: true
 }
@@ -23,16 +28,16 @@ export const GlobalProvider = ({children}) => {
         dispatch({type: SIDEBAR_CLOSE});
     }
 
-    // const showModal = () => {
-    //     dispatch({type: SHOW_MODAL});
-    // }
+    const openModal = (payload) => {
+        dispatch({type: SHOW_MODAL, payload});
+    }
 
     const closeModal = () => {
         dispatch({type: HIDE_MODAL});
     }
 
     return (
-        <GlobalContext.Provider value={{ ...state, openSidebar, closeSidebar, closeModal }}>
+        <GlobalContext.Provider value={{ ...state, openSidebar, closeSidebar, closeModal, openModal }}>
             {children}
         </GlobalContext.Provider>
     );

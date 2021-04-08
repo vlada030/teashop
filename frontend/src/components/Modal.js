@@ -2,30 +2,42 @@ import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
-const Modal = ({type, handleClose}) => {
+const Modal = ({type, handleClose, message}) => {
 
+    // ugasi samo info poruku, ne error    
     useEffect(() => {
-        setTimeout(() => {
-            handleClose();
-        }, 2000)
-    }, []);
+        if (type === false) {
+                setTimeout(() => {
+                    handleClose();
+                }, 3000);
+            }
+        }, [type]);
 
-    return <Wrapper className={type ? 'success' : 'error'}>
-                <p>Ovo je modal bla bla blal abla</p>
+    return <Wrapper className={type ? 'error' : 'success'}>
+                <p>{message}</p>
                 <AiOutlineCloseCircle onClick={handleClose}/>
             </Wrapper>
 }
 
 const Wrapper = styled.div`
-    position: absolute;
+    /* position: absolute;
     top: 6rem;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%); */
     padding: .5rem .75rem;
     border-radius: var(--radius);
-    display: flex;
+    /* display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-items: center;
+
+    width: 90vw;
+    max-width: var(--fixed-width-1);
+    margin: 0 auto;
+
     p {
         margin-bottom: 0;
         margin-right: 2rem;
@@ -36,6 +48,12 @@ const Wrapper = styled.div`
         width: 20px;
         cursor: pointer;
         color: inherit;
+        //justify-self: end;
+    }
+
+    @media screen and (min-width: 992px) {
+        
+
     }
 `;
 

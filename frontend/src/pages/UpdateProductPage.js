@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import {FindProductForm, UpdateProductForm} from '../components';
+import {useGlobalContext} from '../context/global_context';
 
 const UpdateProductPage = () => {
 
     const [product, setProduct] = useState(null);
     const [findId, setFindId] = useState('');
-    const [updatedProduct, setUpdatedProduct] = useState(null);
+    const {openModal, closeModal} = useGlobalContext();
 
     const findProductSubmit = async (e) => {
         e.preventDefault();
@@ -15,15 +16,15 @@ const UpdateProductPage = () => {
         try {
             const { data } = await axios(`/allproducts/${findId}`);
             //console.log(data);
+            closeModal();
             setProduct(data.data);
-            //dispatch({type: GET_SINGLE_PRODUCT_SUCCESS, payload: data.data});
         } catch (error) {
             if (error.response) {
-            //dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: error.response.data});
+                openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});
     
             } else {
             // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
-            //dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: error.message});
+            openModal({showModal: true, modalMsg: error.message, modalError: true});
             }        
         }
     }
@@ -39,20 +40,20 @@ const UpdateProductPage = () => {
             });
             //console.log(data);
             setProduct(null);
-            //dispatch({type: GET_SINGLE_PRODUCT_SUCCESS, payload: data.data});
+            openModal({showModal: true, modalMsg: 'Proizvod uspešno izmenjen.', modalError: false});
         } catch (error) {
             if (error.response) {
-            //dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: error.response.data});
-    
+                openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});    
             } else {
-            // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
-            //dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: error.message});
+                // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
+                openModal({showModal: true, modalMsg: error.message, modalError: true});
             }        
         }
     }
 
     const resetUpdateForm = () => {
         setProduct(null);
+        closeModal();
     }
 
     const updatePropertyValue = (name, value) => {

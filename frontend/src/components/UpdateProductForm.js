@@ -84,13 +84,14 @@ const UpdateProductForm =  ({product, handleSubmit, handleFormReset, handleFormC
             <div className="form-control">
                 <label>istaknut proizvod :</label>
                 <div className="checkbox">
-                    <input type="checkbox" type="checkbox"
-                    name="featured"
-                    id="checkboxInput"
-                    checked={product.featured}
-                    onChange={(e) =>
-                        handleFormChange(e.target.name, e.target.checked)
-                    }  />
+                    <input type="checkbox"
+                        name="featured"
+                        id="checkboxInput"
+                        checked={product.featured}
+                        onChange={(e) =>
+                            handleFormChange(e.target.name, e.target.checked)
+                        }  
+                    />
                     <label htmlFor="checkboxInput"></label>
                 </div>
             </div>
