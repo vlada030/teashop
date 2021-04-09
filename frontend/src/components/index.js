@@ -23,6 +23,7 @@ import LikeButton from './LikeButton'
 import FindProductForm from './FindProductForm'
 import UpdateProductForm from './UpdateProductForm'
 import Modal from './Modal'
+import ScrollToTopBtn from './ScrollToTopBtn'
 
 export {
   FeaturedProducts,
@@ -49,5 +50,6 @@ export {
   LikeButton, 
   FindProductForm,
   UpdateProductForm,
-  Modal
+  Modal,
+  ScrollToTopBtn
 }

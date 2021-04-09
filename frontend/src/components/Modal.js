@@ -20,10 +20,10 @@ const Modal = ({type, handleClose, message}) => {
 }
 
 const Wrapper = styled.div`
-    /* position: absolute;
+    position: absolute;
     top: 6rem;
     left: 50%;
-    transform: translateX(-50%); */
+    transform: translateX(-50%);
     padding: .5rem .75rem;
     border-radius: var(--radius);
     /* display: flex;
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
     justify-items: center;
 
     width: 90vw;
-    max-width: var(--fixed-width-1);
+    max-width: var(--fixed-width);
     margin: 0 auto;
 
     p {
@@ -48,7 +48,7 @@ const Wrapper = styled.div`
         width: 20px;
         cursor: pointer;
         color: inherit;
-        //justify-self: end;
+        justify-self: end;
     }
 
     @media screen and (min-width: 992px) {

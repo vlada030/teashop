@@ -47,7 +47,7 @@ router.route('/:id')
                     } 
 
                     if (value > 10000) {
-                        throw new Error('Najviša cena proizvoda je 10000 RSD')
+                        throw new Error('Najviša cena proizvoda je 10.000 RSD')
                     } 
 
                     return true;
@@ -61,7 +61,7 @@ router.route('/:id')
                     } 
 
                     if (value > 10000) {
-                        throw new Error('Najveća količina proizvoda je 10kg')
+                        throw new Error('Najveća količina proizvoda je 10 000 gr')
                     } 
 
                     return true;

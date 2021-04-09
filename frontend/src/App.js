@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Navbar, Sidebar, Footer, Modal } from "./components";
+import { Navbar, Sidebar, Footer, Modal, ScrollToTopBtn } from "./components";
 import {
     Home,
     About,
@@ -13,7 +13,7 @@ import {
     AuthenticationPage,
     FavoriteProducts,
     ProtectedAdminRoute,
-    UpdateProductPage
+    UpdateProductPage,
 } from "./pages";
 
 import {useGlobalContext} from './context/global_context';
@@ -76,6 +76,7 @@ function App() {
                     </Route>
                 </Switch>
 
+                <ScrollToTopBtn />
                 <Footer />
             </BrowserRouter>
     );
