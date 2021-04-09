@@ -46,10 +46,16 @@ const Wrapper = styled.div`
     border: 1px solid var(--clr-white);
     border-radius: var(--radius);
     cursor: pointer;
+    transition: var(--transition);
 
     display: grid;
     place-items: center;
     padding: 0.2rem;
+
+    &:hover,
+    &:active {
+        background-color: var(--clr-primary-3);
+    }
 
     svg {
         width: 2rem;

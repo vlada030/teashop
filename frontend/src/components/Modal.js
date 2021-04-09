@@ -50,11 +50,6 @@ const Wrapper = styled.div`
         color: inherit;
         justify-self: end;
     }
-
-    @media screen and (min-width: 992px) {
-        
-
-    }
 `;
 
  export default Modal;

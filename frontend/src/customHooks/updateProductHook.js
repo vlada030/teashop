@@ -43,10 +43,18 @@ const useUpdateProduct = () => {
             openModal({showModal: true, modalMsg: 'Proizvod uspešno izmenjen.', modalError: false});
         } catch (error) {
             if (error.response) {
-                openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});    
+                openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });    
             } else {
                 // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
                 openModal({showModal: true, modalMsg: error.message, modalError: true});
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             }        
         }
     }

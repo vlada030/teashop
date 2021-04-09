@@ -83,14 +83,26 @@ const clearFilters = () => {
 
 const showPage = (index) => {
   dispatch({type: SHOW_PAGE, payload: index});
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
 
 const nextPage = () => {
   dispatch({type: NEXT_PAGE});
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
 
 const prevPage = () => {
   dispatch({type: PREV_PAGE});
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 }
 
   return (
