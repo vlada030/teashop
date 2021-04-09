@@ -14,8 +14,8 @@ require('dotenv').config();
 // console.log(resolve(__dirname, '../../.env'));
 
 ReactDOM.render(
-    <UserProvider>
-        <GlobalProvider>
+    <GlobalProvider>
+        <UserProvider>
             <ProductsProvider>
                 <FilterProvider>
                     <CartProvider>
@@ -23,7 +23,7 @@ ReactDOM.render(
                     </CartProvider>
                 </FilterProvider>
             </ProductsProvider>
-        </GlobalProvider>
-    </UserProvider>,
+        </UserProvider>
+    </GlobalProvider>,
     document.getElementById("root")
 );

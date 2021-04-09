@@ -6,7 +6,7 @@ const Modal = ({type, handleClose, message}) => {
 
     // ugasi samo info poruku, ne error    
     useEffect(() => {
-        if (type === false) {
+        if (!type) {
                 setTimeout(() => {
                     handleClose();
                 }, 3000);

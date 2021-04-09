@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import axios from 'axios';
 import {useGlobalContext} from '../context/global_context';
 

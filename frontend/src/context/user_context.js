@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useReducer} from 'react';
 import axios from 'axios';
+import reducer from '../reducers/user_reducer';
+import {useGlobalContext} from './global_context';
 
 import {
     PICK_AUTHENTICATION_PAGE,
     SET_USER,
-    SET_INFO,
     UPDATE_USER_FAVORITES,
     CLEAR_USER_FAVORITES,
 } from "../actions";
-import reducer from '../reducers/user_reducer';
+
 
 const getUserFromLocalStorage = () => {
   let user = false;
@@ -24,11 +25,11 @@ const UserContext = React.createContext();
 const initialState = {
   loginPage: true,
   user: getUserFromLocalStorage(),
-  infoMsg: ''
 };
 
 export const UserProvider = ({ children }) => {
   
+  const { openModal } = useGlobalContext();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const toggleForm = () => {
@@ -49,10 +50,12 @@ export const UserProvider = ({ children }) => {
       
     } catch (error) {
       if (error.response) {
-        dispatch({type: SET_INFO, payload: error.response.data.message});
+        //dispatch({type: SET_INFO, payload: error.response.data.message});
+        openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});
       } else {
         // u slucaju da nema mreze, a hocemo da se logujemo izbacuje Promise pending
-        dispatch({type: SET_INFO, payload: error.message});
+        //dispatch({type: SET_INFO, payload: error.message});
+        openModal({showModal: true, modalMsg: error.message, modalError: true});
       }
     }
   }
@@ -67,14 +70,16 @@ export const UserProvider = ({ children }) => {
       })
       if (data.success === true) {
         dispatch({type: PICK_AUTHENTICATION_PAGE});
-        dispatch({type: SET_INFO, payload: 'Uspešno kreiran korisnik, sad možete da se ulogujete.'});
+        openModal({showModal: true, modalMsg: 'Uspešno kreiran korisnik, sad možete da se ulogujete.', modalError: false});
       }
     } catch (error) {
       if (error.response) {
-        dispatch({type: SET_INFO, payload: error.response.data.message});
+        //dispatch({type: SET_INFO, payload: error.response.data.message});
+        openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});
       } else {
         // u slucaju da nema mreze, a hocemo da se logujemo izbacuje Promise pending
-        dispatch({type: SET_INFO, payload: error.message});
+        //dispatch({type: SET_INFO, payload: error.message});
+        openModal({showModal: true, modalMsg: error.message, modalError: true});
       }
     }
   }
@@ -92,19 +97,18 @@ export const UserProvider = ({ children }) => {
       
     } catch (error) {
       if (error.response) {
-        dispatch({type: SET_INFO, payload: error.response.data.message});
-
+        //dispatch({type: SET_INFO, payload: error.response.data.message});
+        openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});
       } else {
         // u slucaju da nema mreze, a hocemo da se logujemo izbacuje Promise pending
-        dispatch({type: SET_INFO, payload: error.message});
+        //dispatch({type: SET_INFO, payload: error.message});
+        openModal({showModal: true, modalMsg: error.message, modalError: true});
       }
     }
   }
 
   const updateUserData = (item) => {
     dispatch({type: UPDATE_USER_FAVORITES, payload: item})
-    // posalji na server
-
   }
 
   //obrisi celu favorites listu
@@ -119,7 +123,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('user', JSON.stringify(state.user));
 
-    // updajetuj podatke na serveru
+    // updejtuj podatke na serveru
     const sendFavoritesList = async(newData) => {
       try {
         // eslint-disable-next-line
@@ -131,6 +135,7 @@ export const UserProvider = ({ children }) => {
         })
       } catch (error) {
         console.log(error);
+        openModal({showModal: true, modalMsg: 'Greška prilikom slanja podataka na server.', modalError: true});
       }
     } 
 

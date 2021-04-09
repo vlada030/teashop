@@ -1,7 +1,6 @@
 // user context
 export const PICK_AUTHENTICATION_PAGE = 'PICK_AUTHENTICATION_PAGE'
 export const SET_USER = 'SET_USER'
-export const SET_INFO = 'SET_INFO'
 export const UPDATE_USER_FAVORITES = 'UPDATE_USER_FAVORITES'
 export const CLEAR_USER_FAVORITES = 'CLEAR_USER_FAVORITES'
 // global context
