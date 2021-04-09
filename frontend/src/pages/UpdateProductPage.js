@@ -1,57 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import {FindProductForm, UpdateProductForm} from '../components';
 import {useGlobalContext} from '../context/global_context';
+import useUpdateProduct from '../customHooks/updateProductHook';
 
-const UpdateProductPage = () => {
-
-    const [product, setProduct] = useState(null);
-    const [findId, setFindId] = useState('');
-    const {openModal, closeModal} = useGlobalContext();
-
-    const findProductSubmit = async (e) => {
-        e.preventDefault();
-        
-        try {
-            const { data } = await axios(`/allproducts/${findId}`);
-            //console.log(data);
-            closeModal();
-            setProduct(data.data);
-        } catch (error) {
-            if (error.response) {
-                openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});
+const UpdateProductPage = () => {    
+    const {closeModal} = useGlobalContext();
+    const {product, findId, findProductSubmit, updateProductSubmit, setProduct, setFindId} = useUpdateProduct();
     
-            } else {
-            // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
-            openModal({showModal: true, modalMsg: error.message, modalError: true});
-            }        
-        }
-    }
-
-    const updateProductSubmit = async (e) => {
-        e.preventDefault();
-
-        try {
-            // eslint-disable-next-line
-            const { data } = await axios({
-                url: `/allproducts/${product.id}`,
-                method: 'PUT',
-                data: product
-            });
-            //console.log(data);
-            setProduct(null);
-            openModal({showModal: true, modalMsg: 'Proizvod uspešno izmenjen.', modalError: false});
-        } catch (error) {
-            if (error.response) {
-                openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});    
-            } else {
-                // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
-                openModal({showModal: true, modalMsg: error.message, modalError: true});
-            }        
-        }
-    }
-
     const resetUpdateForm = () => {
         setProduct(null);
         closeModal();
