@@ -16,20 +16,17 @@ import {
     UpdateProductPage,
 } from "./pages";
 
-import {useGlobalContext} from './context/global_context';
-
-
 // mora da sa uvede ova komponenta jer iako je user logovan kada se ide direktno na /checkout OPET VRACA na pocetnu
 // obratiti paznju na protected route - ukoliko nije wrapovana ovoj ruti i dalje moze da se pristupi direktnim linkom - ODLICNA KONSTRUKCIJA
 
 function App() {
-    const {showModal, modalError, modalMsg, closeModal} = useGlobalContext();
+    
 
     return (
             <BrowserRouter>
                 <Navbar />
                 <Sidebar />
-                {showModal ? <Modal type={modalError} handleClose={closeModal} message={modalMsg} /> : null}
+                <Modal />
 
                 <Switch>
                     <Route exact path="/">

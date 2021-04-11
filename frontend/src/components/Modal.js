@@ -1,22 +1,30 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import {useGlobalContext} from '../context/global_context';
 
-const Modal = ({type, handleClose, message}) => {
 
+const Modal = () => {
+    const {showModal, modalError, modalMsg, closeModal} = useGlobalContext();
     // ugasi samo info poruku, ne error    
     useEffect(() => {
-        if (!type) {
+        if (!modalError) {
                 setTimeout(() => {
-                    handleClose();
+                    closeModal();
                 }, 3000);
             }
-        }, [type]);
+        }, [modalError]);
 
-    return <Wrapper className={type ? 'error' : 'success'}>
-                <p>{message}</p>
-                <AiOutlineCloseCircle onClick={handleClose}/>
-            </Wrapper>
+    return (
+        <React.Fragment>
+            {showModal ? (
+                <Wrapper className={modalError ? "error" : "success"}>
+                    <p>{modalMsg}</p>
+                    <AiOutlineCloseCircle onClick={closeModal} />
+                </Wrapper>
+            ) : null}
+        </React.Fragment>
+    );   
 }
 
 const Wrapper = styled.div`
