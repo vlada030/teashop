@@ -28,9 +28,34 @@ const useUpdateProduct = () => {
         }
     }
 
+    const axiosUpdateProductFromStripe = async (arrProducts) => {
+        arrProducts.forEach(async product => {
+            let updatedProduct = {...product, id: product.id.substring(0, 5)};
+
+            console.log({product, updatedProduct});
+            
+            try {
+                // eslint-disable-next-line
+                const { data } = await axios({
+                    url: `/allproducts/${updatedProduct.id}`,
+                    method: 'PATCH',
+                    data: {stock: updatedProduct.stock}
+                });
+                console.log(data);
+                openModal({showModal: true, modalMsg: 'Proizvod uspešno izmenjen.', modalError: false});
+            } catch (error) {
+                if (error.response) {
+                    openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});  
+                } else {
+                    // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
+                    openModal({showModal: true, modalMsg: error.message, modalError: true});
+                }        
+            }
+        });        
+    }
+
     const updateProductSubmit = async (e) => {
         e.preventDefault();
-
         try {
             // eslint-disable-next-line
             const { data } = await axios({
@@ -56,10 +81,10 @@ const useUpdateProduct = () => {
                     behavior: 'smooth'
                 });
             }        
-        }
+        }        
     }
 
-    return {product, findId, findProductSubmit, updateProductSubmit, setProduct, setFindId};
+    return {product, findId, findProductSubmit, updateProductSubmit, setProduct, setFindId, axiosUpdateProductFromStripe};
 }
 
 export default useUpdateProduct;

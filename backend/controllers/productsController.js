@@ -50,7 +50,7 @@ exports.singleProduct = asyncHandler(
 
 // @desc   Update Product
 // @route  PUT /allproducts/:id
-// @access Private
+// @access Private ADMIN
 
 exports.updateProduct = asyncHandler(async(req, res, next) => {
     const errors = validationResult(req);
@@ -77,4 +77,37 @@ exports.updateProduct = asyncHandler(async(req, res, next) => {
         new: true });
     
     res.status(200).json({success: true, data: {stock: updatedProduct.stock, price: updatedProduct.price}, message: 'Proizvod uspešno izmenjen.'})
+}) 
+
+// @desc   Update Product
+// @route  PATCH /allproducts/:id
+// @access Private - USER
+
+exports.patchProduct = asyncHandler(async(req, res, next) => {
+    const errors = validationResult(req);
+
+    const errorsString = errors.array().reduce((acc, val) => {
+        acc += `${val.msg}; `;
+        return acc
+    }, '');
+        
+    // validacija preko express-validatora
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            success: false,
+            message: errorsString
+        })
+    }
+    
+    console.log(req.body);
+    
+    const product = await Singles.findOne({id: req.body.id});
+    if (!product) {
+        return next(new EnhancedError('Traženi proizvod ne postoji u sistemu.', 404))
+    }
+
+    const updatedProduct = await Singles.findOneAndUpdate({id: req.body.id}, req.body, {
+        new: true });
+    
+    res.status(200).json({success: true, data: {stock: updatedProduct.stock}, message: ''})
 }) 

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {body} = require('express-validator');
 
-const {allProducts, singleProduct, updateProduct} = require('../controllers/productsController');
+const {allProducts, singleProduct, updateProduct, patchProduct} = require('../controllers/productsController');
 const {userIsNotAuthenticated, isUserAdmin} = require('../middleware/checkUserAuthentication');
 
 router.route('/').get(allProducts);
@@ -66,7 +66,27 @@ router.route('/:id')
 
                     return true;
                 }),
-            ],
-         updateProduct);
+            ], updateProduct)
+         .patch(userIsNotAuthenticated,
+            [
+                body("id")
+                    .isLength({min:5, max: 5})
+                    .withMessage("Šifra proizvoda treba da sadrži 5 broja.")
+                    .trim(),
+                body('stock')
+                    .isNumeric()
+                    .withMessage('Polje STANJE je kolicina proizvoda na stanju u gramima.')
+                    .custom(async(value) => {
+                        if (value < 0) {
+                            throw new Error('Na stanju ostaje manja kolicina od 0gr')
+                        } 
+    
+                        if (value > 10000) {
+                            throw new Error('Najveća količina proizvoda je 10 000 gr')
+                        } 
+    
+                        return true;
+                    }),
+                ], patchProduct );
 
 module.exports = router;

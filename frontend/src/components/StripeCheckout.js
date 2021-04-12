@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { useCartContext } from "../context/cart_context";
 import { useUserContext } from "../context/user_context";
+import useUpdateProduct from '../customHooks/updateProductHook';
 import { formatPrice } from "../utils/helpers";
 import { useHistory } from "react-router-dom";
 
@@ -19,6 +20,7 @@ const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC);
 const CheckoutForm = () => {
     const { cart, totalAmount, shipping, clearCart } = useCartContext();
     const { user } = useUserContext();
+    const {axiosUpdateProductFromStripe} = useUpdateProduct();
     const history = useHistory();
 
     // stripe da bi radio, prekopirano
@@ -85,6 +87,9 @@ const CheckoutForm = () => {
             setError(null);
             setProcessing(false);
             setSucceeded(true);
+
+            // updejtuj bazu
+            axiosUpdateProductFromStripe(cart);
             setTimeout(() => {
                 clearCart();
                 history.push('/');

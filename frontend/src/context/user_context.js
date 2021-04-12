@@ -29,7 +29,7 @@ const initialState = {
 
 export const UserProvider = ({ children }) => {
   
-  const { openModal } = useGlobalContext();
+  const { openModal, closeModal } = useGlobalContext();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const toggleForm = () => {
@@ -46,7 +46,8 @@ export const UserProvider = ({ children }) => {
       })
 
       dispatch({type: SET_USER, payload: data.data});
-      //setUser(data.data);  
+      // zatvori modal nakon uspesnog logovanja ukoliko je pre toga bila greska
+      closeModal();
       
     } catch (error) {
       if (error.response) {

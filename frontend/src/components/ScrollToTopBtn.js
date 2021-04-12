@@ -40,11 +40,12 @@ const ScrollToTopBtn = () => {
 
 const Wrapper = styled.div`
     position: fixed;
-    top: 80vh;
+    top: 90vh;
     right: 2rem;
     background-color: var(--clr-primary-5);
     border: 1px solid var(--clr-white);
     border-radius: var(--radius);
+    border-radius: 50%;
     cursor: pointer;
     transition: var(--transition);
 
