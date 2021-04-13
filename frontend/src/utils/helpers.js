@@ -23,8 +23,10 @@ export const getUniqueValues = (data, dataField) => {
 
 export const priceCalculator = (unit, fullPrice) => {
     const basePrice = fullPrice / 100;
+    // za univerzalni input
+    const normalizeUnit = unit.toString();
 
-    switch(unit) {
+    switch(normalizeUnit) {
         case '100': {
             return (basePrice * 10);        
         }

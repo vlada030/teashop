@@ -10,12 +10,12 @@ const AddToCart = ({product}) => {
   const {addToCart, cart} = useCartContext();
 
   const [weight, setWeight] = useState(parseInt(unit[0]));
-  const [unitPrice, setUnitPrice] = useState(price/10);
   const [amount, setAmount] = useState(1);
+
+  let unitPrice = priceCalculator(weight, price);
 
   const handleUnit = ind => {
     setWeight(unit[ind]);
-    setUnitPrice(priceCalculator(unit[ind], parseInt(price)));
     setAmount(1);
   }
   
@@ -98,7 +98,7 @@ const AddToCart = ({product}) => {
                   </Link>
               </div>
           ) : (
-              <p>ova jedninica pakovanja je nedostupna za kupovinu.</p>
+              <p>jedninica pakovanja je nedostupna za kupovinu.</p>
           )}
       </Wrapper>
   );
