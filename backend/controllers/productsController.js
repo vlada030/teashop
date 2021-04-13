@@ -84,6 +84,9 @@ exports.updateProduct = asyncHandler(async(req, res, next) => {
 // @access Private - USER
 
 exports.patchProduct = asyncHandler(async(req, res, next) => {
+    const {id} = req.params;
+    const {stock} = req.body;
+
     const errors = validationResult(req);
 
     const errorsString = errors.array().reduce((acc, val) => {
@@ -99,14 +102,15 @@ exports.patchProduct = asyncHandler(async(req, res, next) => {
         })
     }
     
-    console.log(req.body);
-    
-    const product = await Singles.findOne({id: req.body.id});
+    const product = await Singles.findOne({id});
     if (!product) {
         return next(new EnhancedError('Traženi proizvod ne postoji u sistemu.', 404))
     }
 
-    const updatedProduct = await Singles.findOneAndUpdate({id: req.body.id}, req.body, {
+    // preracunaj novu tezinu koja treba da se stavi na stanje
+    const updatedStock = product.stock - stock;
+
+    const updatedProduct = await Singles.findOneAndUpdate({id}, {stock: updatedStock}, {
         new: true });
     
     res.status(200).json({success: true, data: {stock: updatedProduct.stock}, message: ''})

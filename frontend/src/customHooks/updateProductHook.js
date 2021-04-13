@@ -30,16 +30,15 @@ const useUpdateProduct = () => {
 
     const axiosUpdateProductFromStripe = async (arrProducts) => {
         arrProducts.forEach(async product => {
-            let updatedProduct = {...product, id: product.id.substring(0, 5)};
-
-            console.log({product, updatedProduct});
+            const updatedId = product.id.substring(0, 5);
+            const updatedStock = product.amount * parseInt(product.unit)
             
             try {
                 // eslint-disable-next-line
                 const { data } = await axios({
-                    url: `/allproducts/${updatedProduct.id}`,
+                    url: `/allproducts/${updatedId}`,
                     method: 'PATCH',
-                    data: {stock: updatedProduct.stock}
+                    data: {stock: updatedStock}
                 });
                 console.log(data);
                 openModal({showModal: true, modalMsg: 'Proizvod uspešno izmenjen.', modalError: false});

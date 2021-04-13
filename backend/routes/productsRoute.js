@@ -69,10 +69,6 @@ router.route('/:id')
             ], updateProduct)
          .patch(userIsNotAuthenticated,
             [
-                body("id")
-                    .isLength({min:5, max: 5})
-                    .withMessage("Šifra proizvoda treba da sadrži 5 broja.")
-                    .trim(),
                 body('stock')
                     .isNumeric()
                     .withMessage('Polje STANJE je kolicina proizvoda na stanju u gramima.')

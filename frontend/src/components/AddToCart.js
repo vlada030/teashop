@@ -98,7 +98,7 @@ const AddToCart = ({product}) => {
                   </Link>
               </div>
           ) : (
-              <p>Svi preostali proizvodi sa stanja su u Vašoj korpi</p>
+              <p>ova jedninica pakovanja je nedostupna za kupovinu.</p>
           )}
       </Wrapper>
   );
@@ -154,6 +154,13 @@ const Wrapper = styled.section`
     margin-bottom: 2rem;
     width: 140px;
     text-align: center;
+  }
+
+  p {
+    font-style: italic;
+    &:first-letter {
+      text-transform: uppercase;
+    }
   }
 `
 export default AddToCart

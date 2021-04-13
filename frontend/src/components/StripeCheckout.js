@@ -92,7 +92,9 @@ const CheckoutForm = () => {
             axiosUpdateProductFromStripe(cart);
             setTimeout(() => {
                 clearCart();
-                history.push('/');
+                //history.push('/');
+                window.location.pathname = '/';
+
             }, 5000)
         }
     };
