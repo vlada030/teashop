@@ -72,10 +72,10 @@ const SingleProductPage = () => {
                 {/* <h5 className='price'>{formatPrice(price)}</h5> */}
                 <p className='info'>
                   <span>Dostupnost :</span>
-                  {stock > 0 ? 'na stanju' : 'nestalo'}
+                  {stock > 29 ? 'na stanju' : 'nestalo'}
                 </p>
 
-                {stock > 0 && <AddToCart product={singleProduct}/>}
+                {stock > 29 && <AddToCart product={singleProduct}/>}
 
                 <LikeButton singleProduct={{id, name, price, images}} toggleLike={updateUserData} user={user}/>
                 
