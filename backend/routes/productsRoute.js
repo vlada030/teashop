@@ -56,8 +56,8 @@ router.route('/:id')
                 .isNumeric()
                 .withMessage('Polje STANJE je kolicina proizvoda na stanju u gramima.')
                 .custom(async(value) => {
-                    if (value < 30) {
-                        throw new Error('Najmanja količina proizvoda je 30gr')
+                    if (value < 0) {
+                        throw new Error('Najmanja količina proizvoda je 0 gr')
                     } 
 
                     if (value > 10000) {

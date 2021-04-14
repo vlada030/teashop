@@ -65,9 +65,61 @@ const UpdateProductForm =  ({product, handleSubmit, handleFormReset, handleFormC
                 />
             </div>
 
-            <div className="form-control">
+            {/* <div className="form-control">
                 <label>pakovanje (grami) :</label>
                 <p>{product.package.join(", ")}</p>
+            </div> */}
+
+            <div className="form-control">
+                <p>pakovanje :</p>
+                <div className='checkbox-container'>
+
+                    <div className='checkbox-form'>
+                        <p>30 gr</p>
+                        <div className='checkbox'>
+                            <input type="checkbox"
+                                    name="package-30"
+                                    id="package-30"
+                                    checked={product.package.includes('30')}
+                                    onChange={(e) =>
+                                        handleFormChange(e.target.name, e.target.checked)
+                                    }  
+                                />
+                            <label htmlFor="package-30"></label>
+                        </div>
+                    </div>
+
+                    <div className='checkbox-form'>
+                        <p>50 gr</p>
+                        <div className='checkbox'>
+                            <input type="checkbox"
+                                    name="package-50"
+                                    id="package-50"
+                                    checked={product.package.includes('50')}
+                                    onChange={(e) =>
+                                        handleFormChange(e.target.name, e.target.checked)
+                                    }  
+                                />
+                            <label htmlFor="package-50"></label>
+                        </div>
+                    </div>
+
+                    <div className='checkbox-form'>
+                        <p>100 gr</p>
+                        <div className='checkbox'>
+                            <input type="checkbox"
+                                    name="package-100"
+                                    id="package-100"
+                                    checked={product.package.includes('100')}
+                                    onChange={(e) =>
+                                        handleFormChange(e.target.name, e.target.checked)
+                                    }  
+                                />
+                            <label htmlFor="package-100"></label>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             {/* <div className="form-control">
@@ -82,7 +134,7 @@ const UpdateProductForm =  ({product, handleSubmit, handleFormReset, handleFormC
                 />
             </div> */}
             <div className="form-control">
-                <label>istaknut proizvod :</label>
+                <p>istaknut proizvod :</p>
                 <div className="checkbox">
                     <input type="checkbox"
                         name="featured"
@@ -193,6 +245,10 @@ const Wrapper = styled.form`
 
         p {
             margin-bottom: 0;
+            color: inherit;
+            &::first-letter {
+                text-transform: uppercase;
+            }
         }
 
         input {
@@ -234,6 +290,25 @@ const Wrapper = styled.form`
 
         .btn-addition {
             margin: 1rem 0;
+        }
+    }
+
+    .checkbox-container {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .checkbox-form {
+        display: flex;
+        align-items: center;
+        justify-items: space-between;
+
+        p {
+            margin-right: 2rem;
+            width: 3rem;
         }
     }
 

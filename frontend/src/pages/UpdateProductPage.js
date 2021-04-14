@@ -14,7 +14,21 @@ const UpdateProductPage = () => {
     }
 
     const updatePropertyValue = (name, value) => {
-        //console.log({name, value});
+        // update array of packages
+        if (name.startsWith('package')) {
+            let arrOfPackages = [...product.package];
+            const unit = name.replace('package-', '')
+            
+            // toggle unit
+            if (arrOfPackages.includes(unit)) {
+                arrOfPackages = arrOfPackages.filter(item => item !== unit);
+            } else {
+                arrOfPackages.push(unit);
+            }
+
+            return setProduct({...product, package: arrOfPackages});
+        } 
+
         setProduct({...product, [name]: value});
     }
 

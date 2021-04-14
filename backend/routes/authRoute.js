@@ -47,11 +47,11 @@ router.post(
     userRegistration
 );
 
-router.post('/login', userIsAuthenticated, userLogin);
+router.post('/login', userLogin);
 
 router.delete('/logout', userLogout);
 
-router.get('/getUser', getUser);
+router.get('/getUser', userIsNotAuthenticated, getUser);
 
 router.put('/updateUser',userIsNotAuthenticated, updateUser);
 
