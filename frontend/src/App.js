@@ -14,6 +14,7 @@ import {
     FavoriteProducts,
     ProtectedAdminRoute,
     UpdateProductPage,
+    CreateProductPage
 } from "./pages";
 
 // mora da sa uvede ova komponenta jer iako je user logovan kada se ide direktno na /checkout OPET VRACA na pocetnu
@@ -55,6 +56,10 @@ function App() {
 
                     <ProtectedAdminRoute exact path='/products/update-product'>
                         <UpdateProductPage />
+                    </ProtectedAdminRoute>
+
+                    <ProtectedAdminRoute exact path='/products/create-product'>
+                        <CreateProductPage />
                     </ProtectedAdminRoute>
                     
                     <Route

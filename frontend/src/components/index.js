@@ -21,9 +21,12 @@ import Pagination from './Pagination'
 import FavoritesContent from './FavoritesContent'
 import LikeButton from './LikeButton'
 import FindProductForm from './FindProductForm'
-import UpdateProductForm from './UpdateProductForm'
+import ProductHandleForm from './ProductHandleForm'
 import Modal from './Modal'
 import ScrollToTopBtn from './ScrollToTopBtn'
+import FormTextAreaElement from './FormTextAreaElement'
+import FormInputTextElement from './FormInputTextElement'
+import FormInputNumberElement from './FormInputNumberElement'
 
 export {
   FeaturedProducts,
@@ -49,7 +52,10 @@ export {
   FavoritesContent,
   LikeButton, 
   FindProductForm,
-  UpdateProductForm,
+  ProductHandleForm,
   Modal,
-  ScrollToTopBtn
+  ScrollToTopBtn,
+  FormTextAreaElement,
+  FormInputTextElement,
+  FormInputNumberElement
 }

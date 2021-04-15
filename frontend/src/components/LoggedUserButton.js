@@ -43,14 +43,25 @@ const LoggedUserButton = () => {
                 </li>
 
                 {user && user.role === "admin" ? (
-                    <li>
-                        <Link
-                            to="/products/update-product"
-                            onClick={closeSidebar}
-                        >
-                            izmeni proizvod
-                        </Link>
-                    </li>
+                    <React.Fragment>
+                        <li>
+                            <Link
+                                to="/products/update-product"
+                                onClick={closeSidebar}
+                            >
+                                izmeni proizvod
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link
+                                to="/products/create-product"
+                                onClick={closeSidebar}
+                            >
+                                dodaj proizvod
+                            </Link>
+                        </li>
+                    </React.Fragment>
                 ) : null}
             </ul>
         </Wrapper>

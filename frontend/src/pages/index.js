@@ -10,6 +10,7 @@ import AuthenticationPage from './AuthenticationPage';
 import FavoriteProducts from './FavoriteProducts';
 import ProtectedAdminRoute from './ProtectedAdminRoute';
 import UpdateProductPage from './UpdateProductPage';
+import CreateProductPage from './CreateProductPage';
 
 export {
     Home,
@@ -23,5 +24,6 @@ export {
     AuthenticationPage,
     FavoriteProducts,
     ProtectedAdminRoute,
-    UpdateProductPage
+    UpdateProductPage,
+    CreateProductPage
 };
