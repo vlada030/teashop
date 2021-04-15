@@ -4,6 +4,7 @@ import {
     FormTextAreaElement,
     FormInputTextElement,
     FormInputNumberElement,
+    FormCheckboxElement
 } from "../components";
 
 const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormReset, handleFormChange}) => {
@@ -37,9 +38,9 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                 isUpdatePage={isUpdatePage}
             />
 
-            <FormInputNumberElement 
-                label='unesite količinu :'
-                name='stock'
+            <FormInputNumberElement
+                label="unesite količinu :"
+                name="stock"
                 step={10}
                 min={0}
                 placeholder="npr 1250"
@@ -47,9 +48,9 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                 handleFormChange={handleFormChange}
             />
 
-            <FormInputNumberElement 
-                label='unesite cenu :'
-                name='price'
+            <FormInputNumberElement
+                label="unesite cenu :"
+                name="price"
                 step={50}
                 min={0}
                 placeholder="npr 1500"
@@ -66,93 +67,49 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                 isUpdatePage={isUpdatePage}
             />
 
-            <div className="form-control">
+            <div className="elem-container">
                 <p>pakovanje :</p>
                 <div className="checkbox-container">
-                    <div className="checkbox-form">
-                        <p>30 gr</p>
-                        <div className="checkbox">
-                            <input
-                                type="checkbox"
-                                name="package-30"
-                                id="package-30"
-                                checked={
-                                    product && product.package.includes("30")
-                                }
-                                onChange={(e) =>
-                                    handleFormChange(
-                                        e.target.name,
-                                        e.target.checked
-                                    )
-                                }
-                            />
-                            <label htmlFor="package-30"></label>
-                        </div>
-                    </div>
-
-                    <div className="checkbox-form">
-                        <p>50 gr</p>
-                        <div className="checkbox">
-                            <input
-                                type="checkbox"
-                                name="package-50"
-                                id="package-50"
-                                checked={
-                                    product && product.package.includes("50")
-                                }
-                                onChange={(e) =>
-                                    handleFormChange(
-                                        e.target.name,
-                                        e.target.checked
-                                    )
-                                }
-                            />
-                            <label htmlFor="package-50"></label>
-                        </div>
-                    </div>
-
-                    <div className="checkbox-form">
-                        <p>100 gr</p>
-                        <div className="checkbox">
-                            <input
-                                type="checkbox"
-                                name="package-100"
-                                id="package-100"
-                                checked={
-                                    product && product.package.includes("100")
-                                }
-                                onChange={(e) =>
-                                    handleFormChange(
-                                        e.target.name,
-                                        e.target.checked
-                                    )
-                                }
-                            />
-                            <label htmlFor="package-100"></label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="form-control">
-                <p>istakni proizvod :</p>
-                <div className="checkbox">
-                    <input
-                        type="checkbox"
-                        name="featured"
-                        id="checkboxInput"
-                        checked={product.featured}
-                        onChange={(e) =>
-                            handleFormChange(e.target.name, e.target.checked)
-                        }
+                    <FormCheckboxElement 
+                        addClass={true}
+                        label="30 gr"
+                        name="package-30"
+                        id="package-30"
+                        checked={product && product.package.includes("30")}
+                        handleFormChange={handleFormChange}
                     />
-                    <label htmlFor="checkboxInput"></label>
+
+                    <FormCheckboxElement 
+                        addClass={true}
+                        label="50 gr"
+                        name="package-50"
+                        id="package-50"
+                        checked={product && product.package.includes("50")}
+                        handleFormChange={handleFormChange}
+                    />
+
+                    <FormCheckboxElement 
+                        addClass={true}
+                        label="100 gr"
+                        name="package-100"
+                        id="package-100"
+                        checked={product && product.package.includes("100")}
+                        handleFormChange={handleFormChange}
+                    />
                 </div>
             </div>
-            
-            <FormInputNumberElement 
-                label='unesite ocenu :'
-                name='stars'
+
+            <FormCheckboxElement
+                label="istakni proizvod :"
+                name="featured"
+                id="checkboxInput"
+                checked={product.featured}
+                handleFormChange={handleFormChange}
+            />
+
+            <FormInputNumberElement
+                label="unesite ocenu :"
+                name="stars"
                 step={0.1}
                 min={0}
                 max={5}
@@ -161,9 +118,9 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                 handleFormChange={handleFormChange}
             />
 
-            <FormInputNumberElement 
-                label='unesite broj pregleda :'
-                name='reviews'
+            <FormInputNumberElement
+                label="unesite broj pregleda :"
+                name="reviews"
                 step={1}
                 min={0}
                 placeholder="npr 14"
@@ -217,7 +174,7 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                 handleFormChange={handleFormChange}
             />
 
-            <div className="form-control">
+            <div className="elem-container">
                 <button
                     type="button"
                     className="btn btn-addition"
@@ -247,17 +204,9 @@ const Wrapper = styled.form`
         margin-bottom: 3rem;
     }
 
-    .form-control {
+    .elem-container {
         display: grid;
-        margin-bottom: 2rem;
-
-        label {
-            margin-bottom: 1rem;
-            &::first-letter {
-                text-transform: uppercase;
-            }
-        }
-
+        
         p {
             margin-bottom: 0;
             color: inherit;
@@ -266,45 +215,8 @@ const Wrapper = styled.form`
             }
         }
 
-        input {
-            width: 50%;
-            margin: 0 auto;
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid var(--clr-primary-5);
-            text-align: center;
-            font: inherit;
-            letter-spacing: var(--spacing);
-            transition: var(--transition);
-
-            &:focus {
-                border-bottom: 1px solid var(--clr-primary-4);
-                box-shadow: var(--light-shadow);
-                outline: none;
-            }
-        }
-
-        textarea {
-            width: 100%;
-            resize: vertical;
-            background-color: var(--clr-primary-8);
-            border: none;
-            padding: 0.5rem;
-            font-family: inherit;
-            color: inherit;
-            overflow: auto;
-        }
-
-        input,
-        textarea {
-            border-radius: var(--radius);
-            &::placeholder {
-                font-style: italic;
-            }
-        }
-
         .btn-addition {
-            margin: 1rem 0;
+            margin: 2rem 0;
         }
     }
 
@@ -325,45 +237,13 @@ const Wrapper = styled.form`
             margin-right: 2rem;
             width: 3rem;
         }
-    }
-
-    // checkbox style
-    input[type="checkbox"] {
-        visibility: hidden;
-    }
-
-    .checkbox {
-        width: 40px;
-        height: 10px;
-        background: var(--clr-primary-8);
-        margin: 20px auto;
-        position: relative;
-        border-radius: var(--radius);
-    }
-    .checkbox label {
-        display: block;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-
-        transition: var(--transition);
-        cursor: pointer;
-        position: absolute;
-        top: -5px;
-        left: -5px;
-
-        background: var(--clr-primary-5);
-    }
-
-    .checkbox input[type="checkbox"]:checked + label {
-        left: 27px;
-    }
+    }    
 
     @media screen and (min-width: 700px) {
         max-width: var(--fixed-width-2);
         margin: 0 auto;
 
-        .form-control {
+        .elem-container {
             grid-template-columns: 1fr 1fr;
             justify-items: start;
             text-align: left;

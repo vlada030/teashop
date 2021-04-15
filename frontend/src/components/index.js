@@ -27,6 +27,7 @@ import ScrollToTopBtn from './ScrollToTopBtn'
 import FormTextAreaElement from './FormTextAreaElement'
 import FormInputTextElement from './FormInputTextElement'
 import FormInputNumberElement from './FormInputNumberElement'
+import FormCheckboxElement from './FormCheckboxElement'
 
 export {
   FeaturedProducts,
@@ -57,5 +58,6 @@ export {
   ScrollToTopBtn,
   FormTextAreaElement,
   FormInputTextElement,
-  FormInputNumberElement
+  FormInputNumberElement,
+  FormCheckboxElement
 }

@@ -9,11 +9,10 @@ const FormTextAreaElement = ({label, name, placeholder, handleFormChange, produc
                     rows='8'
                     name={name}
                     placeholder={placeholder}
-                    value={product.goal}
+                    value={product[name]}
                     onChange={(e) =>
                         handleFormChange(e.target.name, e.target.value)
                     }
-
                 >
                 </textarea>
             </Wrapper>
