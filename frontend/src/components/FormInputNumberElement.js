@@ -12,7 +12,7 @@ const FormInputNumberElement = ({label, name, placeholder, min, max, step, produ
                 step={step}
                 name={name}
                 placeholder={placeholder}
-                value={product[name]}
+                value={product && product[name]}
                 onChange={(e) =>
                     handleFormChange(e.target.name, e.target.value)
                 }

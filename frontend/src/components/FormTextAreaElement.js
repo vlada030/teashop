@@ -9,7 +9,7 @@ const FormTextAreaElement = ({label, name, placeholder, handleFormChange, produc
                     rows='8'
                     name={name}
                     placeholder={placeholder}
-                    value={product[name]}
+                    value={product && product[name]}
                     onChange={(e) =>
                         handleFormChange(e.target.name, e.target.value)
                     }

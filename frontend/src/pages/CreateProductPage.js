@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components'; 
 import useProductHandle from '../customHooks/productHandleHook';
 import {ProductHandleForm} from '../components'
 
 const CreateProductPage = () => {
-    const {product, findId, resetForm, updateProductSubmit, setProduct, updatePropertyValue} = useProductHandle();
+    const {product, resetForm, updatePropertyValue, createProductSubmit} = useProductHandle();
 
     return (
         <Wrapper className="section-center page-100">
             <ProductHandleForm
                 isUpdatePage={false}
-                product={ {package: []} }
-                handleSubmit={updateProductSubmit}
+                product={product}
+                handleSubmit={createProductSubmit}
                 handleFormReset={resetForm}
                 handleFormChange={updatePropertyValue}
             />

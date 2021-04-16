@@ -2,15 +2,37 @@ import {useState} from 'react';
 import axios from 'axios';
 import {useGlobalContext} from '../context/global_context';
 
+const INIT_PRODUCT = {
+    id: '',
+    name: '',
+    stock: 0,
+    price: 0,
+    category: '',
+    package: ['30', '50', '100'],
+    featured: false,
+    stars: 5,
+    reviews: 1,
+    filter: [],
+    images: [],
+    description: [],
+    preparation: [],
+    goal: [],
+    disclaimer: []
+}
+
 const useProductHandle = () => {
 
-    const [product, setProduct] = useState(null);
+    const [product, setProduct] = useState(INIT_PRODUCT);
     const [findId, setFindId] = useState('');
     const {openModal, closeModal} = useGlobalContext();
 
     const resetForm = () => {
-        setProduct(null);
+        setProduct(INIT_PRODUCT);
         closeModal();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 
     const updatePropertyValue = (name, value) => {
@@ -106,7 +128,37 @@ const useProductHandle = () => {
         }        
     }
 
-    return {product, findId, resetForm, findProductSubmit, updateProductSubmit, setFindId, updatePropertyValue, axiosUpdateProductFromStripe};
+    const createProductSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // eslint-disable-next-line
+            const { data } = await axios({
+                url: `/allproducts/create`,
+                method: 'POST',
+                data: product
+            });
+            //console.log(data);
+            setProduct(null);
+            openModal({showModal: true, modalMsg: 'Proizvod uspešno kreiran.', modalError: false});
+        } catch (error) {
+            if (error.response) {
+                openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });    
+            } else {
+                // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
+                openModal({showModal: true, modalMsg: error.message, modalError: true});
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }        
+        }
+    } 
+
+    return {product, findId, resetForm, findProductSubmit, updateProductSubmit, setFindId, updatePropertyValue, axiosUpdateProductFromStripe, createProductSubmit};
 }
 
 export default useProductHandle;

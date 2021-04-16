@@ -35,7 +35,6 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                 placeholder="npr Kamilica"
                 product={product}
                 handleFormChange={handleFormChange}
-                isUpdatePage={isUpdatePage}
             />
 
             <FormInputNumberElement
@@ -64,7 +63,6 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                 placeholder="npr biljni"
                 product={product}
                 handleFormChange={handleFormChange}
-                isUpdatePage={isUpdatePage}
             />
 
             <div className="elem-container">
@@ -75,7 +73,7 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                         label="30 gr"
                         name="package-30"
                         id="package-30"
-                        checked={product && product.package.includes("30")}
+                        checked={product.package.includes("30")}
                         handleFormChange={handleFormChange}
                     />
 
@@ -84,7 +82,7 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                         label="50 gr"
                         name="package-50"
                         id="package-50"
-                        checked={product && product.package.includes("50")}
+                        checked={product.package.includes("50")}
                         handleFormChange={handleFormChange}
                     />
 
@@ -93,7 +91,7 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                         label="100 gr"
                         name="package-100"
                         id="package-100"
-                        checked={product && product.package.includes("100")}
+                        checked={product.package.includes("100")}
                         handleFormChange={handleFormChange}
                     />
                 </div>
@@ -113,7 +111,7 @@ const ProductHandleForm =  ({isUpdatePage, product, handleSubmit, handleFormRese
                 step={0.1}
                 min={0}
                 max={5}
-                placeholder="npr 4.8"
+                placeholder="npr 5"
                 product={product}
                 handleFormChange={handleFormChange}
             />

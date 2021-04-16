@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import {FindProductForm, ProductHandleForm} from '../components';
-import {useGlobalContext} from '../context/global_context';
 import useProductHandle from '../customHooks/productHandleHook';
 
 const UpdateProductPage = () => {    
-    const {closeModal} = useGlobalContext();
-    const {product, findId, updatePage, resetForm, findProductSubmit, updateProductSubmit, setFindId, updatePropertyValue} = useProductHandle();
+    const {product, findId, resetForm, findProductSubmit, updateProductSubmit, setFindId, updatePropertyValue} = useProductHandle();
     
     return (
         <Wrapper className="section-center page-100">
-            {product ? (
+            {product && product.id ? (
                 <ProductHandleForm isUpdatePage={true} product={product} handleSubmit={updateProductSubmit} handleFormReset={resetForm} handleFormChange={updatePropertyValue} />
             ) : (
                 <FindProductForm handleSubmit={findProductSubmit} findId={findId} setFindId={setFindId} />

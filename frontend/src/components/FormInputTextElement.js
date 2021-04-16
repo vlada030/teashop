@@ -9,7 +9,7 @@ const FormInputTextElement = ({label, name, placeholder, product, handleFormChan
                 type='text'
                 name={name}
                 placeholder={placeholder}
-                value={product[name]}
+                value={product && product[name]}
                 disabled={isUpdatePage}
                 onChange={(e) =>
                     handleFormChange(e.target.name, e.target.value)
