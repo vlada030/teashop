@@ -48,6 +48,31 @@ exports.singleProduct = asyncHandler(
     }
 ) 
 
+// @desc   Create Product
+// @route  POST /allproducts/create-product
+// @access Private ADMIN
+
+exports.createProduct = asyncHandler(async(req, res, next) => {
+    const errors = validationResult(req);
+
+    const errorsString = errors.array().reduce((acc, val) => {
+        acc += `${val.msg}; `;
+        return acc
+    }, '');
+        
+    // validacija preko express-validatora
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            success: false,
+            message: errorsString
+        })
+    }
+
+    const product = await Singles.create(req.body)
+
+    res.status(201).json({success: true, data: product, message: 'Proizvod uspešno kreiran.'})
+})
+
 // @desc   Update Product
 // @route  PUT /allproducts/:id
 // @access Private ADMIN

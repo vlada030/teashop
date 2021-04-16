@@ -51,6 +51,12 @@ const useProductHandle = () => {
             return setProduct({...product, package: arrOfPackages});
         } 
 
+        // translate images to array
+        if (name === 'images' || name === 'filter') {
+            let transformedToArr = value.split(',');
+            return setProduct({...product, [name]: transformedToArr});
+        }
+
         setProduct({...product, [name]: value});
     }
 
@@ -133,13 +139,17 @@ const useProductHandle = () => {
         try {
             // eslint-disable-next-line
             const { data } = await axios({
-                url: `/allproducts/create`,
+                url: `/allproducts/create-product`,
                 method: 'POST',
                 data: product
             });
             //console.log(data);
-            setProduct(null);
+            setProduct(INIT_PRODUCT);
             openModal({showModal: true, modalMsg: 'Proizvod uspešno kreiran.', modalError: false});
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            }); 
         } catch (error) {
             if (error.response) {
                 openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});
