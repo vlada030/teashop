@@ -7,7 +7,7 @@ import firebase from "firebase/app";
 // app contains all submodule database, authentication, firestore...
 import "firebase/database";
 
-import { url } from './utils/constants';
+import { url } from '../utils/constants';
 
 // ovo je OBAVEZAN podatak
 var config = {

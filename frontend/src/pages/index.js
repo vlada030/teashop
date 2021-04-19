@@ -11,6 +11,7 @@ import FavoriteProducts from './FavoriteProducts';
 import ProtectedAdminRoute from './ProtectedAdminRoute';
 import UpdateProductPage from './UpdateProductPage';
 import CreateProductPage from './CreateProductPage';
+import AdminPage from './AdminPage';
 
 export {
     Home,
@@ -25,5 +26,6 @@ export {
     FavoriteProducts,
     ProtectedAdminRoute,
     UpdateProductPage,
-    CreateProductPage
+    CreateProductPage,
+    AdminPage,
 };

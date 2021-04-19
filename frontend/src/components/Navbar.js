@@ -1,46 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
-// eslint-disable-next-line
-import logo from '../assets/logo.png'
-// eslint-disable-next-line
-import { FaBars } from 'react-icons/fa'
-import { SiGitea } from 'react-icons/si'
-import { Link } from 'react-router-dom'
-import { links } from '../utils/constants'
+import Logo from './Logo';
 import CartButtons from './CartButtons'
-import { useGlobalContext } from '../context/global_context'
-import { useUserContext } from '../context/user_context'
+import NotAdminLinks from './NotAdminLinks'
 
 const Nav = () => {
-  const {openSidebar} = useGlobalContext();
-  const {user} = useUserContext();
 
   return <NavContainer>
           <div className='nav-center'>
-            <div className='nav-header'>
-              <Link to='/' className='logo'>
-                {/* <img src={logo} alt='tea' /> */}
-                tea shop
-              </Link>
-              <button type='button' className='nav-toggle' onClick={openSidebar}>
-                <SiGitea />
-              </button>
-            </div>
-
-            <ul className='nav-links'>
-              {links.map(link => {
-                const {id, text, url} = link;
-                return <li key={id}>
-                        <Link to={url}>{text}</Link>
-                      </li>
-              })}
-              { user &&
-                <li>
-                  <Link to='/checkout'>kasa</Link>
-                </li>
-              }
-            </ul>
-
+            <Logo />
+            <NotAdminLinks />
             <CartButtons />
           </div>
         </NavContainer>
@@ -57,34 +26,7 @@ const NavContainer = styled.nav`
     margin: 0 auto;
     max-width: var(--max-width);
   }
-  .nav-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* img {
-      width: 175px;
-      margin-left: -15px;
-      scale: 1;
-      transition: var(--transition);
-      &:hover {
-        scale: 1.05;
-      }
-    } */
-    .logo {
-        font-size: 2.5rem;
-        color: var(--clr-primary-5);
-        //font-weight: 600;
-        letter-spacing: var(--spacing);
-        text-shadow: 2px 2px 5px var(--clr-primary-5);
-        text-transform: capitalize;
-        font-style: italic;
-        transition: var(--transition);
-
-        &:hover {
-          text-shadow: 3px 3px 8px var(--clr-primary-5);
-        }
-      }
-  }
+  
   .nav-toggle {
     background: transparent;
     border: transparent;
@@ -118,13 +60,14 @@ const NavContainer = styled.nav`
     display: none;
   }
   @media (min-width: 992px) {
-    .nav-toggle {
-      display: none;
-    }
     .nav-center {
       display: grid;
       grid-template-columns: auto 1fr auto;
       align-items: center;
+      justify-items: center;
+    }
+    .nav-toggle {
+      display: none;
     }
     .nav-links {
       display: flex;
@@ -146,6 +89,7 @@ const NavContainer = styled.nav`
       }
     }
     .cart-btn-wrapper {
+      //justify-self: end;
       display: grid;
     }
   }
