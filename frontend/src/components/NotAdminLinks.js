@@ -1,12 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { links } from '../utils/constants';
-import {useUserContext} from '../context/user_context';
-import styled from 'styled-components';
+import React from "react";
+import { Link } from "react-router-dom";
+import { links } from "../utils/constants";
+import { useUserContext } from "../context/user_context";
+import styled from "styled-components";
 
 const NotAdminLinks = () => {
-
-    const {user} = useUserContext();
+    const { user } = useUserContext();
     return (
         <Wrapper>
             {user.role !== "admin" ? (
@@ -25,67 +24,49 @@ const NotAdminLinks = () => {
                         </li>
                     )}
                 </ul>
-            ) : <li>Admin panel</li>}
+            ) : (
+                <h4>Admin&nbsp;panel</h4>
+            )}
         </Wrapper>
     );
-}
+};
 
 const Wrapper = styled.div`
-    .nav-toggle {
-    background: transparent;
-    border: transparent;
-    color: var(--clr-primary-5);
-    cursor: pointer;
-    svg {
-      font-size: 2rem;
-      animation: none;
-      &:hover,
-      &:active {
-        animation: shake 0.4s linear;
-      }
-
-      @keyframes shake {
-        0% {
-          transform: rotate(-30deg)
-        }
-        50% {
-          transform: rotate(30deg)
-        }
-        100% {
-          transform: rotate(0deg)
-        }
-      }
+    .nav-links {
+        display: none;
     }
-  }
-  .nav-links {
-    display: none;
-  }
 
-  @media (min-width: 992px) {
-    .nav-toggle {
+    h4 {
       display: none;
     }
-    .nav-links {
-      display: flex;
-      justify-content: center;
-      li {
-        margin: 0 0.5rem;
+
+    @media (min-width: 992px) {
+        .nav-links {
+          display: flex;
+          justify-content: center;
+          li {
+              margin: 0 0.5rem;
+          }
+          a {
+              color: var(--clr-grey-3);
+              font-size: 1rem;
+              text-transform: capitalize;
+              letter-spacing: var(--spacing);
+              padding: 0.5rem;
+              border: 2px solid transparent;
+              transition: var(--transition);
+              &:hover {
+                  border-bottom: 2px solid var(--clr-primary-7);
+              }
+          }
       }
-      a {
-        color: var(--clr-grey-3);
-        font-size: 1rem;
-        text-transform: capitalize;
-        letter-spacing: var(--spacing);
-        padding: 0.5rem;
-        border: 2px solid transparent;
-        transition: var(--transition);
-        &:hover {
-          border-bottom: 2px solid var(--clr-primary-7);
-        }
+      h4 {
+        display: inline-block;
+        margin-bottom: 0;
+        font-weight: 400;
+        font-size: 2rem;
       }
     }
-
-  }
 `;
 
 export default NotAdminLinks;

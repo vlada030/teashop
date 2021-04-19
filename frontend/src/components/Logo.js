@@ -1,27 +1,26 @@
-import React from 'react';
-import { SiGitea } from 'react-icons/si';
-import { Link } from 'react-router-dom';
-import { useGlobalContext } from '../context/global_context';
-import styled from 'styled-components';
+import React from "react";
+import { SiGitea } from "react-icons/si";
+import { Link } from "react-router-dom";
+import { useGlobalContext } from "../context/global_context";
+import styled from "styled-components";
 
 const Logo = () => {
-    const {openSidebar} = useGlobalContext();
+    const { openSidebar } = useGlobalContext();
 
     return (
         <Wrapper>
-            <Link to='/' className='logo'>
-            {/* <img src={logo} alt='tea' /> */}
-            tea shop
+            <Link to="/" className="logo">
+                {/* <img src={logo} alt='tea' /> */}
+                tea shop
             </Link>
-            <button type='button' className='nav-toggle' onClick={openSidebar}>
-            <SiGitea />
+            <button type="button" className="nav-toggle" onClick={openSidebar}>
+                <SiGitea />
             </button>
         </Wrapper>
-    ) 
-}
+    );
+};
 
 const Wrapper = styled.div`
-    
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -45,11 +44,42 @@ const Wrapper = styled.div`
         transition: var(--transition);
 
         &:hover {
-          text-shadow: 3px 3px 8px var(--clr-primary-5);
+            text-shadow: 3px 3px 8px var(--clr-primary-5);
         }
-      }
-  
-`;
+    }
 
+    .nav-toggle {
+        background: transparent;
+        border: transparent;
+        color: var(--clr-primary-5);
+        cursor: pointer;
+        svg {
+            font-size: 2rem;
+            animation: none;
+            &:hover,
+            &:active {
+                animation: shake 0.4s linear;
+            }
+
+            @keyframes shake {
+                0% {
+                    transform: rotate(-30deg);
+                }
+                50% {
+                    transform: rotate(30deg);
+                }
+                100% {
+                    transform: rotate(0deg);
+                }
+            }
+        }
+    }
+
+    @media (min-width: 992px) {
+        .nav-toggle {
+            display: none;
+        }
+    }
+`;
 
 export default Logo;
