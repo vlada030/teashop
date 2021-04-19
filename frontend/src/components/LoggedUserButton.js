@@ -100,7 +100,7 @@ const Wrapper = styled.div`
         z-index: 10;
         p {
             padding-left: 0;
-            text-align: center;
+            text-align: right;
         }
     }    
 

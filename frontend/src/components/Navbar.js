@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Logo from "./Logo";
 import CartButtons from "./CartButtons";
-import NotAdminLinks from "./NotAdminLinks";
+import NotAdminLinks from "./NotAdminNavLinks";
 
 const Nav = () => {
     return (
@@ -10,7 +10,9 @@ const Nav = () => {
             <div className="nav-center">
                 <Logo />
                 <NotAdminLinks />
-                <CartButtons />
+                <div className='helper'>
+                  <CartButtons />
+                </div>
             </div>
         </NavContainer>
     );
@@ -28,12 +30,20 @@ const NavContainer = styled.nav`
         max-width: var(--max-width);
     }
 
+    .helper {
+      display: none;
+    }
+
     @media (min-width: 992px) {
         .nav-center {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             align-items: center;
             justify-items: center;
+        }
+
+        .helper {
+          display: block;
         }
     }
 `;

@@ -6,6 +6,7 @@ import { FaAngleDoubleLeft } from "react-icons/fa";
 import { links } from "../utils/constants";
 import styled from "styled-components";
 import CartButtons from "./CartButtons";
+import NotAdminSidebarLinks from "./NotAdminSidebarLinks";
 import { useGlobalContext } from "../context/global_context";
 import { useUserContext } from "../context/user_context";
 
@@ -15,34 +16,17 @@ const Sidebar = () => {
 
     return (
         <SidebarContainer>
-            <aside
-                className={isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}
-            >
+            <aside className={isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}>
                 <div className="sidebar-header">
+                    <h4>admin&nbsp;panel</h4>
                     <button className="close-btn" onClick={closeSidebar}>
                         <FaAngleDoubleLeft />
                     </button>
                 </div>
-                <ul className="links">
-                    {links.map((link) => {
-                        const { id, text, url } = link;
-                        return (
-                            <li key={id}>
-                                <Link to={url} onClick={closeSidebar}>
-                                    {text}
-                                </Link>
-                            </li>
-                        );
-                    })}
-                    {user && 
-                        <li>
-                            <Link to="/checkout" onClick={closeSidebar}>kasa</Link>
-                        </li>
-                    }
-                </ul>
-                <div className="cart-btn-wrapper">
-                    <CartButtons />
-                </div>
+
+                <NotAdminSidebarLinks />
+                
+                <CartButtons />
             </aside>
         </SidebarContainer>
     );
@@ -55,6 +39,13 @@ const SidebarContainer = styled.div`
         justify-content: space-between;
         align-items: center;
         padding: 1rem 1.5rem;
+
+        h4 {
+        display: inline-block;
+        margin-bottom: 0;
+        font-weight: 400;
+        font-size: 1.5rem;
+      }
     }
     .close-btn {
         font-size: 2rem;
@@ -69,26 +60,6 @@ const SidebarContainer = styled.div`
     }
     .close-btn:hover {
         color: var(--clr-red-light);
-    }
-    .links {
-        margin-bottom: 2rem;
-    }
-    .links a {
-        display: block;
-        text-align: left;
-        font-size: 1rem;
-        text-transform: capitalize;
-        padding: 1rem 1.5rem;
-        color: var(--clr-grey-3);
-        transition: var(--transition);
-        letter-spacing: var(--spacing);
-    }
-
-    .links a:hover {
-        padding: 1rem 1.5rem;
-        padding-left: 2rem;
-        background: var(--clr-grey-10);
-        color: var(--clr-grey-2);
     }
 
     .sidebar {
@@ -113,6 +84,10 @@ const SidebarContainer = styled.div`
         .sidebar {
             display: none;
         }
+
+        .cart-btn-wrapper {
+        display: none;
+    }
     }
 `;
 

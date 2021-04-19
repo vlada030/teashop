@@ -22,6 +22,7 @@ const CartButtons = () => {
                     <span className="cart-value">{totalItems}</span>
                 </span>
             </Link> : null}
+
             {!user ? (
                 <Link
                     to="/authentication"
@@ -45,18 +46,18 @@ const CartButtons = () => {
     );
 };
 
-const Wrapper = styled.div`
-    display: none;
+const Wrapper = styled.div`    
 
     @media screen and (min-width: 992px) {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: auto auto;
         align-items: center;
-        width: 250px;
+        //width: 250px;
     }
 
     .cart-btn {
         padding-left: 1.5rem;
+        padding-right: 1rem;
         color: var(--clr-grey-1);
         font-size: 1.5rem;
         letter-spacing: var(--spacing);
