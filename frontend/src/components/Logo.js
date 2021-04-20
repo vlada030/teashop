@@ -24,6 +24,7 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
     /* img {
       width: 175px;
       margin-left: -15px;
@@ -42,6 +43,7 @@ const Wrapper = styled.div`
         text-transform: capitalize;
         font-style: italic;
         transition: var(--transition);
+        margin-bottom: 1rem;
 
         &:hover {
             text-shadow: 3px 3px 8px var(--clr-primary-5);

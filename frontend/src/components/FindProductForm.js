@@ -29,7 +29,8 @@ const Wrapper = styled.form`
     background: var(--clr-primary-9);
     border-radius: var(--radius);
     padding: 3rem;  
-
+    text-align: center;
+    
     h4 {
         margin-bottom: 2rem;
     }

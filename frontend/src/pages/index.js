@@ -5,13 +5,12 @@ import About from './AboutPage';
 import Cart from './CartPage';
 import Error from './ErrorPage';
 import Checkout from './CheckoutPage';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedUserRoute from './ProtectedUserRoute';
 import AuthenticationPage from './AuthenticationPage';
 import FavoriteProducts from './FavoriteProducts';
 import ProtectedAdminRoute from './ProtectedAdminRoute';
-import UpdateProductPage from './UpdateProductPage';
-import CreateProductPage from './CreateProductPage';
 import AdminPage from './AdminPage';
+import IsUserAdmin from './IsUserAdmin';
 
 export {
     Home,
@@ -21,11 +20,10 @@ export {
     Cart,
     Error,
     Checkout,
-    ProtectedRoute,
+    ProtectedUserRoute,
     AuthenticationPage,
     FavoriteProducts,
     ProtectedAdminRoute,
-    UpdateProductPage,
-    CreateProductPage,
     AdminPage,
+    IsUserAdmin
 };

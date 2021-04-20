@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components'; 
 import useProductHandle from '../customHooks/productHandleHook';
-import {ProductHandleForm} from '../components'
+import ProductHandleForm from './ProductHandleForm';
 
-const CreateProductPage = () => {
+const CreateProduct = () => {
     const {product, resetForm, updatePropertyValue, createProductSubmit} = useProductHandle();
 
     return (
-        <Wrapper className="section-center page-100">
+        <Wrapper>
             <ProductHandleForm
                 isUpdatePage={false}
                 product={product}
@@ -21,8 +21,8 @@ const CreateProductPage = () => {
 
 const Wrapper = styled.main`
     border-radius: var(--radius);
-    //background: linear-gradient(transparent, var(--clr-primary-10));  
-    text-align: center;
+    margin: 1rem 0;
+   
 `;
 
-export default CreateProductPage;
+export default CreateProduct;

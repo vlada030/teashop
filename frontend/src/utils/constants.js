@@ -88,7 +88,5 @@ export const about = [
   },
 ]
 
-// preko firebase
-// jedino preko firebase vrsi filtriranje na serveru i vraca samo odredjeni podatak 
-export const url = 'https://teashop-ddc14-default-rtdb.europe-west1.firebasedatabase.app';
-
+export const productTitles = ['svi', 'dodaj', 'izmeni', 'obriši'];
+export const userTitles = ['dodaj', 'izmeni'];

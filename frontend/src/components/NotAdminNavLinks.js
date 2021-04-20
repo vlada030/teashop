@@ -43,6 +43,7 @@ const Wrapper = styled.div`
     @media (min-width: 992px) {
         .nav-links {
           display: flex;
+          align-items: center;
           justify-content: center;
           li {
               margin: 0 0.5rem;

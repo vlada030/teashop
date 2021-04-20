@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import {FindProductForm, ProductHandleForm} from '../components';
+import FindProductForm  from './FindProductForm';
+import ProductHandleForm from './ProductHandleForm';
 import useProductHandle from '../customHooks/productHandleHook';
 
-const UpdateProductPage = () => {    
+const UpdateProduct = () => {    
     const {product, findId, resetForm, findProductSubmit, updateProductSubmit, setFindId, updatePropertyValue} = useProductHandle();
     
     return (
-        <Wrapper className="section-center page-100">
+        <Wrapper>
             {product && product.id ? (
                 <ProductHandleForm isUpdatePage={true} product={product} handleSubmit={updateProductSubmit} handleFormReset={resetForm} handleFormChange={updatePropertyValue} />
             ) : (
@@ -19,8 +20,7 @@ const UpdateProductPage = () => {
 
 const Wrapper = styled.main`
     border-radius: var(--radius);
-    //background: linear-gradient(transparent, var(--clr-primary-10));  
-    text-align: center;
+    margin: 1rem 0;
 `;
 
-export default UpdateProductPage;
+export default UpdateProduct;

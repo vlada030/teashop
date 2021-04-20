@@ -9,13 +9,14 @@ import {
     SingleProduct,
     Checkout,
     Error,
-    ProtectedRoute,
+    ProtectedUserRoute,
     AuthenticationPage,
     FavoriteProducts,
     ProtectedAdminRoute,
     UpdateProductPage,
     CreateProductPage,
     AdminPage,
+    IsUserAdmin
 } from "./pages";
 
 // mora da sa uvede ova komponenta jer iako je user logovan kada se ide direktno na /checkout OPET VRACA na pocetnu
@@ -30,9 +31,9 @@ function App() {
                 <Modal />
 
                 <Switch>
-                    <Route exact path="/">
+                    <IsUserAdmin exact path="/">
                         <Home />
-                    </Route>
+                    </IsUserAdmin>
 
                     <ProtectedAdminRoute exact path='/admin'>
                         <AdminPage />
@@ -54,17 +55,17 @@ function App() {
                         <Products />
                     </Route>
 
-                    <ProtectedRoute exact path="/products/favorites">
+                    <ProtectedUserRoute exact path="/products/favorites">
                         <FavoriteProducts />
-                    </ProtectedRoute>
+                    </ProtectedUserRoute>
 
-                    <ProtectedAdminRoute exact path='/products/update-product'>
+                    {/* <ProtectedAdminRoute exact path='/products/update-product'>
                         <UpdateProductPage />
                     </ProtectedAdminRoute>
 
                     <ProtectedAdminRoute exact path='/products/create-product'>
                         <CreateProductPage />
-                    </ProtectedAdminRoute>
+                    </ProtectedAdminRoute> */}
                     
                     <Route
                         exact
@@ -72,10 +73,9 @@ function App() {
                         children={<SingleProduct />}
                     ></Route>    
 
-                    <ProtectedRoute path="/checkout">
+                    <ProtectedUserRoute path="/checkout">
                         <Checkout />
-                    </ProtectedRoute>
-
+                    </ProtectedUserRoute>
 
                     <Route path="*">
                         <Error />

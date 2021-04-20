@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 import {useUserContext} from '../context/user_context';
 
 
-const ProtectedRoute = ({ children, ...rest }) => {
+const ProtectedUserRoute = ({ children, ...rest }) => {
     const { user } = useUserContext();
 
     return (
@@ -15,4 +15,4 @@ const ProtectedRoute = ({ children, ...rest }) => {
         ></Route>
     );
 };
-export default ProtectedRoute;
+export default ProtectedUserRoute;

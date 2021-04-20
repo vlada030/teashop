@@ -28,6 +28,10 @@ import FormTextAreaElement from './FormTextAreaElement'
 import FormInputTextElement from './FormInputTextElement'
 import FormInputNumberElement from './FormInputNumberElement'
 import FormCheckboxElement from './FormCheckboxElement'
+import AdminNavigation from './AdminNavigation'
+import AdminContent from './AdminContent'
+import UpdateProduct from './UpdateProduct';
+import CreateProduct from './CreateProduct';
 
 export {
   FeaturedProducts,
@@ -59,5 +63,9 @@ export {
   FormTextAreaElement,
   FormInputTextElement,
   FormInputNumberElement,
-  FormCheckboxElement
+  FormCheckboxElement,
+  AdminNavigation,
+  AdminContent,
+  CreateProduct,
+  UpdateProduct
 }
