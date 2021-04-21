@@ -68,12 +68,19 @@ const SingleProductPage = () => {
 
               <section className='content'>
                 <h2>{name}</h2>
+
                 <Stars stars={stars} reviews={reviews}/>
                 {/* <h5 className='price'>{formatPrice(price)}</h5> */}
+
                 <p className='info'>
                   <span>Dostupnost :</span>
                   {stock > 29 ? 'na stanju' : 'nestalo'}
                 </p>
+
+                {user && user.role === 'admin' ? <p className='info'>
+                  <span>Šifra :</span>
+                  {id}
+                </p> : null}
 
                 {stock > 29 && <AddToCart product={singleProduct}/>}
 

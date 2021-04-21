@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { AdminNavigation, AdminContent } from "../components";
 
 const AdminPage = () => {
-    const [view, setView] = useState('svi');
+    const [view, setView] = useState('proizvod_svi');
     return (
         <Wrapper className="section-center page-100">
             <AdminNavigation view={view} handleView={setView}/>
@@ -18,6 +18,7 @@ const Wrapper = styled.main`
 
     @media screen and (min-width: 992px) {
         grid-template-columns: 1fr 3fr;
+        align-items: center;
     } 
 `;
 

@@ -19,7 +19,7 @@ const CreateProduct = () => {
     );
 }
 
-const Wrapper = styled.main`
+const Wrapper = styled.div`
     border-radius: var(--radius);
     margin: 1rem 0;
    

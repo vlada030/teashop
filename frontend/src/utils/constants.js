@@ -88,5 +88,5 @@ export const about = [
   },
 ]
 
-export const productTitles = ['svi', 'dodaj', 'izmeni', 'obriši'];
-export const userTitles = ['dodaj', 'izmeni'];
+export const productTitles = ['proizvod_svi', 'proizvod_dodaj', 'proizvod_izmeni', 'proizvod_obriši'];
+export const userTitles = ['korisnik_dodaj', 'korisnik_izmeni'];

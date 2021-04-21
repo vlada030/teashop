@@ -42,7 +42,7 @@ const LoggedUserButton = () => {
                     </Link>
                 </li>
 
-                {user && user.role === "admin" ? (
+                {/* {user && user.role === "admin" ? (
                     <React.Fragment>
                         <li>
                             <Link
@@ -62,7 +62,7 @@ const LoggedUserButton = () => {
                             </Link>
                         </li>
                     </React.Fragment>
-                ) : null}
+                ) : null} */}
             </ul>
         </Wrapper>
     );
@@ -79,9 +79,7 @@ const Wrapper = styled.div`
         padding-left: 1.5rem;
         
         font-size: 1.5rem;
-        //letter-spacing: var(--spacing);
         cursor: pointer;
-        //margin: 0;
 
         &::first-letter {
             text-transform: capitalize;

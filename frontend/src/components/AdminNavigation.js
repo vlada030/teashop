@@ -9,7 +9,7 @@ const AdminNavigation = ({view, handleView}) => {
                 <h4>proizvod</h4>
                 <hr />
                 {productTitles.map(item => {
-                    return <button key={item} className={item === view ? 'admin-btn active' : 'admin-btn'} onClick={() => handleView(item)}>{item}</button>
+                    return <button key={item} className={item === view ? 'admin-btn active' : 'admin-btn'} onClick={() => handleView(item)}>{item.split('_')[1]}</button>
                 })}
             </div>
 
@@ -17,7 +17,7 @@ const AdminNavigation = ({view, handleView}) => {
                 <h4>korisnik</h4>
                 <hr />
                 {userTitles.map(item => {
-                    return <button key={item} className='admin-btn'>{item}</button>
+                    return <button key={item} className={item === view ? 'admin-btn active' : 'admin-btn'} onClick={() => handleView(item)}>{item.split('_')[1]}</button>
                 })}
             </div>
 

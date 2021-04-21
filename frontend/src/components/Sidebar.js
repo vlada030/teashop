@@ -1,18 +1,14 @@
 import React from "react";
 // eslint-disable-next-line
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
 import { FaAngleDoubleLeft } from "react-icons/fa";
-import { links } from "../utils/constants";
 import styled from "styled-components";
 import CartButtons from "./CartButtons";
 import NotAdminSidebarLinks from "./NotAdminSidebarLinks";
 import { useGlobalContext } from "../context/global_context";
-import { useUserContext } from "../context/user_context";
 
 const Sidebar = () => {
     const { isSidebarOpen, closeSidebar } = useGlobalContext();
-    const { user } = useUserContext();
 
     return (
         <SidebarContainer>
