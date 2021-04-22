@@ -30,8 +30,9 @@ import FormInputNumberElement from './FormInputNumberElement'
 import FormCheckboxElement from './FormCheckboxElement'
 import AdminNavigation from './AdminNavigation'
 import AdminContent from './AdminContent'
-import UpdateProduct from './UpdateProduct';
-import CreateProduct from './CreateProduct';
+import UpdateProduct from './UpdateProduct'
+import CreateProduct from './CreateProduct'
+import ConfirmationDialog from './ConfirmationDialog'
 
 export {
   FeaturedProducts,
@@ -67,5 +68,6 @@ export {
   AdminNavigation,
   AdminContent,
   CreateProduct,
-  UpdateProduct
+  UpdateProduct,
+  ConfirmationDialog
 }

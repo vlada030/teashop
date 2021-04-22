@@ -77,7 +77,7 @@ const SingleProductPage = () => {
                   {stock > 29 ? 'na stanju' : 'nestalo'}
                 </p>
 
-                {user && user.role === 'admin' ? <p className='info'>
+                {user?.role === 'admin' ? <p className='info'>
                   <span>Šifra :</span>
                   {id}
                 </p> : null}

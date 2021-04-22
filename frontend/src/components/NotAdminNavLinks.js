@@ -8,7 +8,7 @@ const NotAdminLinks = () => {
     const { user } = useUserContext();
     return (
         <Wrapper>
-            {user.role !== "admin" ? (
+            {user?.role !== "admin" ? (
                 <ul className="nav-links">
                     {links.map((link) => {
                         const { id, text, url } = link;

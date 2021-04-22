@@ -7,10 +7,10 @@ const ProtectedAdminRoute = ({children, ...rest}) => {
     const {user} = useUserContext();
 
     // return <Route {...rest} >
-    //         {user && user.role === 'admin' ? children : <Redirect to='/' />}
+    //         {user?.role === 'admin' ? children : <Redirect to='/' />}
     //         </Route>
 
-    return <Route {...rest} render={() => user && user.role === 'admin' ? children : <Redirect to='/' />}></Route>
+    return <Route {...rest} render={() => user?.role === 'admin' ? children : <Redirect to='/' />}></Route>
 }
 
 export default ProtectedAdminRoute;

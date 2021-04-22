@@ -54,6 +54,10 @@ export const ProductsProvider = ({ children }) => {
       const { data } = await axios(`/allproducts/${id}`);
       //console.log(data);
       dispatch({type: GET_SINGLE_PRODUCT_SUCCESS, payload: data.data});
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     } catch (error) {
       if (error.response) {
         dispatch({type: GET_SINGLE_PRODUCT_ERROR, payload: error.response.data});

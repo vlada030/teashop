@@ -15,7 +15,7 @@ const CartButtons = () => {
     return (
         <Wrapper>
             
-            {user.role !== 'admin' ? <Link to="/cart" className="cart-btn" onClick={closeSidebar}>
+            {user?.role !== 'admin' ? <Link to="/cart" className="cart-btn" onClick={closeSidebar}>
                 Korpa
                 <span className="cart-container">
                     <FaShoppingCart />

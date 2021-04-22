@@ -11,7 +11,7 @@ const NotAdminSidebarLinks = () => {
 
     return (
         <Wrapper>
-            {user.role !== "admin" ? (
+            {user?.role !== "admin" ? (
                 <ul className="links">
                     {links.map((link) => {
                         const { id, text, url } = link;

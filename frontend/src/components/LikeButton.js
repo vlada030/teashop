@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {GiHeartBeats} from 'react-icons/gi';
+import {GiHeartBeats, GiGearHammer} from 'react-icons/gi';
 
 const LikedButton = ({singleProduct, toggleLike, user}) => {
     
@@ -14,6 +14,15 @@ const LikedButton = ({singleProduct, toggleLike, user}) => {
     const arr = user.favorites;
     const isLiked = arr.find(item => item.id === singleProduct.id);
 
+    if (user?.role === 'admin' ) {
+        return (
+            <Wrapper onClick={() => toggleLike(singleProduct)}>
+                <GiGearHammer className={`like-icon ${isLiked ? 'like' : 'unlike'}`}/>
+                {isLiked ? "izbriši iz izdvojenih" : "dodaj u izdvojene"}
+            </Wrapper>
+        )
+    }
+    
     return (
         <Wrapper onClick={() => toggleLike(singleProduct)}>
             <GiHeartBeats className={`like-icon ${isLiked ? 'like' : 'unlike'}`}/>

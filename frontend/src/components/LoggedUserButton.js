@@ -37,12 +37,11 @@ const LoggedUserButton = () => {
                 </li>
                 <li>
                     <Link to="/products/favorites" onClick={closeSidebar}>
-                        {" "}
-                        {`omiljeni (${user.favorites.length})`}
+                        {`${user?.role === 'admin' ? 'izdvojeni' : 'omiljeni'} (${user.favorites.length})`}
                     </Link>
                 </li>
 
-                {/* {user && user.role === "admin" ? (
+                {/* { {user?.role === "admin" ? (}
                     <React.Fragment>
                         <li>
                             <Link

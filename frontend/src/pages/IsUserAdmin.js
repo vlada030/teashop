@@ -9,7 +9,7 @@ const IsUserAdmin = ({children, ...rest}) => {
         <Route
             {...rest}
             render={() =>
-                user.role !== "admin" ? (
+                user?.role !== "admin" ? (
                     children
                 ) : (
                     <Redirect to="/admin" />
