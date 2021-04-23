@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import styled from 'styled-components';
 
-const FindProductForm = ({handleSubmit, findId, setFindId}) => {
+const FindProductForm = ({title, handleSubmit, findId, setFindId}) => {
 
     const idField = useRef();
 
@@ -11,7 +11,7 @@ const FindProductForm = ({handleSubmit, findId, setFindId}) => {
 
     return (
         <Wrapper onSubmit={handleSubmit}>
-            <h4>pronađi proizvod</h4>
+            <h4>{title}</h4>
             <hr />
             <div className="form-control">
                 <label>unesite šifru proizvoda :</label>

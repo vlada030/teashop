@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import CreateProduct from './CreateProduct';
-import UpdateProduct from './UpdateProduct';
-import {Sort, ProductList, Pagination} from '.';
+import {Sort, ProductList, Pagination, CreateProduct, UpdateProduct, DeleteProduct} from '.';
 
 const Helper = () => {
     return (
@@ -22,7 +20,7 @@ const AdminContent = ({view}) => {
         proizvod_svi: <Helper />,
         proizvod_dodaj: <CreateProduct />,
         proizvod_izmeni: <UpdateProduct />,
-        proizvod_obriši: <h4>opcija je u razvoju / under construction ✋ 👷</h4>,
+        proizvod_obriši: <DeleteProduct />,
         korisnik_dodaj: <h4>opcija je u razvoju / under construction ✋ 👷</h4>,
         korisnik_izmeni: <h4>opcija je u razvoju / under construction ✋ 👷</h4>
     }

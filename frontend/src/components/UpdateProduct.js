@@ -12,7 +12,7 @@ const UpdateProduct = () => {
             {product && product.id ? (
                 <ProductHandleForm isUpdatePage={true} product={product} handleSubmit={updateProductSubmit} handleFormReset={resetForm} handleFormChange={updatePropertyValue} />
             ) : (
-                <FindProductForm handleSubmit={findProductSubmit} findId={findId} setFindId={setFindId} />
+                <FindProductForm title='pronađi proizvod' handleSubmit={findProductSubmit} findId={findId} setFindId={setFindId} />
             )}
         </Wrapper>
     );
@@ -20,8 +20,10 @@ const UpdateProduct = () => {
 
 const Wrapper = styled.div`
     border-radius: var(--radius);
-    margin: 1rem 0;
+    //margin: 1rem 0;
     min-height: 100%;
+    display: grid;
+    place-items: center;
 `;
 
 export default UpdateProduct;

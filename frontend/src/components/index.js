@@ -32,6 +32,7 @@ import AdminNavigation from './AdminNavigation'
 import AdminContent from './AdminContent'
 import UpdateProduct from './UpdateProduct'
 import CreateProduct from './CreateProduct'
+import DeleteProduct from './DeleteProduct'
 import ConfirmationDialog from './ConfirmationDialog'
 
 export {
@@ -69,5 +70,6 @@ export {
   AdminContent,
   CreateProduct,
   UpdateProduct,
+  DeleteProduct,
   ConfirmationDialog
 }

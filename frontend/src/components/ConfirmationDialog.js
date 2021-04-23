@@ -2,22 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import {AiOutlineCloseCircle} from "react-icons/ai"; 
 
-const ConfirmationDialog = () => {
+const ConfirmationDialog = ({headerText, bodyText, handleCancel, handleConfirm, isOpen}) => {
     return (
-        <Wrapper>
+        <Wrapper style={isOpen ? {display: 'block'} : null}>
             <article className='card'>
                 <p className='card-header'>
-                    naslov
-                    <button>
+                    {headerText}
+                    <button onClick={handleCancel}>
                         <AiOutlineCloseCircle />
                     </button>
                 </p>
 
-                <p className='card-body'>potvrdite brisanje dokumenta ?</p>
+                <p className='card-body'>{bodyText}</p>
 
                 <p className='card-footer'>
-                    <button>otkaži</button>
-                    <button>potvrdi</button>
+                    <button onClick={handleCancel}>otkaži</button>
+                    <button onClick={handleConfirm}>potvrdi</button>
                 </p>
 
             </article>
@@ -26,10 +26,12 @@ const ConfirmationDialog = () => {
 };
 
 const Wrapper = styled.div`
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
     background-color: var(--background);
+    border-radius: var(--radius);
     z-index: 10;
 
     p {
@@ -45,12 +47,16 @@ const Wrapper = styled.div`
         display: inline-block;
         border: none;
         cursor: pointer;
-        color: var(--clr-primary-7);
+        color: var(--clr-primary-1);
         transition: var(--transition);
 
         &:hover {
                 color: var(--clr-primary-1);
             }
+
+        @media screen and (min-width: 992px) {
+            color: var(--clr-primary-7);
+        }
     }
 
     .card {
@@ -58,7 +64,7 @@ const Wrapper = styled.div`
         top: 10rem;
         left: 50%;
         transform: translateX(-50%); */
-        margin: 10rem auto 0 auto;
+        margin: 15vh auto 0 auto;
         width: 20rem;
         background-color: var(--clr-primary-9);
         border-radius: var(--radius);
@@ -74,7 +80,8 @@ const Wrapper = styled.div`
         
         svg {
             font-size: 1.5rem;
-            color: var(--clr-primary-1);
+            //color: var(--clr-primary-1);
+            color: inherit;
         }
     }
 
@@ -93,15 +100,9 @@ const Wrapper = styled.div`
             padding: 0.5rem 0.75rem;
             font-family: inherit;
             font-size: inherit;
-            text-transform: uppercase;
-            
-
-           
-        }
-
-        
+            text-transform: uppercase;           
+        }        
     }
-
 `;
 
 export default ConfirmationDialog;
