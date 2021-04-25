@@ -35,6 +35,8 @@ const Wrapper = styled.section`
         display: flex;
         flex-direction: column;
         justify-content: center;
+        /* position: sticky;
+        top: 0; */
 
         h4 {
             padding: .75rem;

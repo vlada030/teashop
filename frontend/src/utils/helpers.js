@@ -52,9 +52,11 @@ export const pagination = arr => {
     return Array.from({length: pages}, (item, index) => {
         const start = index * itemsPerPage;
         return arr.slice(start, start + itemsPerPage)
-    })
-
-    
+    })    
 }
 
-export default pagination;
+export const goToTop = () => 
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })

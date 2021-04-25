@@ -6,6 +6,7 @@ import {useGlobalContext} from '../context/global_context';
 
 const Modal = () => {
     const {showModal, modalError, modalMsg, closeModal} = useGlobalContext();
+    //console.log('MODAL RERENDERED');
     // ugasi samo info poruku, ne error    
     useEffect(() => {
         if (!modalError) {
@@ -13,7 +14,7 @@ const Modal = () => {
                     closeModal();
                 }, 3000);
             }
-        }, [modalError]);
+        }, [modalError, closeModal]);
 
     return (
         <React.Fragment>
