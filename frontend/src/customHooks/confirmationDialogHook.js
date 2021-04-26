@@ -8,10 +8,10 @@ export const useConfirmationDialog = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const openModal = () => setIsOpen(true);
+    const openDialog = () => setIsOpen(true);
 
-    const closeModal = () => setIsOpen(false);
-
+    const closeDialog = () => setIsOpen(false);
+  
     const Dialog = useCallback(() => 
          <ConfirmationDialog 
                     headerText={headerText} 
@@ -21,6 +21,5 @@ export const useConfirmationDialog = ({
                     isOpen={isOpen} />
     , [isOpen])
 
-    return {openModal, closeModal, Dialog};
-
+    return {openDialog, closeDialog, Dialog};
 }

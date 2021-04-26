@@ -34,8 +34,8 @@ exports.singleProduct = asyncHandler(
     async (req, res, next) => {
         const {id} = req.params;
 
-        if (id.length !== 5) {
-            return next(new EnhancedError('Pogrešan format šifre porizvoda', 404));
+        if (id.length !== 5 || isNaN(id)) {
+            return next(new EnhancedError('Pogrešan format šifre proizvoda', 404));
         }
     
         const data = await Singles.findOne({id});
@@ -140,3 +140,24 @@ exports.patchProduct = asyncHandler(async(req, res, next) => {
     
     res.status(200).json({success: true, data: {stock: updatedProduct.stock}, message: ''})
 }) 
+
+// @desc   Delete Product
+// @route  DELETE /allproducts/:id
+// @access Private - ADMIN
+
+exports.deleteProduct = asyncHandler(async (req, res, next) => {
+    const id = req.params.id;
+
+    if (id.length !== 5 || isNaN(id)) {
+        return next(new EnhancedError('Pogrešan format šifre proizvoda', 404));
+    }
+
+    const product = await Singles.findOne({id});
+    if (!product) {
+        return next(new EnhancedError('Traženi proizvod ne postoji u sistemu.', 404))
+    }
+
+    //const data = await Singles.findOneAndDelete({id});
+
+    res.status(200).json({success: true, data: {}, message: `Proizvod sa šifrom ${id} je uspešno izbrisan.`});
+})

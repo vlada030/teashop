@@ -1,22 +1,34 @@
 // https://isamatov.com/useful-react-hooks/#
 import {useState, useCallback} from 'react';
+import axios from 'axios';
 
-const useAsync = ({asyncFn}) => {
 
-    const [fetchedData, setFetchedData] = useState([]);
-    const [errorMsg, setErrorMsg] = useState('');
+export const useAxiosRequest = () => {
 
-    const execute = useCallback(async (...params) => {
+    const [fetchedData, setFetchedData] = useState({});
+    const [message, setMessage] = useState('');
+
+    const execute = async (params) => {
+        
         try {
-            const {data} = await asyncFn(params);
+            const {data} = await axios(params);
             setFetchedData(data.data);
+            setMessage(data.message);
+            //console.log(data);
         } catch (err) {
-            if (err.response) setErrorMsg();
-            setErrorMsg(err.message);
+            if (err.response) setMessage(err.response.data.message);
+            setMessage(err.message);
         }
-    }, [asyncFn]);
+    };
+    // const execute = useCallback(async (...params) => {
+    //     try {
+    //         const {data} = await asyncFn(params);
+    //         setFetchedData(data.data);
+    //     } catch (err) {
+    //         if (err.response) setErrorMsg();
+    //         setErrorMsg(err.message);
+    //     }
+    // }, [asyncFn]);
 
-    return {execute, fetchedData, errorMsg};
+    return {execute, fetchedData, message};
 }
-
-export default useAsync;

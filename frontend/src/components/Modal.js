@@ -29,7 +29,7 @@ const Modal = () => {
 }
 
 const Wrapper = styled.div`
-    position: absolute;
+    position: fixed;
     top: 6rem;
     left: 50%;
     transform: translateX(-50%);
@@ -46,6 +46,8 @@ const Wrapper = styled.div`
     width: 90vw;
     max-width: var(--fixed-width);
     margin: 0 auto;
+
+    z-index: 20;
 
     p {
         margin-bottom: 0;

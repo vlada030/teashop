@@ -3,7 +3,7 @@ const router = express.Router();
 const {body} = require('express-validator');
 const Singles = require('../models/singlesModel');
 
-const {allProducts, singleProduct, createProduct, updateProduct, patchProduct} = require('../controllers/productsController');
+const {allProducts, singleProduct, createProduct, updateProduct, patchProduct, deleteProduct} = require('../controllers/productsController');
 const {userIsNotAuthenticated, isUserAdmin} = require('../middleware/checkUserAuthentication');
 
 router.route('/').get(allProducts);
@@ -239,6 +239,7 @@ router.route('/:id')
 
                     return true;
                 }),
-            ], patchProduct );
+            ], patchProduct )
+    .delete(deleteProduct);
 
 module.exports = router;

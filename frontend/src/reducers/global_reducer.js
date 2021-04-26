@@ -16,7 +16,7 @@ const globalReducer = (state, action) => {
         }
 
         case HIDE_MODAL: {
-            return { ...state, showModal: false, modalMsg: "" };
+            return { ...state, showModal: false, modalMsg: "", modalError: true };
         }
 
         case SHOW_MODAL: {

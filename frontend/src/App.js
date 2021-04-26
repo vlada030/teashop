@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Navbar, Sidebar, Footer, Modal, ScrollToTopBtn, ConfirmationDialog } from "./components";
+import { Navbar, Sidebar, Footer, Modal, ScrollToTopBtn } from "./components";
 import {
     Home,
     About,
@@ -13,8 +13,6 @@ import {
     AuthenticationPage,
     FavoriteProducts,
     ProtectedAdminRoute,
-    UpdateProductPage,
-    CreateProductPage,
     AdminPage,
     IsUserAdmin
 } from "./pages";
@@ -30,7 +28,6 @@ function App() {
                 <Navbar />
                 <Sidebar />
                 <Modal />
-            <ConfirmationDialog />
 
                 <Switch>
                     <IsUserAdmin exact path="/">
@@ -60,14 +57,6 @@ function App() {
                     <ProtectedUserRoute exact path="/products/favorites">
                         <FavoriteProducts />
                     </ProtectedUserRoute>
-
-                    {/* <ProtectedAdminRoute exact path='/products/update-product'>
-                        <UpdateProductPage />
-                    </ProtectedAdminRoute>
-
-                    <ProtectedAdminRoute exact path='/products/create-product'>
-                        <CreateProductPage />
-                    </ProtectedAdminRoute> */}
                     
                     <Route
                         exact
