@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { TiArrowUpOutline } from "react-icons/ti";
+import {goToPagesTop} from '../utils/helpers';
 
 const ScrollToTopBtn = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -14,14 +15,6 @@ const ScrollToTopBtn = () => {
         }
     };
 
-    // Set the top cordinate to 0
-    // make scrolling smooth
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
-    };
 
     useEffect(() => {
         window.addEventListener("scroll", toggleVisibility);
@@ -30,7 +23,7 @@ const ScrollToTopBtn = () => {
     return (
         <React.Fragment>
             {isVisible && (
-                <Wrapper onClick={scrollToTop}>
+                <Wrapper onClick={goToPagesTop}>
                     <TiArrowUpOutline />
                 </Wrapper>
             )}

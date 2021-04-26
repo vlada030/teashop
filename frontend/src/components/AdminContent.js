@@ -14,8 +14,6 @@ const Helper = () => {
 
 const AdminContent = ({view}) => {
 
-    const AllProducts = {};
-
     const CONTENT_MAP = {
         proizvod_svi: <Helper />,
         proizvod_dodaj: <CreateProduct />,

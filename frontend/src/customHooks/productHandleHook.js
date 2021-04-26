@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import axios from 'axios';
 import {useGlobalContext} from '../context/global_context';
+import {goToPagesTop} from '../utils/helpers';
 
 const INIT_PRODUCT = {
     id: '',
@@ -29,10 +30,7 @@ const useProductHandle = () => {
     const resetForm = () => {
         setProduct(INIT_PRODUCT);
         closeModal();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        goToPagesTop();
     }
 
     const updatePropertyValue = (name, value) => {
@@ -119,17 +117,11 @@ const useProductHandle = () => {
         } catch (error) {
             if (error.response) {
                 openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });    
+                goToPagesTop();   
             } else {
                 // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
                 openModal({showModal: true, modalMsg: error.message, modalError: true});
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+                goToPagesTop();
             }        
         }        
     }
@@ -146,25 +138,16 @@ const useProductHandle = () => {
             //console.log(data);
             setProduct(INIT_PRODUCT);
             openModal({showModal: true, modalMsg: 'Proizvod uspešno kreiran.', modalError: false});
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            }); 
+            
         } catch (error) {
             if (error.response) {
-                openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });    
+                openModal({showModal: true, modalMsg: error.response.data.message, modalError: true});   
             } else {
                 // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
                 openModal({showModal: true, modalMsg: error.message, modalError: true});
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
             }        
+        } finally {
+            goToPagesTop();
         }
     } 
 

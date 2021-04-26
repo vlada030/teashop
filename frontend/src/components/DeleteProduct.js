@@ -11,37 +11,36 @@ const DeleteProduct = () => {
     const {openModal, closeModal} = useGlobalContext();
     const [productId, setProductId] = useState("");
     
+    const deleteProduct = async () => {
+        closeModal();
+        try {
+            const {data} = await axios({
+                url: `/allProducts/${productId}`,
+                method: 'DELETE'
+            });
+            //console.log(data.message);
+            openModal({showModal: true, modalMsg: data.message, modalError: false});
+            
+        } catch (err) {
+            if (err.response) {
+                openModal({showModal: true, modalMsg: err.response.data.message, modalError: true});
+        
+              } else {
+                // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
+                openModal({showModal: true, modalMsg: err.message, modalError: true});
+              }
+        }
+
+        finally {
+            setProductId('');
+            closeDialog();
+        }        
+    }
+
     const { openDialog, closeDialog, Dialog } = useConfirmationDialog({
         headerText: 'brisanje', 
         bodyText: 'potvrdite brisanje proizvoda?', 
-        handleConfirm: async () => {
-
-            closeModal();
-            
-            try {
-                const {data} = await axios({
-                    url: `/allProducts/${productId}`,
-                    method: 'DELETE'
-                });
-                //console.log(data.message);
-                openModal({showModal: true, modalMsg: data.message, modalError: false});
-                
-            } catch (err) {
-                if (err.response) {
-                    openModal({showModal: true, modalMsg: err.response.data.message, modalError: true});
-            
-                  } else {
-                    // u slucaju da nema mreze, a hocemo single product izbacuje Promise pending
-                    openModal({showModal: true, modalMsg: err.message, modalError: true});
-                  }
-            }
-
-            finally {
-                setProductId('');
-                closeDialog();
-            }
-            
-        }
+        handleConfirm: deleteProduct
     });
 
     const onSubmit = (e) => {

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styled from 'styled-components'; 
 import useProductHandle from '../customHooks/productHandleHook';
 import ProductHandleForm from './ProductHandleForm';

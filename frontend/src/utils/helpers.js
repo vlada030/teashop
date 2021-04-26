@@ -55,7 +55,7 @@ export const pagination = arr => {
     })    
 }
 
-export const goToTop = () => 
+export const goToPagesTop = () => 
     window.scrollTo({
         top: 0,
         behavior: 'smooth'

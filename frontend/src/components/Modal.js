@@ -41,7 +41,7 @@ const Wrapper = styled.div`
     display: grid;
     grid-template-columns: auto auto;
     align-items: center;
-    justify-items: center;
+    justify-items: start;
 
     width: 90vw;
     max-width: var(--fixed-width);

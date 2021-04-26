@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useReducer } from 'react'
 import reducer from '../reducers/filter_reducer'
+import {goToPagesTop} from '../utils/helpers';
 import {
   LOAD_PRODUCTS,
   SET_GRIDVIEW,
@@ -31,7 +32,7 @@ const initialState = {
   },
   page: 0,
   paginatedProducts: [], 
-}
+};
 
 const FilterContext = React.createContext()
 
@@ -83,26 +84,17 @@ const clearFilters = () => {
 
 const showPage = (index) => {
   dispatch({type: SHOW_PAGE, payload: index});
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  goToPagesTop();
 }
 
 const nextPage = () => {
   dispatch({type: NEXT_PAGE});
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  goToPagesTop();
 }
 
 const prevPage = () => {
   dispatch({type: PREV_PAGE});
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
+  goToPagesTop();
 }
 
   return (
