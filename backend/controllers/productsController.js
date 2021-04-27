@@ -22,7 +22,7 @@ exports.allProducts = asyncHandler (async (req, res, next) => {
         return next(new EnhancedError('Ne mogu da učitam proizvode', 500))
     }
 
-    res.status(200).json({success: true, data: updatedData});
+    res.status(200).json({success: true, data: updatedData, message: 'Podaci uspešno učitani'});
         
 });
 
@@ -44,7 +44,7 @@ exports.singleProduct = asyncHandler(
             return next(new EnhancedError('Ne postojeći proizvod', 404));
         }
     
-        res.status(200).json({success: true, data})
+        res.status(200).json({success: true, data, message: 'Podaci uspešno učitani'})
     }
 ) 
 
