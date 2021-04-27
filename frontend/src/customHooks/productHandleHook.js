@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import axios from 'axios';
 import {useGlobalContext} from '../context/global_context';
+import {useProductsContext} from '../context/products_context';
 import {goToPagesTop} from '../utils/helpers';
 
 const INIT_PRODUCT = {
@@ -26,6 +27,7 @@ const useProductHandle = () => {
     const [product, setProduct] = useState(INIT_PRODUCT);
     const [findId, setFindId] = useState('');
     const {openModal, closeModal} = useGlobalContext();
+    const {fetchProducts} = useProductsContext();
 
     const resetForm = () => {
         setProduct(INIT_PRODUCT);
@@ -123,7 +125,9 @@ const useProductHandle = () => {
                 openModal({showModal: true, modalMsg: error.message, modalError: true});
                 goToPagesTop();
             }        
-        }        
+        } finally {
+            await fetchProducts();
+        }       
     }
 
     const createProductSubmit = async (e) => {
@@ -148,6 +152,7 @@ const useProductHandle = () => {
             }        
         } finally {
             goToPagesTop();
+            await fetchProducts();
         }
     } 
 

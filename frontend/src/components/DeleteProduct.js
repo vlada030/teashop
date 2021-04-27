@@ -4,12 +4,15 @@ import FindProductForm from "../components/FindProductForm";
 import { useConfirmationDialog } from "../customHooks/confirmationDialogHook";
 import axios from 'axios';
 import {useGlobalContext} from '../context/global_context';
+import {useProductsContext} from '../context/products_context';
+
 //import {useAxiosRequest} from '../customHooks/TESTaxiosRequest';
 
 const DeleteProduct = () => {
     //const {execute, fetchedData, message} = useAxiosRequest();
     const {openModal, closeModal} = useGlobalContext();
     const [productId, setProductId] = useState("");
+    const {fetchProducts} = useProductsContext();
     
     const deleteProduct = async () => {
         closeModal();
@@ -34,6 +37,7 @@ const DeleteProduct = () => {
         finally {
             setProductId('');
             closeDialog();
+            await fetchProducts();
         }        
     }
 
