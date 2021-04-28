@@ -6,21 +6,23 @@ const AdminNavigation = ({view, handleView}) => {
     return (
         <Wrapper>
             <div className='container'>
-                <h4>proizvod</h4>
-                <hr />
-                {productTitles.map(item => {
-                    return <button key={item} className={item === view ? 'admin-btn active' : 'admin-btn'} onClick={() => handleView(item)}>{item.split('_')[1]}</button>
-                })}
-            </div>
 
-            <div className='container'>
-                <h4>korisnik</h4>
-                <hr />
-                {userTitles.map(item => {
-                    return <button key={item} className={item === view ? 'admin-btn active' : 'admin-btn'} onClick={() => handleView(item)}>{item.split('_')[1]}</button>
-                })}
-            </div>
+                <div className='block'>
+                    <h4>proizvod</h4>
+                    <hr />
+                    {productTitles.map(item => {
+                        return <button key={item} className={item === view ? 'admin-btn active' : 'admin-btn'} onClick={() => handleView(item)}>{item.split('_')[1]}</button>
+                    })}
+                </div>
 
+                <div className='block'>
+                    <h4>korisnik</h4>
+                    <hr />
+                    {userTitles.map(item => {
+                        return <button key={item} className={item === view ? 'admin-btn active' : 'admin-btn'} onClick={() => handleView(item)}>{item.split('_')[1]}</button>
+                    })}
+                </div>
+            </div>
         </Wrapper>
     )
 }
@@ -32,6 +34,10 @@ const Wrapper = styled.section`
     text-align: center;
 
     .container {
+        position: sticky;
+        top: 0;
+    }
+    .block {
         display: flex;
         flex-direction: column;
         justify-content: center;
