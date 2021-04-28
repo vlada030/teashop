@@ -6,6 +6,12 @@ const morgan = require('morgan');
 const session = require('express-session');
 const MongoDbSessionStore = require('connect-mongodb-session')(session);
 const passport = require('passport');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
+
 require('dotenv').config({path: resolve(__dirname, '../frontend/.env')});
 
 const initializePassport = require('./utils/passportConfig');
@@ -79,12 +85,25 @@ if (process.env.NODE_ENV === 'production') {
 app.use(passport.initialize());
 app.use(passport.session())
 
-// proveri session i usera
-// app.use((req, res, next) => {
-//     console.log(req.session);
-//     console.log(req.user);
-//     next();
-// })
+// Mongo sanitize - No-SQL injection - $ or . change with _
+app.use(mongoSanitize({
+    replaceWith: '_'
+  }))
+
+// dodatno setovanje security headera
+app.use(helmet());
+
+// will return "&lt;script>&lt;/script>"
+app.use(xss());
+
+// ogranicavanje broja requesta serveru
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+  });
+   
+//  apply to all requests
+app.use(limiter);
 
 app.use('/auth', authRouter);
 
