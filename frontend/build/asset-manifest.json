@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.457ddb21.chunk.css",
+    "main.js": "/static/js/main.4561f31b.chunk.js",
+    "main.js.map": "/static/js/main.4561f31b.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.560cc5da.js",
+    "runtime-main.js.map": "/static/js/runtime-main.560cc5da.js.map",
+    "static/js/2.862a1317.chunk.js": "/static/js/2.862a1317.chunk.js",
+    "static/js/2.862a1317.chunk.js.map": "/static/js/2.862a1317.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.457ddb21.chunk.css.map": "/static/css/main.457ddb21.chunk.css.map",
+    "static/js/2.862a1317.chunk.js.LICENSE.txt": "/static/js/2.862a1317.chunk.js.LICENSE.txt",
+    "static/media/beli.542486d8.jpg": "/static/media/beli.542486d8.jpg",
+    "static/media/crni.83dcd9a5.jpg": "/static/media/crni.83dcd9a5.jpg",
+    "static/media/logo.93707aa5.png": "/static/media/logo.93707aa5.png",
+    "static/media/tea-1.b421ed50.jpg": "/static/media/tea-1.b421ed50.jpg",
+    "static/media/tea-3.9f265191.jpg": "/static/media/tea-3.9f265191.jpg",
+    "static/media/tea-5.612a6215.jpg": "/static/media/tea-5.612a6215.jpg",
+    "static/media/zeleni.d852009a.webp": "/static/media/zeleni.d852009a.webp"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.560cc5da.js",
+    "static/js/2.862a1317.chunk.js",
+    "static/css/main.457ddb21.chunk.css",
+    "static/js/main.4561f31b.chunk.js"
+  ]
+}
