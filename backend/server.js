@@ -62,7 +62,7 @@ app.use(session({
 
 if (process.env.NODE_ENV === 'production') {
     // Use secure cookies in production (requires SSL/TLS)
-    sess.cookie.secure = true;
+    session.cookie.secure = true;
   
     // Uncomment the line below if your application is behind a proxy (like on Heroku)
     // or if you're encountering the error message:
