@@ -18,7 +18,7 @@ const FavoriteProducts = () => {
       }
 
     return <Wrapper className='page'>
-                <PageHero title='omiljeni'/>
+                <PageHero title={user?.role === 'admin' ? 'izdvojeni' : 'omiljeni'}/>
                 <div className=' page'>
                     <FavoritesContent />
                 </div>
