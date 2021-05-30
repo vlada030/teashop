@@ -10,11 +10,10 @@ const Logo = () => {
     return (
         <Wrapper>
             <Link to="/" className="logo">
-                {/* <img src={logo} alt='tea' /> */}
                 tea shop
             </Link>
             <button type="button" className="nav-toggle" onClick={openSidebar}>
-                <SiGitea />
+                <SiGitea data-testid='svg'/>
             </button>
         </Wrapper>
     );
