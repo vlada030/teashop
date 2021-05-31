@@ -40,5 +40,8 @@
     "passport-local": "^1.0.0",
     "stripe": "^8.138.0",
     "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.12.0"
   }
 }
