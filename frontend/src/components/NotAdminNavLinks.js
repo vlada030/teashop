@@ -4,26 +4,33 @@ import { links } from "../utils/constants";
 import { useUserContext } from "../context/user_context";
 import styled from "styled-components";
 
+// dependancy injection zbog testiranja
+export const Titles = ({links, user}) => {
+    return (
+        <ul className="nav-links">
+            {links.map((link) => {
+                const { id, text, url } = link;
+                return (
+                    <li key={id}>
+                        <Link to={url}>{text}</Link>
+                    </li>
+                );
+            })}
+            {user && (
+                <li>
+                    <Link to="/checkout">kasa</Link>
+                </li>
+            )}
+        </ul>
+    )
+}
+
 const NotAdminLinks = () => {
     const { user } = useUserContext();
     return (
         <Wrapper>
             {user?.role !== "admin" ? (
-                <ul className="nav-links">
-                    {links.map((link) => {
-                        const { id, text, url } = link;
-                        return (
-                            <li key={id}>
-                                <Link to={url}>{text}</Link>
-                            </li>
-                        );
-                    })}
-                    {user && (
-                        <li>
-                            <Link to="/checkout">kasa</Link>
-                        </li>
-                    )}
-                </ul>
+                <Titles links={links} user={user} />
             ) : (
                 <h4>Admin&nbsp;panel</h4>
             )}

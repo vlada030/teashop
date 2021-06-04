@@ -4,6 +4,15 @@ import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context/global_context";
 import styled from "styled-components";
 
+// preradjena komponenta radi testiranja - primer Dependency Injection
+export const Button = ({ handleSidebar }) => {
+    return (
+        <button type="button" className="nav-toggle" onClick={handleSidebar}>
+            <SiGitea />
+        </button>
+    );
+};
+
 const Logo = () => {
     const { openSidebar } = useGlobalContext();
 
@@ -12,9 +21,7 @@ const Logo = () => {
             <Link to="/" className="logo">
                 tea shop
             </Link>
-            <button type="button" className="nav-toggle" onClick={openSidebar}>
-                <SiGitea data-testid='svg'/>
-            </button>
+            <Button handleSidebar={openSidebar}/>
         </Wrapper>
     );
 };

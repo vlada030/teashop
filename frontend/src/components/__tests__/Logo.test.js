@@ -1,31 +1,67 @@
-// promena widthai heighta window objekta
-import {resizeTo} from 'window-resizeto'
+// promena width i height window objekta
+//import {resizeTo} from 'window-resizeto'
+import React, { useContext } from 'react'
 import { render, screen } from "@testing-library/react"
+import userEvent from '@testing-library/user-event'
+
+//import { GlobalProvider } from "../../context/global_context"
 import {BrowserRouter} from 'react-router-dom'
 import Logo from "../Logo"
-import { GlobalProvider } from "../../context/global_context"
+import {Button} from '../Logo'
 
+test('Click on Sidebar Button works', () => {
+    const mock = jest.fn()
 
-test("Button for sidebar opening is rendered", () => {
+    render(<Button  handleSidebar={mock}/>)
+ 
+    userEvent.click(screen.getByRole('button'))
+    expect(mock).toHaveBeenCalledTimes(1)
+})
 
-    // resizeTo(window, 1920, 1080)
-    // resizeTo(window, 500, 108)
+// test("Open sidebar button is working", () => {
+
+//     // resizeTo(window, 1920, 1080)
+//     // resizeTo(window, 500, 108)
     
-    const {getByTestId} = render(
-        <GlobalProvider>
-            <BrowserRouter>
-                <Logo />    
-            </BrowserRouter>
-        </GlobalProvider>
-    );
+//     const {getByTestId} = render(
+//         <GlobalProvider>
+//             <BrowserRouter>
+//                 <Logo />    
+//             </BrowserRouter>
+//         </GlobalProvider>
+//     );
 
-    console.log({width: window.innerWidth, height: window.innerHeight});
+//     console.log({width: window.innerWidth, height: window.innerHeight});
 
-    //screen.debug()
+//     //screen.debug()
 
-    //expect(getByTestId("svg")).toBeVisible()
-    //expect(screen.getByRole('button')).toBeInTheDocument()
-    expect(getByTestId("svg")).toHaveStyle({display: none})
+//     //expect(getByTestId("svg")).toBeVisible()
+//     //expect(screen.getByRole('button')).toBeInTheDocument()
+//     expect(getByTestId("svg")).toHaveStyle({display: 'none'})
+// });
 
+// test("Open sidebar button is working", () => {
+//     const GlobalContext = React.createContext();
 
-});
+//     const wrapper = ({children}) => {
+
+//         return (
+//             <GlobalContext.Provider value={{
+//                 openSidebar: jest.fn()
+//             }}>
+//                 {children}
+//             </GlobalContext.Provider>
+//         )
+//     }
+    
+//     render(
+//             (<BrowserRouter>
+//                 <Logo />    
+//             </BrowserRouter>), {wrapper}
+//     );    
+
+//     screen.debug()
+//     userEvent.click(screen.getByRole('button'))
+//     //expect(openSidebar).toHaveBeenCalledTimes(1)
+
+// });
