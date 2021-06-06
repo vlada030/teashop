@@ -25,17 +25,19 @@ export const Titles = ({links, user}) => {
     )
 }
 
-const NotAdminLinks = () => {
-    const { user } = useUserContext();
-    return (
-        <Wrapper>
-            {user?.role !== "admin" ? (
+export const RenderLinks = ({user}) => {
+    return (<Wrapper>
+        {user?.role !== "admin" ? (
                 <Titles links={links} user={user} />
             ) : (
                 <h4>Admin&nbsp;panel</h4>
             )}
-        </Wrapper>
-    );
+    </Wrapper>)
+}
+
+const NotAdminLinks = () => {
+    const { user } = useUserContext();
+    return <RenderLinks user={user} />;
 };
 
 const Wrapper = styled.div`

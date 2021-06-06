@@ -1,67 +1,70 @@
 // promena width i height window objekta
 //import {resizeTo} from 'window-resizeto'
-import React, { useContext } from 'react'
-import { render, screen } from "@testing-library/react"
-import userEvent from '@testing-library/user-event'
+import React, { useContext } from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 //import { GlobalProvider } from "../../context/global_context"
-import {BrowserRouter} from 'react-router-dom'
-import Logo from "../Logo"
-import {Button} from '../Logo'
+import { BrowserRouter } from "react-router-dom";
+import Logo from "../Logo";
+import { Button } from "../Logo";
+describe("Test Logo component", () => {
+    test("Click on Sidebar Button works", () => {
+        const mock = jest.fn();
 
-test('Click on Sidebar Button works', () => {
-    const mock = jest.fn()
+        render(<Button handleSidebar={mock} />);
 
-    render(<Button  handleSidebar={mock}/>)
- 
-    userEvent.click(screen.getByRole('button'))
-    expect(mock).toHaveBeenCalledTimes(1)
-})
+        userEvent.click(screen.getByRole("button"));
+        expect(mock).toHaveBeenCalledTimes(1);
+    });
 
-// test("Open sidebar button is working", () => {
+    test.todo("Is sidebar button rendered depending on CSS @media rule ");
 
-//     // resizeTo(window, 1920, 1080)
-//     // resizeTo(window, 500, 108)
-    
-//     const {getByTestId} = render(
-//         <GlobalProvider>
-//             <BrowserRouter>
-//                 <Logo />    
-//             </BrowserRouter>
-//         </GlobalProvider>
-//     );
+    // test("Open sidebar button is working", () => {
+    //     // resizeTo(window, 1920, 1080)
+    //     // resizeTo(window, 500, 108)
 
-//     console.log({width: window.innerWidth, height: window.innerHeight});
+    //     const { getByTestId } = render(
+    //         <GlobalProvider>
+    //             <BrowserRouter>
+    //                 <Logo />
+    //             </BrowserRouter>
+    //         </GlobalProvider>
+    //     );
 
-//     //screen.debug()
+    //     console.log({ width: window.innerWidth, height: window.innerHeight });
 
-//     //expect(getByTestId("svg")).toBeVisible()
-//     //expect(screen.getByRole('button')).toBeInTheDocument()
-//     expect(getByTestId("svg")).toHaveStyle({display: 'none'})
-// });
+    //     //screen.debug()
 
-// test("Open sidebar button is working", () => {
-//     const GlobalContext = React.createContext();
+    //     //expect(getByTestId("svg")).toBeVisible()
+    //     //expect(screen.getByRole('button')).toBeInTheDocument()
+    //     expect(getByTestId("svg")).toHaveStyle({ display: "none" });
+    // });
 
-//     const wrapper = ({children}) => {
+    // test("Open sidebar button is working", () => {
+    //     const GlobalContext = React.createContext();
 
-//         return (
-//             <GlobalContext.Provider value={{
-//                 openSidebar: jest.fn()
-//             }}>
-//                 {children}
-//             </GlobalContext.Provider>
-//         )
-//     }
-    
-//     render(
-//             (<BrowserRouter>
-//                 <Logo />    
-//             </BrowserRouter>), {wrapper}
-//     );    
+    //     const wrapper = ({ children }) => {
+    //         return (
+    //             <GlobalContext.Provider
+    //                 value={{
+    //                     openSidebar: jest.fn(),
+    //                 }}
+    //             >
+    //                 {children}
+    //             </GlobalContext.Provider>
+    //         );
+    //     };
 
-//     screen.debug()
-//     userEvent.click(screen.getByRole('button'))
-//     //expect(openSidebar).toHaveBeenCalledTimes(1)
+    //     render(
+    //         <BrowserRouter>
+    //             <Logo />
+    //         </BrowserRouter>,
+    //         { wrapper }
+    //     );
 
-// });
+    //     screen.debug();
+    //     userEvent.click(screen.getByRole("button"));
+    //     //expect(openSidebar).toHaveBeenCalledTimes(1)
+    // });
+});
