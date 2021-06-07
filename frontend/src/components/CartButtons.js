@@ -7,21 +7,18 @@ import { useCartContext } from "../context/cart_context";
 import { useUserContext } from "../context/user_context";
 import { useGlobalContext } from "../context/global_context";
 
-const CartButtons = () => {
-    const { closeSidebar } = useGlobalContext();
-    const { totalItems } = useCartContext();
-    const { user } = useUserContext();
-
+export const Buttons = ({ user, totalItems, closeSidebar }) => {
     return (
         <Wrapper>
-            
-            {user?.role !== 'admin' ? <Link to="/cart" className="cart-btn" onClick={closeSidebar}>
-                Korpa
-                <span className="cart-container">
-                    <FaShoppingCart />
-                    <span className="cart-value">{totalItems}</span>
-                </span>
-            </Link> : null}
+            {user?.role !== "admin" ? (
+                <Link to="/cart" className="cart-btn" onClick={closeSidebar}>
+                    Korpa
+                    <span className="cart-container">
+                        <FaShoppingCart />
+                        <span className="cart-value">{totalItems}</span>
+                    </span>
+                </Link>
+            ) : null}
 
             {!user ? (
                 <Link
@@ -46,8 +43,21 @@ const CartButtons = () => {
     );
 };
 
-const Wrapper = styled.div`    
+const CartButtons = () => {
+    const { closeSidebar } = useGlobalContext();
+    const { totalItems } = useCartContext();
+    const { user } = useUserContext();
 
+    return (
+        <Buttons
+            closeSidebar={closeSidebar}
+            totalItems={totalItems}
+            user={user}
+        />
+    );
+};
+
+const Wrapper = styled.div`
     @media screen and (min-width: 992px) {
         display: grid;
         grid-template-columns: auto auto;

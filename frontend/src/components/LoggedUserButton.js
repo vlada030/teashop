@@ -6,17 +6,13 @@ import { useCartContext } from "../context/cart_context";
 import { useGlobalContext } from "../context/global_context";
 import { Link } from "react-router-dom";
 
-const LoggedUserButton = () => {
-    const { user, userLogout} = useUserContext();
-    const { clearCart} = useCartContext();
-    const { closeSidebar} = useGlobalContext();
-
+// Dependency injection pattern testiranja
+export const Buttons = ({ user, userLogout, clearCart, closeSidebar }) => {
     let transformedName = user.username;
 
-    transformedName = transformedName.split(' ')[0];
+    transformedName = transformedName.split(" ")[0];
 
-    if (transformedName.length > 9 ) {
-    
+    if (transformedName.length > 9) {
         transformedName = `${transformedName.substring(0, 7)}...`;
     }
 
@@ -37,33 +33,28 @@ const LoggedUserButton = () => {
                 </li>
                 <li>
                     <Link to="/products/favorites" onClick={closeSidebar}>
-                        {`${user?.role === 'admin' ? 'izdvojeni' : 'omiljeni'} (${user.favorites.length})`}
+                        {`${
+                            user?.role === "admin" ? "izdvojeni" : "omiljeni"
+                        } (${user.favorites.length})`}
                     </Link>
                 </li>
-
-                {/* { {user?.role === "admin" ? (}
-                    <React.Fragment>
-                        <li>
-                            <Link
-                                to="/products/update-product"
-                                onClick={closeSidebar}
-                            >
-                                izmeni proizvod
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link
-                                to="/products/create-product"
-                                onClick={closeSidebar}
-                            >
-                                dodaj proizvod
-                            </Link>
-                        </li>
-                    </React.Fragment>
-                ) : null} */}
             </ul>
         </Wrapper>
+    );
+};
+
+const LoggedUserButton = () => {
+    const { user, userLogout } = useUserContext();
+    const { clearCart } = useCartContext();
+    const { closeSidebar } = useGlobalContext();
+
+    return (
+        <Buttons
+            user={user}
+            userLogout={userLogout}
+            clearCart={clearCart}
+            closeSidebar={closeSidebar}
+        />
     );
 };
 
@@ -76,7 +67,7 @@ const Wrapper = styled.div`
     p {
         text-align: left;
         padding-left: 1.5rem;
-        
+
         font-size: 1.5rem;
         cursor: pointer;
 
@@ -99,7 +90,7 @@ const Wrapper = styled.div`
             padding-left: 0;
             text-align: right;
         }
-    }    
+    }
 
     ul {
         color: var(--clr-grey-2);
@@ -136,8 +127,7 @@ const Wrapper = styled.div`
             letter-spacing: inherit;
             cursor: pointer;
             text-transform: capitalize;
-            
-        }       
+        }
     }
 
     @media screen and (min-width: 992px) {
@@ -153,10 +143,10 @@ const Wrapper = styled.div`
             visibility: hidden;
             text-align: center;
             padding-left: 0;
-            background: linear-gradient( transparent, var(--clr-primary-10));
+            background: linear-gradient(transparent, var(--clr-primary-10));
             border-radius: var(--radius);
         }
-        
+
         li:hover {
             padding-left: 0;
             background: transparent;
@@ -164,12 +154,12 @@ const Wrapper = styled.div`
             border-bottom: 2px solid var(--clr-primary-7);
         }
 
-        button:focus {              
-            outline: none;    
+        button:focus {
+            outline: none;
         }
 
         a {
-            padding: .25rem 0.5rem;
+            padding: 0.25rem 0.5rem;
             -webkit-box-decoration-break: clone;
             box-decoration-break: clone;
         }
