@@ -1,7 +1,7 @@
 import { screen, render } from "@testing-library/react";
-import { Buttons } from "../LoggedUserButton";
 import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
+import LoggedUserButton from "../LoggedUserButton";
 
 describe("User Authentication", () => {
     describe("User Name", () => {
@@ -15,7 +15,7 @@ describe("User Authentication", () => {
 
             render(
                 <BrowserRouter>
-                    <Buttons
+                    <LoggedUserButton
                         user={user}
                         userLogout={placeholderFn}
                         clearCart={placeholderFn}
@@ -40,7 +40,7 @@ describe("User Authentication", () => {
 
             render(
                 <BrowserRouter>
-                    <Buttons
+                    <LoggedUserButton
                         user={user}
                         userLogout={placeholderFn}
                         clearCart={placeholderFn}
@@ -67,7 +67,7 @@ describe("User Authentication", () => {
 
             render(
                 <BrowserRouter>
-                    <Buttons
+                    <LoggedUserButton
                         user={user}
                         userLogout={logoutMock}
                         clearCart={clearCartMock}
@@ -93,7 +93,7 @@ describe("User Authentication", () => {
 
             render(
                 <BrowserRouter>
-                    <Buttons
+                    <LoggedUserButton
                         user={user}
                         userLogout={placeholderFn}
                         clearCart={placeholderFn}
@@ -116,7 +116,7 @@ describe("User Authentication", () => {
 
             render(
                 <BrowserRouter>
-                    <Buttons
+                    <LoggedUserButton
                         user={user}
                         userLogout={placeholderFn}
                         clearCart={placeholderFn}
@@ -139,7 +139,7 @@ describe("User Authentication", () => {
 
             render(
                 <BrowserRouter>
-                    <Buttons
+                    <LoggedUserButton
                         user={user}
                         userLogout={placeholderFn}
                         clearCart={placeholderFn}

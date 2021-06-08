@@ -7,7 +7,7 @@ import { useCartContext } from "../context/cart_context";
 import { useUserContext } from "../context/user_context";
 import { useGlobalContext } from "../context/global_context";
 
-export const Buttons = ({ user, totalItems, closeSidebar }) => {
+export const Buttons = ({ user, totalItems, closeSidebar, userLogout, clearCart }) => {
     return (
         <Wrapper>
             {user?.role !== "admin" ? (
@@ -37,7 +37,12 @@ export const Buttons = ({ user, totalItems, closeSidebar }) => {
                 //   <FaUserMinus />
                 // </button>
 
-                <LoggedUserButton />
+                <LoggedUserButton
+                    user={user}
+                    userLogout={userLogout}
+                    clearCart={clearCart}
+                    closeSidebar={closeSidebar}
+                />
             )}
         </Wrapper>
     );
@@ -45,14 +50,16 @@ export const Buttons = ({ user, totalItems, closeSidebar }) => {
 
 const CartButtons = () => {
     const { closeSidebar } = useGlobalContext();
-    const { totalItems } = useCartContext();
-    const { user } = useUserContext();
+    const { totalItems, clearCart } = useCartContext();
+    const { user, userLogout } = useUserContext();
 
     return (
         <Buttons
             closeSidebar={closeSidebar}
             totalItems={totalItems}
             user={user}
+            userLogout={userLogout}
+            clearCart={clearCart}
         />
     );
 };

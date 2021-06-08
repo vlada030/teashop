@@ -6,8 +6,8 @@ import { useCartContext } from "../context/cart_context";
 import { useGlobalContext } from "../context/global_context";
 import { Link } from "react-router-dom";
 
-// Dependency injection pattern testiranja
-export const Buttons = ({ user, userLogout, clearCart, closeSidebar }) => {
+// Dependency injection pattern testiranja - preradjena komponenta
+const LoggedUserButton = ({ user, userLogout, clearCart, closeSidebar }) => {
     let transformedName = user.username;
 
     transformedName = transformedName.split(" ")[0];
@@ -40,21 +40,6 @@ export const Buttons = ({ user, userLogout, clearCart, closeSidebar }) => {
                 </li>
             </ul>
         </Wrapper>
-    );
-};
-
-const LoggedUserButton = () => {
-    const { user, userLogout } = useUserContext();
-    const { clearCart } = useCartContext();
-    const { closeSidebar } = useGlobalContext();
-
-    return (
-        <Buttons
-            user={user}
-            userLogout={userLogout}
-            clearCart={clearCart}
-            closeSidebar={closeSidebar}
-        />
     );
 };
 
