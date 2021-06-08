@@ -8,18 +8,28 @@ import NotAdminSidebarLinks from "./NotAdminSidebarLinks";
 import { useGlobalContext } from "../context/global_context";
 import { useUserContext } from "../context/user_context";
 
+export const Header = ({ user, closeSidebar }) => {
+    return (
+        <div className="sidebar-header">
+            {user?.role === "admin" ? (
+                <h4>admin&nbsp;panel</h4>
+            ) : (
+                <h4>user&nbsp;panel</h4>
+            )}
+            <button className="close-btn" onClick={closeSidebar}>
+                <FaAngleDoubleLeft />
+            </button>
+        </div>
+    );
+};
+
 export const Buttons = ({ isSidebarOpen, closeSidebar, user }) => {
     return (
         <SidebarContainer>
             <aside
                 className={isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}
             >
-                <div className="sidebar-header">
-                    <h4>admin&nbsp;panel</h4>
-                    <button className="close-btn" onClick={closeSidebar}>
-                        <FaAngleDoubleLeft />
-                    </button>
-                </div>
+                
 
                 <NotAdminSidebarLinks user={user} closeSidebar={closeSidebar} />
 

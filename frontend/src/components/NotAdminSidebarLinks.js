@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { links } from "../utils/constants";
-import { useUserContext } from "../context/user_context";
-import { useGlobalContext } from "../context/global_context";
 
 const NotAdminSidebarLinks = ({user, closeSidebar}) => {
 

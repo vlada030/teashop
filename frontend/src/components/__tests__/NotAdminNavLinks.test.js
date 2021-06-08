@@ -3,9 +3,6 @@ import {render, screen} from '@testing-library/react'
 import {BrowserRouter} from 'react-router-dom'
 import  {Titles, RenderLinks} from '../NotAdminNavLinks'
 import {links} from '../../utils/constants'
-import {UserProvider} from '../../context/user_context'
-import {GlobalProvider} from '../../context/global_context'
-
 
 describe('Navigation links check', () => {
     test('User is not logged', () => {
