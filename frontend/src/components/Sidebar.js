@@ -6,13 +6,14 @@ import styled from "styled-components";
 import CartButtons from "./CartButtons";
 import NotAdminSidebarLinks from "./NotAdminSidebarLinks";
 import { useGlobalContext } from "../context/global_context";
+import { useUserContext } from "../context/user_context";
 
-const Sidebar = () => {
-    const { isSidebarOpen, closeSidebar } = useGlobalContext();
-
+export const Buttons = ({ isSidebarOpen, closeSidebar, user }) => {
     return (
         <SidebarContainer>
-            <aside className={isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}>
+            <aside
+                className={isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}
+            >
                 <div className="sidebar-header">
                     <h4>admin&nbsp;panel</h4>
                     <button className="close-btn" onClick={closeSidebar}>
@@ -20,11 +21,24 @@ const Sidebar = () => {
                     </button>
                 </div>
 
-                <NotAdminSidebarLinks />
-                
+                <NotAdminSidebarLinks user={user} closeSidebar={closeSidebar} />
+
                 <CartButtons />
             </aside>
         </SidebarContainer>
+    );
+};
+
+const Sidebar = () => {
+    const { isSidebarOpen, closeSidebar } = useGlobalContext();
+    const { user } = useUserContext();
+
+    return (
+        <Buttons
+            isSidebarOpen={isSidebarOpen}
+            closeSidebar={closeSidebar}
+            user={user}
+        />
     );
 };
 
@@ -37,11 +51,11 @@ const SidebarContainer = styled.div`
         padding: 1rem 1.5rem;
 
         h4 {
-        display: inline-block;
-        margin-bottom: 0;
-        font-weight: 400;
-        font-size: 1.5rem;
-      }
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: 400;
+            font-size: 1.5rem;
+        }
     }
     .close-btn {
         font-size: 2rem;
@@ -82,8 +96,8 @@ const SidebarContainer = styled.div`
         }
 
         .cart-btn-wrapper {
-        display: none;
-    }
+            display: none;
+        }
     }
 `;
 

@@ -33,6 +33,7 @@ const Wrapper = styled.section`
   .header h3 {
     margin-bottom: 2rem;
     text-transform: none;
+    text-align: center;
   }
   p {
     margin-bottom: 0;
@@ -76,10 +77,6 @@ const Wrapper = styled.section`
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-    }
-
-    .header h3 {
-      text-align: center;
     }
   }
 

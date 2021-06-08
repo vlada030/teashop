@@ -5,9 +5,7 @@ import { links } from "../utils/constants";
 import { useUserContext } from "../context/user_context";
 import { useGlobalContext } from "../context/global_context";
 
-const NotAdminSidebarLinks = () => {
-    const { user } = useUserContext();
-    const { closeSidebar } = useGlobalContext();
+const NotAdminSidebarLinks = ({user, closeSidebar}) => {
 
     return (
         <Wrapper>
