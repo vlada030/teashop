@@ -45,6 +45,7 @@
   },
   "proxy": "http://localhost:443",
   "devDependencies": {
+    "react-test-renderer": "^17.0.2",
     "window-resizeto": "0.0.2"
   }
 }

@@ -20,7 +20,7 @@ const getUserFromLocalStorage = () => {
   return user;
 }
 
-const UserContext = React.createContext();
+export const UserContext = React.createContext();
 
 const initialState = {
   loginPage: true,

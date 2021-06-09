@@ -26,10 +26,10 @@ export const Header = ({ user, closeSidebar }) => {
 export const Buttons = ({ isSidebarOpen, closeSidebar, user }) => {
     return (
         <SidebarContainer>
-            <aside
+            <aside data-testid='aside'
                 className={isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}
             >
-                
+                <Header user={user} closeSidebar={closeSidebar}/>
 
                 <NotAdminSidebarLinks user={user} closeSidebar={closeSidebar} />
 
@@ -40,8 +40,8 @@ export const Buttons = ({ isSidebarOpen, closeSidebar, user }) => {
 };
 
 const Sidebar = () => {
-    const { isSidebarOpen, closeSidebar } = useGlobalContext();
     const { user } = useUserContext();
+    const { isSidebarOpen, closeSidebar } = useGlobalContext();
 
     return (
         <Buttons

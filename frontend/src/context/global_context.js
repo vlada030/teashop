@@ -14,7 +14,7 @@ const initialState = {
     modalError: true
 }
 
-const GlobalContext = React.createContext();
+export const GlobalContext = React.createContext();
 
 export const GlobalProvider = ({children}) => {
 

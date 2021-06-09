@@ -24,7 +24,7 @@ const initialState = {
   shipping: 400
 }
 
-const CartContext = React.createContext()
+export const CartContext = React.createContext()
 
 export const CartProvider = ({ children }) => {
 
