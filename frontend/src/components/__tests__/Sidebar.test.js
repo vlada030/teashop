@@ -74,7 +74,7 @@ describe("Sidebar test", () => {
             favorites: [],
         };
 
-        render(
+        const {container} = render(
             <GlobalContext.Provider
                 value={{ isSidebarOpen, closeSidebar }}
             >
@@ -88,7 +88,13 @@ describe("Sidebar test", () => {
             </GlobalContext.Provider>
         );
 
+        const sidebarToggleBtn = container.querySelector('.close-btn')
+
         expect(screen.getByTestId('aside')).toHaveClass('sidebar show-sidebar')
+
+        userEvent.click(sidebarToggleBtn)
+
+        expect(closeSidebar).toHaveBeenCalledTimes(1)
     });
 
     test("Sidebar is closed and click to open it", () => {
@@ -100,7 +106,7 @@ describe("Sidebar test", () => {
             favorites: [],
         };
 
-        render(
+        const {container} = render(
             <GlobalContext.Provider
                 value={{ isSidebarOpen, closeSidebar }}
             >
@@ -115,8 +121,12 @@ describe("Sidebar test", () => {
         );
 
         const asideElmnt = screen.getByTestId('aside')
+        const sidebarToggleBtn = container.querySelector('.close-btn')
 
         expect(asideElmnt).toHaveClass('sidebar')
         expect(asideElmnt).not.toHaveClass('show-sidebar')
+
+        userEvent.click(sidebarToggleBtn)
+        expect(closeSidebar).toHaveBeenCalledTimes(1)
     });
 });
