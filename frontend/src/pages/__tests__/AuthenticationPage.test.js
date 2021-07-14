@@ -1,5 +1,5 @@
 import {screen, render} from '@testing-library/react'
-import AuthenticationPage, {UserInterface} from '../../pages/AuthenticationPage'
+import AuthenticationPage, {UserInterface} from '../AuthenticationPage'
 import userEvent from '@testing-library/user-event'
 
 describe('Authentication page', () => {

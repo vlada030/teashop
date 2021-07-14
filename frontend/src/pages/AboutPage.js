@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { PageHero } from '../components'
 import {about} from '../utils/constants'
 
-const AboutPage = () => {
+const HelperPage = ({about}) => {
   return (
       <main>
           <PageHero title="Uvod" />
@@ -23,6 +23,10 @@ const AboutPage = () => {
           })}
       </main>
   );
+}
+
+const AboutPage = () => {
+  return (<HelperPage about={about}/>)
 }
 
 const Wrapper = styled.section`
