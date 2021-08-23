@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useReducer } from 'react'
+  import React, { useEffect, useContext, useReducer } from 'react'
 import reducer from '../reducers/filter_reducer'
 import {goToPagesTop} from '../utils/helpers';
 import {
