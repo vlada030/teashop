@@ -12,7 +12,7 @@ const Helper = () => {
     )
 }
 
-const AdminContent = ({view}) => {
+const AdminContent = ({view = 'proizvod_svi'}) => {
 
     const CONTENT_MAP = {
         proizvod_svi: <Helper />,
