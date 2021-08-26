@@ -22,6 +22,5 @@ describe("PageHero component", () => {
             </BrowserRouter>
         )
 
-        screen.debug()
     })
 })

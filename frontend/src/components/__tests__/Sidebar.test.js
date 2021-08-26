@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import ShallowRenderer from "react-test-renderer/shallow";
 import { BrowserRouter} from 'react-router-dom'
 import Sidebar, { Header } from "../Sidebar";
 import { GlobalContext } from "../../context/global_context";
