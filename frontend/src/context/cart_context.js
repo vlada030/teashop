@@ -8,6 +8,8 @@ import {
   COUNT_CART_TOTALS,
 } from '../actions'
 
+const SHIPPING_COST = 400
+
 const getCartFromLocalStorage = () => {
   let storage = localStorage.getItem('cart');
   if (storage) {
@@ -21,7 +23,7 @@ const initialState = {
   cart: getCartFromLocalStorage(),
   totalItems: 0, 
   totalAmount: 0,
-  shipping: 400
+  shipping: SHIPPING_COST
 }
 
 export const CartContext = React.createContext()
