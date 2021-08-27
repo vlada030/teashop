@@ -1,87 +1,133 @@
-import {screen, render} from '@testing-library/react'
-import AuthenticationPage, {UserInterface} from '../AuthenticationPage'
-import userEvent from '@testing-library/user-event'
+import { screen, render } from "@testing-library/react";
+import AuthenticationPage, { UserInterface } from "../AuthenticationPage";
+import userEvent from "@testing-library/user-event";
 
-describe('Authentication page', () => {
-    test('Login Page displayed', () => {
-        render (<UserInterface loginPage={true}/>)
+describe("Authentication page", () => {
+    // sa ovim hooksima resavamo problem koji se javlja prilikom klika na submit button jer HTMLFormElement.prototype.submit is not implemented in JSDOM
 
-        expect(screen.getByText(/prijava/i)).toBeInTheDocument()
-        expect(screen.queryByPlaceholderText(/ime/i)).not.toBeInTheDocument()
-        expect(screen.getByPlaceholderText(/ e-mail/i)).toBeInTheDocument()
-        expect(screen.getByPlaceholderText(/ifra/i)).toBeInTheDocument()
-        expect(screen.getByText(/po.alji/i)).toBeInTheDocument()
-        expect(screen.getByText(/ukoliko nemate nalog/i)).toBeInTheDocument()
-        expect(screen.getByText(/registrujte/i)).toBeInTheDocument()
-        
-    })
+    // ####### PRVI NACIN  #########
+    let emit;
 
-    test('Registration Page displayed', () => {
-        render (<UserInterface loginPage={false}/>)
+    beforeAll(() => {
+        ({ emit } = window._virtualConsole);
+    });
 
-        expect(screen.getByText(/registracija/i)).toBeInTheDocument()
-        expect(screen.getByPlaceholderText(/ime/i)).toBeInTheDocument()
-        expect(screen.getByPlaceholderText(/ e-mail/i)).toBeInTheDocument()
-        expect(screen.getByPlaceholderText(/.ifra/i)).toBeInTheDocument()
-        expect(screen.getByText(/po.alji/i)).toBeInTheDocument()
-        expect(screen.getByText(/povratak na/i)).toBeInTheDocument()
-        expect(screen.getByText(/prijavu/i)).toBeInTheDocument()
-        
-    })
+    beforeEach(() => {
+        window._virtualConsole.emit = jest.fn();
+    });
 
-    test('Submit the form', () => {
-        const handleSubmit = jest.fn()
+    afterAll(() => {
+        window._virtualConsole.emit = emit;
+    });
 
-        render(<UserInterface loginPage={true} handleSubmit={handleSubmit}/>)
+    // ####### DRUGI NACIN  #########
+    // let origErrorConsole;
 
-        userEvent.click(screen.getByText(/po.alji/i))
-        expect(handleSubmit).toHaveBeenCalledTimes(1)
-    })
+    // beforeEach(() => {
+    //   origErrorConsole = window.console.error;
 
-    test('Toggle Login / Registration Page', () => {
-        const handleToggleForm = jest.fn()
+    //   window.console.error = (...args) => {
+    //     const firstArg = args.length > 0 && args[0];
 
-        render(<UserInterface loginPage={true} handleToggleForm={handleToggleForm} />)
+    //     const shouldBeIgnored =
+    //       firstArg &&
+    //       typeof firstArg === 'string' &&
+    //       firstArg.includes('Not implemented: HTMLFormElement.prototype.submit');
 
-        userEvent.click(screen.getByText(/registrujte/i))
-        
-        expect(handleToggleForm).toHaveBeenCalledTimes(1)
+    //     if (!shouldBeIgnored) {
+    //       origErrorConsole(...args);
+    //     }
+    //   }
+    // })
 
-    })
+    // afterEach(() => {
+    //   window.console.error = origErrorConsole;
+    // })
 
-    test('User types username', () => {
-        const handleUsername = jest.fn()
+    test("Login Page displayed", () => {
+        render(<UserInterface loginPage={true} />);
 
-        render(<UserInterface loginPage={false} handleUsername={handleUsername} />)
+        expect(screen.getByText(/prijava/i)).toBeInTheDocument();
+        expect(screen.queryByPlaceholderText(/ime/i)).not.toBeInTheDocument();
+        expect(screen.getByPlaceholderText(/ e-mail/i)).toBeInTheDocument();
+        expect(screen.getByPlaceholderText(/ifra/i)).toBeInTheDocument();
+        expect(screen.getByText(/po.alji/i)).toBeInTheDocument();
+        expect(screen.getByText(/ukoliko nemate nalog/i)).toBeInTheDocument();
+        expect(screen.getByText(/registrujte/i)).toBeInTheDocument();
+    });
 
-        userEvent.type(screen.getByPlaceholderText(/ime/i), 'test')
+    test("Registration Page displayed", () => {
+        render(<UserInterface loginPage={false} />);
 
-        expect(handleUsername).toHaveBeenCalledTimes(4)
-    })
+        expect(screen.getByText(/registracija/i)).toBeInTheDocument();
+        expect(screen.getByPlaceholderText(/ime/i)).toBeInTheDocument();
+        expect(screen.getByPlaceholderText(/ e-mail/i)).toBeInTheDocument();
+        expect(screen.getByPlaceholderText(/.ifra/i)).toBeInTheDocument();
+        expect(screen.getByText(/po.alji/i)).toBeInTheDocument();
+        expect(screen.getByText(/povratak na/i)).toBeInTheDocument();
+        expect(screen.getByText(/prijavu/i)).toBeInTheDocument();
+    });
 
-    test('User types e-mail', () => {
-        const handleEmail = jest.fn()
+    test("Submit the form", () => {
+        const handleSubmit = jest.fn();
 
-        render(<UserInterface loginPage={true} handleEmail={handleEmail}/>)
+        render(<UserInterface loginPage={true} handleSubmit={handleSubmit} />);
+        userEvent.click(screen.getByText(/po.alji/i));
+        expect(handleSubmit).toHaveBeenCalledTimes(1);
+    });
 
-        userEvent.type(screen.getByPlaceholderText(/e-mail/i),'test')
+    test("Toggle Login / Registration Page", () => {
+        const handleToggleForm = jest.fn();
 
-        expect(handleEmail).toHaveBeenCalledTimes(4)
-    })
+        render(
+            <UserInterface
+                loginPage={true}
+                handleToggleForm={handleToggleForm}
+            />
+        );
 
-    test('User types password', () => {
-        const handlePassword = jest.fn()
+        userEvent.click(screen.getByText(/registrujte/i));
 
-        render(<UserInterface loginPage={true} handlePassword={handlePassword}/>)
+        expect(handleToggleForm).toHaveBeenCalledTimes(1);
+    });
 
-        userEvent.type(screen.getByPlaceholderText(/.ifra/i),'test')
+    test("User types username", () => {
+        const handleUsername = jest.fn();
 
-        expect(handlePassword).toHaveBeenCalledTimes(4)
-    })
+        render(
+            <UserInterface loginPage={false} handleUsername={handleUsername} />
+        );
 
-    test('Display Info Message', () => {
-        render(<UserInterface loginPage={true} infoMsg='test'/>)
+        userEvent.type(screen.getByPlaceholderText(/ime/i), "test");
 
-        expect(screen.getByText('test')).toBeInTheDocument()
-    })
-})
+        expect(handleUsername).toHaveBeenCalledTimes(4);
+    });
+
+    test("User types e-mail", () => {
+        const handleEmail = jest.fn();
+
+        render(<UserInterface loginPage={true} handleEmail={handleEmail} />);
+
+        userEvent.type(screen.getByPlaceholderText(/e-mail/i), "test");
+
+        expect(handleEmail).toHaveBeenCalledTimes(4);
+    });
+
+    test("User types password", () => {
+        const handlePassword = jest.fn();
+
+        render(
+            <UserInterface loginPage={true} handlePassword={handlePassword} />
+        );
+
+        userEvent.type(screen.getByPlaceholderText(/.ifra/i), "test");
+
+        expect(handlePassword).toHaveBeenCalledTimes(4);
+    });
+
+    test("Display Info Message", () => {
+        render(<UserInterface loginPage={true} infoMsg="test" />);
+
+        expect(screen.getByText("test")).toBeInTheDocument();
+    });
+});
