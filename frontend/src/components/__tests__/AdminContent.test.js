@@ -5,7 +5,7 @@ import {FilterProvider} from '../../context/filter_context'
 import {ProductsProvider} from '../../context/products_context'
 import { GlobalProvider } from '../../context/global_context'
 
-describe('AdminContent component', () => {
+describe.skip('AdminContent component', () => {
     test('Show mask for Add new product', () => {
         render(
             <GlobalProvider>

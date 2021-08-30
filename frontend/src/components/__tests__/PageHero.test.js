@@ -21,6 +21,5 @@ describe("PageHero component", () => {
             <PageHero title={'test'} product={true}/>
             </BrowserRouter>
         )
-
     })
 })
