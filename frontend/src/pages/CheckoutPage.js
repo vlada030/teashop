@@ -21,7 +21,7 @@ export const HelperCheckoutPage = ({ cart }) => {
                     <StripeCheckout />
                 )}
             </Wrapper>
-        </main>
+        </main> 
     );
 };
 
