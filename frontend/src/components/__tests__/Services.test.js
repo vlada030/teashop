@@ -9,7 +9,7 @@ describe('Services component', () => {
         expect(screen.getAllByRole('article')).toHaveLength(5)
         expect(screen.getByRole('heading', {name: 'zdravlje'}))
         expect(screen.getByRole('heading', {name: 'lepota'}))
-        expect(screen.getByRole('heading', {name:'duh'}))
+        expect(screen.getByRole('heading', {name: 'duh'}))
         expect(screen.getByRole('heading', {name: 'telo'}))
 
     })

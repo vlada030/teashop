@@ -6,7 +6,7 @@ import {GlobalProvider} from '../../context/global_context'
 import  {FilterProvider}  from '../../context/filter_context'
 import {ProductsProvider} from '../../context/products_context'
 
-describe('Admin Page', () => {
+describe.skip('Admin Page', () => {
     test('Check for Sidebar admin buttons presence', () => {
         render (<ProductsProvider>
                 <FilterProvider>
